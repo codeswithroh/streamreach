@@ -1,5 +1,7 @@
 # StreamReach: from streams to systems
 
+**Live demo:** https://streamreach-health.vercel.app · **CDS Hooks discovery:** https://streamreach-health.vercel.app/cds-services · **FHIR:** https://streamreach-health.vercel.app/fhir/metadata
+
 **One Health early warning for urban streams.** Citizen stream checks and the 7-day weather forecast become explainable
 FHIR risk assessments for waterborne pathogens, toxic algae and mosquito-borne disease. They reach public health teams on
 a map, and GPs **inside their EHR through CDS Hooks**. GP feedback flows back into the stream's risk.
@@ -109,7 +111,8 @@ documented in [`docs/MODEL.md`](docs/MODEL.md).
 - Three reaches (Giofyros A, Giofyros lower, Almyros) use coordinates from the OAH IG. Benevento, Oslo and Coimbra are
   demo reaches in OAH case-study cities. Vulnerability parameters are placeholders a city would replace.
 - Citizen history is seeded synthetic data. Weather is real.
-- The store is in memory. Production would put the same REST interface in front of a FHIR server.
+- The store is in memory. On Vercel's serverless runtime, citizen checks and clinic feedback can land on a different
+  instance and are lost on cold starts. Production would put the same REST interface in front of a FHIR server.
 
 ## Data & credits
 
