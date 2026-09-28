@@ -170,7 +170,7 @@ export function CheckForm({ sites }: { sites: { id: string; name: string; city: 
           {showFhir ? "hide" : "preview"} FHIR bundle
         </button>
       </div>
-      {showFhir && <pre className="json max-h-96 overflow-auto rounded-lg bg-ink text-emerald-100 p-4">{JSON.stringify(bundle, null, 2)}</pre>}
+      {showFhir && <pre tabIndex={0} className="json max-h-96 overflow-auto rounded-lg bg-ink text-emerald-100 p-4">{JSON.stringify(bundle, null, 2)}</pre>}
     </div>
   );
 }

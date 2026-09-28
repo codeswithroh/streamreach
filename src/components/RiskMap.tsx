@@ -52,6 +52,7 @@ export default function RiskMap({ sites }: { sites: MapSite[] }) {
             center={[s.lat, s.lon]}
             radius={region === "europe" ? 9 : 14}
             pathOptions={{ color: "#fff", weight: 2, fillColor: HEX[s.level], fillOpacity: 0.95 }}
+            className={`marker-${s.id}`}
             eventHandlers={{ click: () => router.push(`/sites/${s.id}${window.location.search}`) }}
           >
             <Tooltip direction="top" offset={[0, -8]}>

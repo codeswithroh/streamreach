@@ -57,7 +57,7 @@ export function Timeline({ timeline, today }: { timeline: HazardDay[]; today: st
           <div key={d.date} className={`flex-1 text-center text-[10px] leading-tight ${d.date === today ? "text-ink font-semibold" : "text-ink-3"}`}>
             {d.date === today ? "Today" : fmtDay(d.date)}
             <br />
-            <span className="opacity-70">{fmtDate(d.date)}</span>
+            <span>{fmtDate(d.date)}</span>
           </div>
         ))}
       </div>

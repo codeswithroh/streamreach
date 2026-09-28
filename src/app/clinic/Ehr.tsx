@@ -196,7 +196,7 @@ export function Ehr({ patients, serviceId }: { patients: DemoPatient[]; serviceI
               </div>
             )}
             {tab !== "cards" && (
-              <pre className="json max-h-[560px] overflow-auto rounded-lg bg-ink text-emerald-100 p-3">{JSON.stringify(tab === "request" ? req : res, null, 2)}</pre>
+              <pre tabIndex={0} className="json max-h-[560px] overflow-auto rounded-lg bg-ink text-emerald-100 p-3">{JSON.stringify(tab === "request" ? req : res, null, 2)}</pre>
             )}
           </div>
         </section>
@@ -235,7 +235,7 @@ function CdsCard({ card, outcome, onAccept, onOverride }: { card: Card; outcome?
   return (
     <article className={`rounded-lg border border-line border-l-4 ${tone} p-3`}>
       <div className="flex items-start gap-2">
-        <span className={`mt-0.5 text-[10px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded ${card.indicator === "warning" ? "bg-lvl-high text-white" : "bg-sky-600 text-white"}`}>{card.indicator}</span>
+        <span className={`mt-0.5 text-[10px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded ${card.indicator === "warning" ? "bg-orange-700 text-white" : "bg-sky-700 text-white"}`}>{card.indicator}</span>
         <p className="text-sm font-semibold leading-snug flex-1">{card.summary}</p>
         <button onClick={() => setOpen((v) => !v)} className="text-xs text-ink-3" aria-expanded={open}>{open ? "−" : "+"}</button>
       </div>

@@ -104,12 +104,12 @@ export default async function DataPage({ searchParams }: PageProps<"/data">) {
       <div className="mt-6 flex flex-wrap items-center gap-2">
         {TABS.map((t) => (
           <Link key={t.id} href={href({ tab: t.id, limit: undefined })} className={`text-sm px-3 py-1.5 rounded-full border ${tab === t.id ? "bg-ink text-white border-ink" : "border-line hover:border-ink-3 text-ink-2"}`}>
-            {t.label} <span className="opacity-60 tabular-nums">{counts[t.id]}</span>
+            {t.label} <span className="tabular-nums opacity-80">{counts[t.id]}</span>
           </Link>
         ))}
         <form className="ml-auto" action="/data">
           <input type="hidden" name="tab" value={tab} />
-          <select name="site" defaultValue={site} className="rounded-lg border border-line bg-white px-2 py-1.5 text-sm">
+          <select name="site" aria-label="Filter by reach" defaultValue={site} className="rounded-lg border border-line bg-white px-2 py-1.5 text-sm">
             <option value="">All reaches</option>
             {SITES.map((s) => (
               <option key={s.id} value={s.id}>

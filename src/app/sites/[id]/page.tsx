@@ -178,7 +178,7 @@ export default async function SitePage({ params, searchParams }: PageProps<"/sit
               </a>
             ))}
           </div>
-          <pre className="json mt-4 max-h-[420px] overflow-auto rounded-lg bg-ink text-emerald-100 p-4">
+          <pre tabIndex={0} className="json mt-4 max-h-[420px] overflow-auto rounded-lg bg-ink text-emerald-100 p-4">
             {JSON.stringify(riskAssessmentResource(site, risk, risk.hazards[0]), null, 2)}
           </pre>
         </details>

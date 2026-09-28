@@ -15,12 +15,12 @@ const MAP = [
 ];
 
 const STEPS = [
-  { t: "Citizen check", s: "OAH indicator Observations", c: "#3f8a5a" },
-  { t: "Weather forecast", s: "Open-Meteo, 7 days", c: "#3d8fc4" },
-  { t: "Risk engine", s: "explainable logistic model", c: "#0d6e79" },
-  { t: "RiskAssessment", s: "about an OAH cohort Group", c: "#0d6e79" },
-  { t: "CDS Hooks card", s: "in the GP's EHR", c: "#d06a1f" },
-  { t: "Feedback", s: "OAH health-measure Observation", c: "#b8322a" },
+  { t: "Citizen check", s: "OAH indicator Observations", c: "#2f6b45" },
+  { t: "Weather forecast", s: "Open-Meteo, 7 days", c: "#2a6f9c" },
+  { t: "Risk engine", s: "explainable logistic model", c: "#0a4f58" },
+  { t: "RiskAssessment", s: "about an OAH cohort Group", c: "#0a4f58" },
+  { t: "CDS Hooks card", s: "in the GP's EHR", c: "#9c4c12" },
+  { t: "Feedback", s: "OAH health-measure Observation", c: "#9b2a23" },
 ];
 
 export default function StandardsPage() {
@@ -79,13 +79,13 @@ export default function StandardsPage() {
           </table>
         </div>
         <p className="text-xs text-ink-3 mt-2">
-          Indicator codes come from the OAH code system <code className="font-mono">{OAH_CS}</code>. StreamReach only adds codes the
-          IG lacks: <code className="font-mono">{TRIB_CS.flowState}</code> (citizen-observable flow) and{" "}
-          <code className="font-mono">{TRIB_CS.hazard}</code>.
+          Indicator codes come from the OAH code system <code className="font-mono break-all">{OAH_CS}</code>. StreamReach only adds codes the
+          IG lacks: <code className="font-mono break-all">{TRIB_CS.flowState}</code> (citizen-observable flow) and{" "}
+          <code className="font-mono break-all">{TRIB_CS.hazard}</code>.
         </p>
       </section>
 
-      <section className="mt-8 grid md:grid-cols-2 gap-5">
+      <section className="mt-8 grid md:grid-cols-2 gap-5 [&>*]:min-w-0">
         <div className="card p-5">
           <h2 className="font-display text-2xl">FHIR R4 endpoints</h2>
           <ul className="mt-3 space-y-1.5 text-sm font-mono">
@@ -124,7 +124,7 @@ export default function StandardsPage() {
             when the EHR provides it and otherwise queries the EHR&apos;s <code>fhirServer</code>. Returns at most two cards, with
             override reasons and feedback.
           </p>
-          <pre className="json mt-3 max-h-56 overflow-auto rounded-lg bg-ink text-emerald-100 p-3">{JSON.stringify(DISCOVERY, null, 2)}</pre>
+          <pre tabIndex={0} className="json mt-3 max-h-56 overflow-auto rounded-lg bg-ink text-emerald-100 p-3">{JSON.stringify(DISCOVERY, null, 2)}</pre>
         </div>
       </section>
 
