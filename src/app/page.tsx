@@ -46,7 +46,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
         </dl>
       </section>
 
-      <section className="grid lg:grid-cols-[1fr_380px] gap-5 mt-8">
+      <section className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,1fr)_380px] gap-5 mt-8">
         <div className="card p-1.5 h-[440px]">
           <MapLoader
             sites={bundles.map((b) => {

@@ -30,14 +30,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </header>
         <main className="flex-1">{children}</main>
         <footer className="border-t border-line mt-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 py-6 text-xs text-ink-3 flex flex-wrap gap-x-6 gap-y-2 justify-between">
-            <span>
-              StreamReach · IEEE OneAquaHealth Global Hackathon 2026 · Track 6 Resilience Informatics + Track 7 Digital Health
-              Standards
-            </span>
-            <span>
-              Weather: Open-Meteo · Profiles: HL7 Europe OneAquaHealth IG · Clinical integration: CDS Hooks 2.0
-            </span>
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 py-6 text-xs text-ink-3 flex items-center justify-between">
+            <span>© 2026 StreamReach</span>
+            <a href="https://github.com/codeswithroh/streamreach" className="hover:text-ink">
+              GitHub
+            </a>
           </div>
         </footer>
       </body>

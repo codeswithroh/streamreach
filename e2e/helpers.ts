@@ -31,9 +31,12 @@ export function watchErrors(page: Page) {
   };
 }
 
+/** The layout must fit the device width: no sideways scroll and no zoomed-out, widened layout viewport. */
 export async function noHorizontalOverflow(page: Page) {
+  const device = page.viewportSize()!.width;
   const { sw, iw } = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, iw: window.innerWidth }));
-  expect(sw, `page scrolls horizontally: ${sw} > ${iw}`).toBeLessThanOrEqual(iw + 1);
+  expect(iw, `layout viewport widened to ${iw}px on a ${device}px screen`).toBeLessThanOrEqual(device + 1);
+  expect(sw, `page scrolls horizontally: ${sw} > ${device}`).toBeLessThanOrEqual(device + 1);
 }
 
 export const uniqueVolunteer = () => `V-E2E${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
