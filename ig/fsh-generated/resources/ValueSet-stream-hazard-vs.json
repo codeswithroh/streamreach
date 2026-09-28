@@ -1,0 +1,17 @@
+{
+  "resourceType": "ValueSet",
+  "status": "draft",
+  "name": "StreamHazardVS",
+  "id": "stream-hazard-vs",
+  "title": "Stream hazards",
+  "description": "All Tributary stream hazards.",
+  "version": "0.1.0",
+  "url": "https://tributary.health/fhir/ValueSet/stream-hazard-vs",
+  "compose": {
+    "include": [
+      {
+        "system": "https://tributary.health/fhir/CodeSystem/stream-hazard"
+      }
+    ]
+  }
+}

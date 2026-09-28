@@ -1,0 +1,51 @@
+{
+  "resourceType": "Observation",
+  "id": "health-giofyros-1-gastrointestinal",
+  "meta": {
+    "profile": [
+      "http://hl7.eu/fhir/ig/oah/StructureDefinition/observation-health-measure-oah"
+    ]
+  },
+  "status": "final",
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.eu/fhir/ig/oah/CodeSystem/temporarySystem-oah-eu",
+        "code": "gastrointestinal",
+        "display": "% of people with Cases of Gastrointestinal diseases"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Location/giofyros-1"
+  },
+  "focus": [
+    {
+      "reference": "Group/cohort-giofyros-1"
+    }
+  ],
+  "performer": [
+    {
+      "display": "Tributary CDS Hooks feedback aggregator"
+    }
+  ],
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>3 anonymous stream-linked gastrointestinal presentations near Giofyros Reach A in 14 days</p></div>"
+  },
+  "effectivePeriod": {
+    "start": "2026-09-14T05:51:32.795Z",
+    "end": "2026-09-28T05:51:32.795Z"
+  },
+  "valueQuantity": {
+    "value": 20.27,
+    "unit": "cases per 100 000 (14 d)",
+    "system": "http://unitsofmeasure.org",
+    "code": "{cases}/100000"
+  },
+  "note": [
+    {
+      "text": "3 clinician-reported presentations with stream exposure (anonymous, via CDS Hooks feedback)."
+    }
+  ]
+}

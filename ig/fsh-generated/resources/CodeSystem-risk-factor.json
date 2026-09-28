@@ -1,0 +1,72 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "draft",
+  "content": "complete",
+  "name": "StreamRiskFactor",
+  "id": "risk-factor",
+  "title": "Stream risk factors",
+  "description": "Named factors of the Tributary explainable risk models.",
+  "version": "0.1.0",
+  "url": "https://tributary.health/fhir/CodeSystem/risk-factor",
+  "concept": [
+    {
+      "code": "overflow",
+      "display": "Storm overflow likely"
+    },
+    {
+      "code": "flush",
+      "display": "Runoff flush"
+    },
+    {
+      "code": "sewage-signs",
+      "display": "Sewage signs reported"
+    },
+    {
+      "code": "coliforms",
+      "display": "Faecal bacteria (lab)"
+    },
+    {
+      "code": "impervious",
+      "display": "Sealed catchment"
+    },
+    {
+      "code": "clinical",
+      "display": "Clinic signal"
+    },
+    {
+      "code": "water-temp",
+      "display": "Warm water"
+    },
+    {
+      "code": "stagnation",
+      "display": "Slow, still water"
+    },
+    {
+      "code": "sunshine",
+      "display": "Strong sunshine"
+    },
+    {
+      "code": "nutrients",
+      "display": "Nutrient-rich water"
+    },
+    {
+      "code": "warmth",
+      "display": "Mosquito-friendly warmth"
+    },
+    {
+      "code": "pools",
+      "display": "Breeding pools"
+    },
+    {
+      "code": "larvae",
+      "display": "Larvae spotted"
+    },
+    {
+      "code": "endemic",
+      "display": "Regional West Nile activity"
+    }
+  ],
+  "caseSensitive": true,
+  "experimental": false,
+  "count": 14
+}

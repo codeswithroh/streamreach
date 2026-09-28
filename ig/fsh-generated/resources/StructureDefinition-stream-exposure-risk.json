@@ -1,0 +1,166 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "stream-exposure-risk",
+  "url": "https://tributary.health/fhir/StructureDefinition/stream-exposure-risk",
+  "version": "0.1.0",
+  "name": "StreamExposureRisk",
+  "title": "Stream-exposure risk assessment",
+  "status": "draft",
+  "description": "Daily probability that people near an urban stream reach are exposed to a One Health hazard, with the factors that produced it.",
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "RiskAssessment",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/RiskAssessment",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "RiskAssessment.extension",
+        "path": "RiskAssessment.extension",
+        "slicing": {
+          "discriminator": [
+            {
+              "type": "value",
+              "path": "url"
+            }
+          ],
+          "ordered": false,
+          "rules": "open"
+        },
+        "min": 2
+      },
+      {
+        "id": "RiskAssessment.extension:assessedLocation",
+        "path": "RiskAssessment.extension",
+        "sliceName": "assessedLocation",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "https://tributary.health/fhir/StructureDefinition/assessed-location"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "RiskAssessment.extension:confidence",
+        "path": "RiskAssessment.extension",
+        "sliceName": "confidence",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "https://tributary.health/fhir/StructureDefinition/assessment-confidence"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "RiskAssessment.extension:factor",
+        "path": "RiskAssessment.extension",
+        "sliceName": "factor",
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "https://tributary.health/fhir/StructureDefinition/risk-factor"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "RiskAssessment.status",
+        "path": "RiskAssessment.status",
+        "patternCode": "final"
+      },
+      {
+        "id": "RiskAssessment.method",
+        "path": "RiskAssessment.method",
+        "min": 1
+      },
+      {
+        "id": "RiskAssessment.code",
+        "path": "RiskAssessment.code",
+        "min": 1,
+        "binding": {
+          "strength": "required",
+          "valueSet": "https://tributary.health/fhir/ValueSet/stream-hazard-vs"
+        }
+      },
+      {
+        "id": "RiskAssessment.subject",
+        "path": "RiskAssessment.subject",
+        "short": "Stream-exposed cohort (StreamExposedCohort profile)",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "http://hl7.org/fhir/StructureDefinition/Group"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "RiskAssessment.occurrence[x]",
+        "path": "RiskAssessment.occurrence[x]",
+        "min": 1,
+        "type": [
+          {
+            "code": "dateTime"
+          }
+        ]
+      },
+      {
+        "id": "RiskAssessment.prediction",
+        "path": "RiskAssessment.prediction",
+        "min": 1
+      },
+      {
+        "id": "RiskAssessment.prediction.outcome",
+        "path": "RiskAssessment.prediction.outcome",
+        "min": 1,
+        "binding": {
+          "strength": "required",
+          "valueSet": "https://tributary.health/fhir/ValueSet/stream-hazard-vs"
+        }
+      },
+      {
+        "id": "RiskAssessment.prediction.probability[x]",
+        "path": "RiskAssessment.prediction.probability[x]",
+        "min": 1,
+        "type": [
+          {
+            "code": "decimal"
+          }
+        ]
+      },
+      {
+        "id": "RiskAssessment.prediction.qualitativeRisk",
+        "path": "RiskAssessment.prediction.qualitativeRisk",
+        "min": 1
+      },
+      {
+        "id": "RiskAssessment.prediction.when[x]",
+        "path": "RiskAssessment.prediction.when[x]",
+        "min": 1,
+        "type": [
+          {
+            "code": "Period"
+          }
+        ]
+      },
+      {
+        "id": "RiskAssessment.mitigation",
+        "path": "RiskAssessment.mitigation",
+        "min": 1
+      }
+    ]
+  }
+}

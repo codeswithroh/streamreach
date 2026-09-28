@@ -1,0 +1,36 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "draft",
+  "content": "complete",
+  "name": "StreamFlowState",
+  "id": "flow-state",
+  "title": "Stream flow state (citizen-observable)",
+  "description": "Flow states a volunteer can judge by eye. The OAH IG models hydrology as an indicator but has no coded values for it.",
+  "version": "0.1.0",
+  "url": "https://tributary.health/fhir/CodeSystem/flow-state",
+  "concept": [
+    {
+      "code": "dry",
+      "display": "Dry bed"
+    },
+    {
+      "code": "stagnant",
+      "display": "Standing water, no visible flow"
+    },
+    {
+      "code": "low",
+      "display": "Low flow"
+    },
+    {
+      "code": "normal",
+      "display": "Normal flow"
+    },
+    {
+      "code": "high",
+      "display": "High / turbid flow"
+    }
+  ],
+  "caseSensitive": true,
+  "experimental": false,
+  "count": 5
+}

@@ -1,0 +1,80 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "stream-exposed-cohort",
+  "url": "https://tributary.health/fhir/StructureDefinition/stream-exposed-cohort",
+  "version": "0.1.0",
+  "name": "StreamExposedCohort",
+  "title": "Stream-exposed cohort",
+  "status": "draft",
+  "description": "People living near an urban stream reach: the population a stream-exposure RiskAssessment is about. Instances also declare conformance to the OAH GroupOah profile, whose constraints are restated here.",
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Group",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Group",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Group.type",
+        "path": "Group.type",
+        "patternCode": "person"
+      },
+      {
+        "id": "Group.actual",
+        "path": "Group.actual",
+        "patternBoolean": false
+      },
+      {
+        "id": "Group.quantity",
+        "path": "Group.quantity",
+        "short": "Approximate residents within 1 km",
+        "min": 1
+      },
+      {
+        "id": "Group.characteristic",
+        "path": "Group.characteristic",
+        "min": 1
+      },
+      {
+        "id": "Group.characteristic.value[x]",
+        "path": "Group.characteristic.value[x]",
+        "slicing": {
+          "discriminator": [
+            {
+              "type": "type",
+              "path": "$this"
+            }
+          ],
+          "ordered": false,
+          "rules": "open"
+        }
+      },
+      {
+        "id": "Group.characteristic.value[x]:valueReference",
+        "path": "Group.characteristic.value[x]",
+        "sliceName": "valueReference",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "http://hl7.eu/fhir/ig/oah/StructureDefinition/location-oah"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Group.characteristic.exclude",
+        "path": "Group.characteristic.exclude",
+        "patternBoolean": false
+      },
+      {
+        "id": "Group.member",
+        "path": "Group.member",
+        "max": "0"
+      }
+    ]
+  }
+}

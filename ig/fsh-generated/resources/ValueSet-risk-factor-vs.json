@@ -1,0 +1,17 @@
+{
+  "resourceType": "ValueSet",
+  "status": "draft",
+  "name": "StreamRiskFactorVS",
+  "id": "risk-factor-vs",
+  "title": "Stream risk factors",
+  "description": "All named factors.",
+  "version": "0.1.0",
+  "url": "https://tributary.health/fhir/ValueSet/risk-factor-vs",
+  "compose": {
+    "include": [
+      {
+        "system": "https://tributary.health/fhir/CodeSystem/risk-factor"
+      }
+    ]
+  }
+}

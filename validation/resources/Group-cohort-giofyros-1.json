@@ -1,0 +1,36 @@
+{
+  "resourceType": "Group",
+  "id": "cohort-giofyros-1",
+  "meta": {
+    "profile": [
+      "http://hl7.eu/fhir/ig/oah/StructureDefinition/group-oah",
+      "https://tributary.health/fhir/StructureDefinition/stream-exposed-cohort"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>People living within 1 km of Giofyros Reach A (~14800)</p></div>"
+  },
+  "type": "person",
+  "actual": false,
+  "name": "People living within 1 km of Giofyros Reach A",
+  "quantity": 14800,
+  "characteristic": [
+    {
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "20733006",
+            "display": "Living place"
+          }
+        ]
+      },
+      "valueReference": {
+        "reference": "Location/giofyros-1",
+        "display": "Giofyros Reach A"
+      },
+      "exclude": false
+    }
+  ]
+}

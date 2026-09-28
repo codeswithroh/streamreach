@@ -1,0 +1,210 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "risk-factor",
+  "url": "https://tributary.health/fhir/StructureDefinition/risk-factor",
+  "version": "0.1.0",
+  "name": "RiskFactor",
+  "title": "Explained risk factor",
+  "status": "draft",
+  "description": "One named factor of an explainable additive (log-odds) risk model: its normalised value, weight, contribution and a plain-language explanation.",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "expression": "RiskAssessment",
+      "type": "element"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "Explained risk factor",
+        "definition": "One named factor of an explainable additive (log-odds) risk model: its normalised value, weight, contribution and a plain-language explanation."
+      },
+      {
+        "id": "Extension.extension",
+        "path": "Extension.extension",
+        "min": 6
+      },
+      {
+        "id": "Extension.extension:factor",
+        "path": "Extension.extension",
+        "sliceName": "factor",
+        "min": 1,
+        "max": "1"
+      },
+      {
+        "id": "Extension.extension:factor.extension",
+        "path": "Extension.extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.extension:factor.url",
+        "path": "Extension.extension.url",
+        "fixedUri": "factor"
+      },
+      {
+        "id": "Extension.extension:factor.value[x]",
+        "path": "Extension.extension.value[x]",
+        "type": [
+          {
+            "code": "Coding"
+          }
+        ],
+        "binding": {
+          "strength": "extensible",
+          "valueSet": "https://tributary.health/fhir/ValueSet/risk-factor-vs"
+        }
+      },
+      {
+        "id": "Extension.extension:source",
+        "path": "Extension.extension",
+        "sliceName": "source",
+        "short": "forecast | weather | citizen | lab | site | clinical",
+        "min": 1,
+        "max": "1"
+      },
+      {
+        "id": "Extension.extension:source.extension",
+        "path": "Extension.extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.extension:source.url",
+        "path": "Extension.extension.url",
+        "fixedUri": "source"
+      },
+      {
+        "id": "Extension.extension:source.value[x]",
+        "path": "Extension.extension.value[x]",
+        "type": [
+          {
+            "code": "code"
+          }
+        ]
+      },
+      {
+        "id": "Extension.extension:value",
+        "path": "Extension.extension",
+        "sliceName": "value",
+        "short": "Normalised factor value 0..1",
+        "min": 1,
+        "max": "1"
+      },
+      {
+        "id": "Extension.extension:value.extension",
+        "path": "Extension.extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.extension:value.url",
+        "path": "Extension.extension.url",
+        "fixedUri": "value"
+      },
+      {
+        "id": "Extension.extension:value.value[x]",
+        "path": "Extension.extension.value[x]",
+        "type": [
+          {
+            "code": "decimal"
+          }
+        ]
+      },
+      {
+        "id": "Extension.extension:weight",
+        "path": "Extension.extension",
+        "sliceName": "weight",
+        "min": 1,
+        "max": "1"
+      },
+      {
+        "id": "Extension.extension:weight.extension",
+        "path": "Extension.extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.extension:weight.url",
+        "path": "Extension.extension.url",
+        "fixedUri": "weight"
+      },
+      {
+        "id": "Extension.extension:weight.value[x]",
+        "path": "Extension.extension.value[x]",
+        "type": [
+          {
+            "code": "decimal"
+          }
+        ]
+      },
+      {
+        "id": "Extension.extension:contribution",
+        "path": "Extension.extension",
+        "sliceName": "contribution",
+        "short": "weight × value, in log-odds",
+        "min": 1,
+        "max": "1"
+      },
+      {
+        "id": "Extension.extension:contribution.extension",
+        "path": "Extension.extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.extension:contribution.url",
+        "path": "Extension.extension.url",
+        "fixedUri": "contribution"
+      },
+      {
+        "id": "Extension.extension:contribution.value[x]",
+        "path": "Extension.extension.value[x]",
+        "type": [
+          {
+            "code": "decimal"
+          }
+        ]
+      },
+      {
+        "id": "Extension.extension:explanation",
+        "path": "Extension.extension",
+        "sliceName": "explanation",
+        "min": 1,
+        "max": "1"
+      },
+      {
+        "id": "Extension.extension:explanation.extension",
+        "path": "Extension.extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.extension:explanation.url",
+        "path": "Extension.extension.url",
+        "fixedUri": "explanation"
+      },
+      {
+        "id": "Extension.extension:explanation.value[x]",
+        "path": "Extension.extension.value[x]",
+        "type": [
+          {
+            "code": "string"
+          }
+        ]
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "https://tributary.health/fhir/StructureDefinition/risk-factor"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "max": "0"
+      }
+    ]
+  }
+}

@@ -1,0 +1,468 @@
+{
+  "resourceType": "RiskAssessment",
+  "id": "risk-giofyros-1-waterborne",
+  "meta": {
+    "profile": [
+      "https://tributary.health/fhir/StructureDefinition/stream-exposure-risk"
+    ],
+    "lastUpdated": "2026-09-28T05:51:32.798Z"
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Waterborne enteric pathogen exposure near Giofyros Reach A: very-high (93%) peaking 2026-10-01. Storm overflow likely, Clinic signal, Sewage signs reported.</p></div>"
+  },
+  "status": "final",
+  "method": {
+    "coding": [
+      {
+        "system": "https://tributary.health/fhir/CodeSystem/risk-method",
+        "code": "tributary-logit-v1",
+        "display": "Tributary explainable logistic model v1"
+      }
+    ]
+  },
+  "code": {
+    "coding": [
+      {
+        "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+        "code": "waterborne",
+        "display": "Waterborne enteric pathogen exposure"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Group/cohort-giofyros-1",
+    "display": "People living within 1 km of Giofyros Reach A"
+  },
+  "occurrenceDateTime": "2026-09-28T05:51:32.798Z",
+  "extension": [
+    {
+      "url": "https://tributary.health/fhir/StructureDefinition/assessed-location",
+      "valueReference": {
+        "reference": "Location/giofyros-1",
+        "display": "Giofyros Reach A"
+      }
+    },
+    {
+      "url": "https://tributary.health/fhir/StructureDefinition/assessment-confidence",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "https://tributary.health/fhir/CodeSystem/confidence",
+            "code": "high"
+          }
+        ],
+        "text": "3 citizen checks in the last 14 days"
+      }
+    },
+    {
+      "url": "https://tributary.health/fhir/StructureDefinition/risk-factor",
+      "extension": [
+        {
+          "url": "factor",
+          "valueCoding": {
+            "system": "https://tributary.health/fhir/CodeSystem/risk-factor",
+            "code": "overflow",
+            "display": "Storm overflow likely"
+          }
+        },
+        {
+          "url": "source",
+          "valueCode": "forecast"
+        },
+        {
+          "url": "value",
+          "valueDecimal": 0.999
+        },
+        {
+          "url": "weight",
+          "valueDecimal": 2.4
+        },
+        {
+          "url": "contribution",
+          "valueDecimal": 2.398
+        },
+        {
+          "url": "explanation",
+          "valueString": "33.6 mm effective rain forecast vs ~12 mm spill threshold, 3 outfall(s) upstream"
+        }
+      ]
+    },
+    {
+      "url": "https://tributary.health/fhir/StructureDefinition/risk-factor",
+      "extension": [
+        {
+          "url": "factor",
+          "valueCoding": {
+            "system": "https://tributary.health/fhir/CodeSystem/risk-factor",
+            "code": "clinical",
+            "display": "Clinic signal"
+          }
+        },
+        {
+          "url": "source",
+          "valueCode": "clinical"
+        },
+        {
+          "url": "value",
+          "valueDecimal": 0.75
+        },
+        {
+          "url": "weight",
+          "valueDecimal": 1.2
+        },
+        {
+          "url": "contribution",
+          "valueDecimal": 0.9
+        },
+        {
+          "url": "explanation",
+          "valueString": "3 gastrointestinal presentation(s) near this reach in 14 d, reported via CDS Hooks feedback"
+        }
+      ]
+    },
+    {
+      "url": "https://tributary.health/fhir/StructureDefinition/risk-factor",
+      "extension": [
+        {
+          "url": "factor",
+          "valueCoding": {
+            "system": "https://tributary.health/fhir/CodeSystem/risk-factor",
+            "code": "sewage-signs",
+            "display": "Sewage signs reported"
+          }
+        },
+        {
+          "url": "source",
+          "valueCode": "citizen"
+        },
+        {
+          "url": "value",
+          "valueDecimal": 0.627
+        },
+        {
+          "url": "weight",
+          "valueDecimal": 1.4
+        },
+        {
+          "url": "contribution",
+          "valueDecimal": 0.878
+        },
+        {
+          "url": "explanation",
+          "valueString": "Citizen check 3 d ago: foam/colour/smell extensive"
+        }
+      ]
+    },
+    {
+      "url": "https://tributary.health/fhir/StructureDefinition/risk-factor",
+      "extension": [
+        {
+          "url": "factor",
+          "valueCoding": {
+            "system": "https://tributary.health/fhir/CodeSystem/risk-factor",
+            "code": "flush",
+            "display": "Runoff flush"
+          }
+        },
+        {
+          "url": "source",
+          "valueCode": "forecast"
+        },
+        {
+          "url": "value",
+          "valueDecimal": 1
+        },
+        {
+          "url": "weight",
+          "valueDecimal": 0.8
+        },
+        {
+          "url": "contribution",
+          "valueDecimal": 0.8
+        },
+        {
+          "url": "explanation",
+          "valueString": "41.2 mm over 72 h washing streets and pastures into the stream"
+        }
+      ]
+    },
+    {
+      "url": "https://tributary.health/fhir/StructureDefinition/risk-factor",
+      "extension": [
+        {
+          "url": "factor",
+          "valueCoding": {
+            "system": "https://tributary.health/fhir/CodeSystem/risk-factor",
+            "code": "coliforms",
+            "display": "Faecal bacteria (lab)"
+          }
+        },
+        {
+          "url": "source",
+          "valueCode": "lab"
+        },
+        {
+          "url": "value",
+          "valueDecimal": 0.44
+        },
+        {
+          "url": "weight",
+          "valueDecimal": 1.5
+        },
+        {
+          "url": "contribution",
+          "valueDecimal": 0.66
+        },
+        {
+          "url": "explanation",
+          "valueString": "E. coli 1480 CFU/100 mL, 12 d ago (EU bathing 'sufficient' limit for inland water: 900)"
+        }
+      ]
+    },
+    {
+      "url": "https://tributary.health/fhir/StructureDefinition/risk-factor",
+      "extension": [
+        {
+          "url": "factor",
+          "valueCoding": {
+            "system": "https://tributary.health/fhir/CodeSystem/risk-factor",
+            "code": "impervious",
+            "display": "Sealed catchment"
+          }
+        },
+        {
+          "url": "source",
+          "valueCode": "site"
+        },
+        {
+          "url": "value",
+          "valueDecimal": 0.62
+        },
+        {
+          "url": "weight",
+          "valueDecimal": 0.6
+        },
+        {
+          "url": "contribution",
+          "valueDecimal": 0.372
+        },
+        {
+          "url": "explanation",
+          "valueString": "62% of catchment is paved"
+        }
+      ]
+    }
+  ],
+  "basis": [
+    {
+      "reference": "Location/giofyros-1"
+    },
+    {
+      "reference": "Observation/obs-6dc5f47b"
+    },
+    {
+      "reference": "Observation/obs-56"
+    },
+    {
+      "reference": "Observation/health-giofyros-1-gastrointestinal"
+    }
+  ],
+  "prediction": [
+    {
+      "outcome": {
+        "coding": [
+          {
+            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "code": "waterborne",
+            "display": "Waterborne enteric pathogen exposure"
+          }
+        ]
+      },
+      "probabilityDecimal": 0.67,
+      "qualitativeRisk": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/risk-probability",
+            "code": "high",
+            "display": "High likelihood"
+          }
+        ],
+        "text": "very-high"
+      },
+      "whenPeriod": {
+        "start": "2026-09-28T00:00:00Z",
+        "end": "2026-09-28T23:59:59Z"
+      },
+      "rationale": "Observed weather + latest observations"
+    },
+    {
+      "outcome": {
+        "coding": [
+          {
+            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "code": "waterborne",
+            "display": "Waterborne enteric pathogen exposure"
+          }
+        ]
+      },
+      "probabilityDecimal": 0.566,
+      "qualitativeRisk": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/risk-probability",
+            "code": "high",
+            "display": "High likelihood"
+          }
+        ],
+        "text": "high"
+      },
+      "whenPeriod": {
+        "start": "2026-09-29T00:00:00Z",
+        "end": "2026-09-29T23:59:59Z"
+      },
+      "rationale": "Forecast weather + latest observations"
+    },
+    {
+      "outcome": {
+        "coding": [
+          {
+            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "code": "waterborne",
+            "display": "Waterborne enteric pathogen exposure"
+          }
+        ]
+      },
+      "probabilityDecimal": 0.846,
+      "qualitativeRisk": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/risk-probability",
+            "code": "high",
+            "display": "High likelihood"
+          }
+        ],
+        "text": "very-high"
+      },
+      "whenPeriod": {
+        "start": "2026-09-30T00:00:00Z",
+        "end": "2026-09-30T23:59:59Z"
+      },
+      "rationale": "Forecast weather + latest observations"
+    },
+    {
+      "outcome": {
+        "coding": [
+          {
+            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "code": "waterborne",
+            "display": "Waterborne enteric pathogen exposure"
+          }
+        ]
+      },
+      "probabilityDecimal": 0.931,
+      "qualitativeRisk": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/risk-probability",
+            "code": "high",
+            "display": "High likelihood"
+          }
+        ],
+        "text": "very-high"
+      },
+      "whenPeriod": {
+        "start": "2026-10-01T00:00:00Z",
+        "end": "2026-10-01T23:59:59Z"
+      },
+      "rationale": "Forecast weather + latest observations"
+    },
+    {
+      "outcome": {
+        "coding": [
+          {
+            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "code": "waterborne",
+            "display": "Waterborne enteric pathogen exposure"
+          }
+        ]
+      },
+      "probabilityDecimal": 0.92,
+      "qualitativeRisk": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/risk-probability",
+            "code": "high",
+            "display": "High likelihood"
+          }
+        ],
+        "text": "very-high"
+      },
+      "whenPeriod": {
+        "start": "2026-10-02T00:00:00Z",
+        "end": "2026-10-02T23:59:59Z"
+      },
+      "rationale": "Forecast weather + latest observations"
+    },
+    {
+      "outcome": {
+        "coding": [
+          {
+            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "code": "waterborne",
+            "display": "Waterborne enteric pathogen exposure"
+          }
+        ]
+      },
+      "probabilityDecimal": 0.559,
+      "qualitativeRisk": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/risk-probability",
+            "code": "high",
+            "display": "High likelihood"
+          }
+        ],
+        "text": "high"
+      },
+      "whenPeriod": {
+        "start": "2026-10-03T00:00:00Z",
+        "end": "2026-10-03T23:59:59Z"
+      },
+      "rationale": "Forecast weather + latest observations"
+    },
+    {
+      "outcome": {
+        "coding": [
+          {
+            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "code": "waterborne",
+            "display": "Waterborne enteric pathogen exposure"
+          }
+        ]
+      },
+      "probabilityDecimal": 0.371,
+      "qualitativeRisk": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/risk-probability",
+            "code": "moderate",
+            "display": "Moderate likelihood"
+          }
+        ],
+        "text": "moderate"
+      },
+      "whenPeriod": {
+        "start": "2026-10-04T00:00:00Z",
+        "end": "2026-10-04T23:59:59Z"
+      },
+      "rationale": "Forecast weather + latest observations"
+    }
+  ],
+  "mitigation": "Public: Stay out of the water. Sewage is likely spilling after heavy rain. Don't water crops with it. Clinical: Probable sewage contamination. For acute gastroenteritis with stream exposure, send stool culture/PCR and notify public health if clustered.",
+  "note": [
+    {
+      "text": "Peak very-high on 2026-10-01. Weather source: open-meteo."
+    }
+  ]
+}

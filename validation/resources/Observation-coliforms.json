@@ -1,0 +1,59 @@
+{
+  "resourceType": "Observation",
+  "id": "obs-56",
+  "meta": {
+    "profile": [
+      "http://hl7.eu/fhir/ig/oah/StructureDefinition/observation-indicators-oah"
+    ],
+    "tag": [
+      {
+        "system": "https://tributary.health/fhir/CodeSystem/data-origin",
+        "code": "laboratory"
+      }
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Coliforms at giofyros-1: 1480 CFU/100 mL (OneAquaHealth partner laboratory, 2026-09-19)</p></div>"
+  },
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "laboratory"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.eu/fhir/ig/oah/CodeSystem/temporarySystem-oah-eu",
+        "code": "coliforms",
+        "display": "Coliforms"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Location/giofyros-1"
+  },
+  "effectiveDateTime": "2026-09-19T10:00:00.000Z",
+  "performer": [
+    {
+      "display": "OneAquaHealth partner laboratory"
+    }
+  ],
+  "valueQuantity": {
+    "value": 1480,
+    "unit": "CFU/100 mL",
+    "system": "http://unitsofmeasure.org",
+    "code": "{CFU}/100.mL"
+  },
+  "note": [
+    {
+      "text": "E. coli, membrane filtration (ISO 9308-1)"
+    }
+  ]
+}

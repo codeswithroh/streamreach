@@ -1,0 +1,27 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "draft",
+  "content": "complete",
+  "name": "DataOrigin",
+  "id": "data-origin",
+  "title": "Data origin",
+  "description": "Where an observation came from and whether it has been verified.",
+  "version": "0.1.0",
+  "url": "https://tributary.health/fhir/CodeSystem/data-origin",
+  "concept": [
+    {
+      "code": "citizen-unverified",
+      "display": "Citizen, awaiting verification"
+    },
+    {
+      "code": "citizen-verified",
+      "display": "Citizen, verified by coordinator"
+    },
+    {
+      "code": "laboratory",
+      "display": "Laboratory"
+    }
+  ],
+  "caseSensitive": true,
+  "count": 3
+}

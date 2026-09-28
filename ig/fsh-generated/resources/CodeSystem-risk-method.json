@@ -1,0 +1,19 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "draft",
+  "content": "complete",
+  "name": "RiskMethod",
+  "id": "risk-method",
+  "title": "Tributary risk methods",
+  "description": "Versioned risk model identifiers.",
+  "version": "0.1.0",
+  "url": "https://tributary.health/fhir/CodeSystem/risk-method",
+  "concept": [
+    {
+      "code": "tributary-logit-v1",
+      "display": "Tributary explainable logistic model v1"
+    }
+  ],
+  "caseSensitive": true,
+  "count": 1
+}

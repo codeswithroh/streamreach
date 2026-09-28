@@ -1,0 +1,44 @@
+{
+  "resourceType": "Provenance",
+  "id": "prov-obs-6dc5f47b",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Observation obs-6dc5f47b recorded by Volunteer V-F69</p></div>"
+  },
+  "target": [
+    {
+      "reference": "Observation/obs-6dc5f47b"
+    }
+  ],
+  "recorded": "2026-09-28T05:35:25.446Z",
+  "activity": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-DataOperation",
+        "code": "CREATE"
+      }
+    ]
+  },
+  "agent": [
+    {
+      "type": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/provenance-participant-type",
+            "code": "author"
+          }
+        ]
+      },
+      "who": {
+        "identifier": {
+          "system": "https://tributary.health/fhir/sid/volunteer",
+          "value": "V-F69"
+        },
+        "display": "Volunteer V-F69 (pseudonymous)"
+      }
+    }
+  ],
+  "policy": [
+    "https://tributary.health/policy/citizen-data-pseudonymous"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "assessed-location",
+  "url": "https://tributary.health/fhir/StructureDefinition/assessed-location",
+  "version": "0.1.0",
+  "name": "AssessedLocation",
+  "title": "Assessed stream reach",
+  "status": "draft",
+  "description": "The OAH Location (stream reach) whose conditions this risk is about. RiskAssessment.subject is the exposed people.",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "expression": "RiskAssessment",
+      "type": "element"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "Assessed stream reach",
+        "definition": "The OAH Location (stream reach) whose conditions this risk is about. RiskAssessment.subject is the exposed people."
+      },
+      {
+        "id": "Extension.extension",
+        "path": "Extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "https://tributary.health/fhir/StructureDefinition/assessed-location"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "http://hl7.eu/fhir/ig/oah/StructureDefinition/location-oah"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

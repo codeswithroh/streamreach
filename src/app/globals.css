@@ -1,26 +1,98 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-paper: #f5f3ee;
+  --color-card: #fffdf9;
+  --color-ink: #10202b;
+  --color-ink-2: #3c4d58;
+  --color-ink-3: #6b7a84;
+  --color-line: #e2ddd3;
+  --color-river: #0d6e79;
+  --color-river-deep: #0a4f58;
+  --color-river-soft: #dcefee;
+  --color-lvl-low: #3f8a5a;
+  --color-lvl-moderate: #b8901c;
+  --color-lvl-high: #d06a1f;
+  --color-lvl-very-high: #b8322a;
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-newsreader);
+  --font-mono: var(--font-jbmono);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+.card {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+  font-weight: 600;
+}
+
+.lvl-low { --lvl: var(--color-lvl-low); }
+.lvl-moderate { --lvl: var(--color-lvl-moderate); }
+.lvl-high { --lvl: var(--color-lvl-high); }
+.lvl-very-high { --lvl: var(--color-lvl-very-high); }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--lvl);
+  background: color-mix(in oklab, var(--lvl) 12%, white);
+  border: 1px solid color-mix(in oklab, var(--lvl) 30%, white);
+}
+.chip::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--lvl);
+}
+
+.hatch {
+  background-image: repeating-linear-gradient(135deg, transparent 0 3px, rgba(255, 255, 255, 0.45) 3px 5px);
+}
+
+.leaflet-container {
+  font-family: inherit;
+  background: #e8ecea;
+}
+
+pre.json {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-river);
+  outline-offset: 2px;
+}
+
+.tile-soft {
+  filter: grayscale(0.85) sepia(0.12) brightness(1.04) contrast(0.92);
 }

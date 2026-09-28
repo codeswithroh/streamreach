@@ -1,0 +1,130 @@
+[
+  {
+    "outputFile": "CodeSystem-confidence.json",
+    "fshName": "AssessmentConfidence",
+    "fshType": "CodeSystem",
+    "fshFile": "codesystems.fsh",
+    "startLine": 51,
+    "endLine": 58
+  },
+  {
+    "outputFile": "CodeSystem-data-origin.json",
+    "fshName": "DataOrigin",
+    "fshType": "CodeSystem",
+    "fshFile": "codesystems.fsh",
+    "startLine": 60,
+    "endLine": 67
+  },
+  {
+    "outputFile": "CodeSystem-flow-state.json",
+    "fshName": "StreamFlowState",
+    "fshType": "CodeSystem",
+    "fshFile": "codesystems.fsh",
+    "startLine": 1,
+    "endLine": 11
+  },
+  {
+    "outputFile": "CodeSystem-override.json",
+    "fshName": "CardOverrideReason",
+    "fshType": "CodeSystem",
+    "fshFile": "codesystems.fsh",
+    "startLine": 69,
+    "endLine": 75
+  },
+  {
+    "outputFile": "CodeSystem-risk-factor.json",
+    "fshName": "StreamRiskFactor",
+    "fshType": "CodeSystem",
+    "fshFile": "codesystems.fsh",
+    "startLine": 23,
+    "endLine": 42
+  },
+  {
+    "outputFile": "CodeSystem-risk-method.json",
+    "fshName": "RiskMethod",
+    "fshType": "CodeSystem",
+    "fshFile": "codesystems.fsh",
+    "startLine": 44,
+    "endLine": 49
+  },
+  {
+    "outputFile": "CodeSystem-stream-hazard.json",
+    "fshName": "StreamHazard",
+    "fshType": "CodeSystem",
+    "fshFile": "codesystems.fsh",
+    "startLine": 13,
+    "endLine": 21
+  },
+  {
+    "outputFile": "StructureDefinition-assessed-location.json",
+    "fshName": "AssessedLocation",
+    "fshType": "Extension",
+    "fshFile": "profiles.fsh",
+    "startLine": 1,
+    "endLine": 6
+  },
+  {
+    "outputFile": "StructureDefinition-assessment-confidence.json",
+    "fshName": "AssessmentConfidenceExt",
+    "fshType": "Extension",
+    "fshFile": "profiles.fsh",
+    "startLine": 8,
+    "endLine": 14
+  },
+  {
+    "outputFile": "StructureDefinition-risk-factor.json",
+    "fshName": "RiskFactor",
+    "fshType": "Extension",
+    "fshFile": "profiles.fsh",
+    "startLine": 16,
+    "endLine": 37
+  },
+  {
+    "outputFile": "StructureDefinition-stream-exposed-cohort.json",
+    "fshName": "StreamExposedCohort",
+    "fshType": "Profile",
+    "fshFile": "profiles.fsh",
+    "startLine": 45,
+    "endLine": 57
+  },
+  {
+    "outputFile": "StructureDefinition-stream-exposure-risk.json",
+    "fshName": "StreamExposureRisk",
+    "fshType": "Profile",
+    "fshFile": "profiles.fsh",
+    "startLine": 59,
+    "endLine": 84
+  },
+  {
+    "outputFile": "ValueSet-confidence-vs.json",
+    "fshName": "AssessmentConfidenceVS",
+    "fshType": "ValueSet",
+    "fshFile": "profiles.fsh",
+    "startLine": 86,
+    "endLine": 90
+  },
+  {
+    "outputFile": "ValueSet-flow-state-vs.json",
+    "fshName": "StreamFlowStateVS",
+    "fshType": "ValueSet",
+    "fshFile": "codesystems.fsh",
+    "startLine": 83,
+    "endLine": 87
+  },
+  {
+    "outputFile": "ValueSet-risk-factor-vs.json",
+    "fshName": "StreamRiskFactorVS",
+    "fshType": "ValueSet",
+    "fshFile": "profiles.fsh",
+    "startLine": 39,
+    "endLine": 43
+  },
+  {
+    "outputFile": "ValueSet-stream-hazard-vs.json",
+    "fshName": "StreamHazardVS",
+    "fshType": "ValueSet",
+    "fshFile": "codesystems.fsh",
+    "startLine": 77,
+    "endLine": 81
+  }
+]

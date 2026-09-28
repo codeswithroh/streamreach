@@ -1,0 +1,2504 @@
+{
+  "resourceType" : "Bundle",
+  "type" : "collection",
+  "entry" : [{
+    "resource" : {
+      "resourceType" : "OperationOutcome",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Group.characteristic[0].code</td><td>Invalid Code</td><td>Binding for path Group.characteristic[0].code in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/Group|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Warning</td><td>Group.characteristic[0].code</td><td>Invalid Code</td><td>None of the codings provided are in the value set 'OAH Cohort Characteristic Code' (http://hl7.eu/fhir/ig/oah/ValueSet/oah-cohort-characteristic-code-vs), and a coding should come from this value set unless it has no suitable code (note that the validator cannot judge what is suitable) (codes = http://snomed.info/sct#20733006)</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>Group.characteristic[0].code</td><td>Invalid Code</td><td>Binding for path Group.characteristic[0].code in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposed-cohort|0.1.0] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
+        "valueString" : "validation/resources/Group-cohort-giofyros-1.json"
+      }],
+      "issue" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 20
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/Group|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path Group.characteristic[0].code in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/Group|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["Group.characteristic[0].code"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 20
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_NoValid_2_CC"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.eu/fhir/ig/oah/StructureDefinition/group-oah"
+        }],
+        "severity" : "warning",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "None of the codings provided are in the value set 'OAH Cohort Characteristic Code' (http://hl7.eu/fhir/ig/oah/ValueSet/oah-cohort-characteristic-code-vs), and a coding should come from this value set unless it has no suitable code (note that the validator cannot judge what is suitable) (codes = http://snomed.info/sct#20733006)"
+        },
+        "expression" : ["Group.characteristic[0].code"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 20
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "https://tributary.health/fhir/StructureDefinition/stream-exposed-cohort|0.1.0"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path Group.characteristic[0].code in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposed-cohort|0.1.0] has no source, so can't be checked"
+        },
+        "expression" : ["Group.characteristic[0].code"]
+      }]
+    }
+  },
+  {
+    "resource" : {
+      "resourceType" : "OperationOutcome",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Warning</td><td>Location.type[0]</td><td>Invalid Code</td><td>None of the codings provided are in the value set 'ServiceDeliveryLocationRoleType' (http://terminology.hl7.org/ValueSet/v3-ServiceDeliveryLocationRoleType|3.0.0), and a coding should come from this value set unless it has no suitable code (note that the validator cannot judge what is suitable) (codes = http://snomed.info/sct#420531007)</td><td/><td>TerminologyEngine</td></tr></table></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
+        "valueString" : "validation/resources/Location-giofyros-1.json"
+      }],
+      "issue" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 24
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 6
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_NoValid_2_CC"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/Location|4.0.1"
+        }],
+        "severity" : "warning",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "None of the codings provided are in the value set 'ServiceDeliveryLocationRoleType' (http://terminology.hl7.org/ValueSet/v3-ServiceDeliveryLocationRoleType|3.0.0), and a coding should come from this value set unless it has no suitable code (note that the validator cannot judge what is suitable) (codes = http://snomed.info/sct#420531007)"
+        },
+        "expression" : ["Location.type[0]"]
+      }]
+    }
+  },
+  {
+    "resource" : {
+      "resourceType" : "OperationOutcome",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Warning</td><td>Observation.value.ofType(Quantity)</td><td>Business Rule Violation</td><td>UCUM Codes that contain human readable annotations like {CFU} can be misleading (e.g. they are ignored when comparing units). Best Practice is not to depend on annotations in the UCUM code, so this usage should be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
+        "valueString" : "validation/resources/Observation-coliforms.json"
+      }],
+      "issue" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 9
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/Observation|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0"
+        },
+        "expression" : ["Observation.meta.tag[0]"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 48
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 4
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "TYPE_SPECIFIC_CHECKS_DT_QTY_UCUM_ANNOTATIONS"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/Observation|4.0.1"
+        }],
+        "severity" : "warning",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "UCUM Codes that contain human readable annotations like {CFU} can be misleading (e.g. they are ignored when comparing units). Best Practice is not to depend on annotations in the UCUM code, so this usage should be checked"
+        },
+        "expression" : ["Observation.value.ofType(Quantity)"]
+      }]
+    }
+  },
+  {
+    "resource" : {
+      "resourceType" : "OperationOutcome",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr></table></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
+        "valueString" : "validation/resources/Observation-diptera.json"
+      }],
+      "issue" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 9
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/Observation|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0"
+        },
+        "expression" : ["Observation.meta.tag[0]"]
+      }]
+    }
+  },
+  {
+    "resource" : {
+      "resourceType" : "OperationOutcome",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr></table></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
+        "valueString" : "validation/resources/Observation-filamentous-algae.json"
+      }],
+      "issue" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 9
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/Observation|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0"
+        },
+        "expression" : ["Observation.meta.tag[0]"]
+      }]
+    }
+  },
+  {
+    "resource" : {
+      "resourceType" : "OperationOutcome",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr></table></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
+        "valueString" : "validation/resources/Observation-foam.json"
+      }],
+      "issue" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 9
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/Observation|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0"
+        },
+        "expression" : ["Observation.meta.tag[0]"]
+      }]
+    }
+  },
+  {
+    "resource" : {
+      "resourceType" : "OperationOutcome",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Warning</td><td>Observation.value.ofType(Quantity)</td><td>Business Rule Violation</td><td>UCUM Codes that contain human readable annotations like {cases} can be misleading (e.g. they are ignored when comparing units). Best Practice is not to depend on annotations in the UCUM code, so this usage should be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
+        "valueString" : "validation/resources/Observation-health-giofyros-1.json"
+      }],
+      "issue" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 40
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 4
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "TYPE_SPECIFIC_CHECKS_DT_QTY_UCUM_ANNOTATIONS"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/Observation|4.0.1"
+        }],
+        "severity" : "warning",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "UCUM Codes that contain human readable annotations like {cases} can be misleading (e.g. they are ignored when comparing units). Best Practice is not to depend on annotations in the UCUM code, so this usage should be checked"
+        },
+        "expression" : ["Observation.value.ofType(Quantity)"]
+      }]
+    }
+  },
+  {
+    "resource" : {
+      "resourceType" : "OperationOutcome",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>Observation.value.ofType(CodeableConcept)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/flow-state|0.1.0</td><td/><td>TerminologyEngine</td></tr></table></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
+        "valueString" : "validation/resources/Observation-hydrology.json"
+      }],
+      "issue" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 9
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/Observation|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0"
+        },
+        "expression" : ["Observation.meta.tag[0]"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 52
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 4
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/Observation|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/flow-state|0.1.0"
+        },
+        "expression" : ["Observation.value.ofType(CodeableConcept)"]
+      }]
+    }
+  },
+  {
+    "resource" : {
+      "resourceType" : "OperationOutcome",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr></table></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
+        "valueString" : "validation/resources/Observation-waterTemperature.json"
+      }],
+      "issue" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 9
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/Observation|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0"
+        },
+        "expression" : ["Observation.meta.tag[0]"]
+      }]
+    }
+  },
+  {
+    "resource" : {
+      "resourceType" : "OperationOutcome",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td></tr><tr><td>Information</td><td/><td>Informational Note</td><td>All OK</td><td/></tr></table></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
+        "valueString" : "validation/resources/Provenance-foam.json"
+      }],
+      "issue" : [{
+        "severity" : "information",
+        "code" : "informational",
+        "details" : {
+          "text" : "All OK"
+        }
+      }]
+    }
+  },
+  {
+    "resource" : {
+      "resourceType" : "OperationOutcome",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>RiskAssessment.extension[1].value.ofType(CodeableConcept)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/confidence|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[2].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[3].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[4].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[5].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-method|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.code</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[0].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[1].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[2].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[3].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[4].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[5].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[6].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
+        "valueString" : "validation/resources/RiskAssessment-giofyros-1-cyanobacteria.json"
+      }],
+      "issue" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 48
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/confidence|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[1].value.ofType(CodeableConcept)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 63
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 12
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[2].extension[0].value.ofType(Coding)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 96
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 12
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[3].extension[0].value.ofType(Coding)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 129
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 12
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[4].extension[0].value.ofType(Coding)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 162
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 12
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[5].extension[0].value.ofType(Coding)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 15
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 4
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.method in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.method"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 15
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 4
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-method|0.1.0"
+        },
+        "expression" : ["RiskAssessment.method"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 24
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 4
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.code"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 204
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[0].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[0].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 204
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[0].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 231
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[1].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[1].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 231
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[1].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 258
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[2].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[2].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 258
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[2].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 285
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[3].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[3].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 285
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[3].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 312
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[4].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[4].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 312
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[4].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 339
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[5].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[5].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 339
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[5].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 366
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[6].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[6].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 366
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[6].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 15
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 4
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.method in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.method"]
+      }]
+    }
+  },
+  {
+    "resource" : {
+      "resourceType" : "OperationOutcome",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>RiskAssessment.extension[1].value.ofType(CodeableConcept)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/confidence|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[2].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[3].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[4].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-method|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.code</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[0].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[1].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[2].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[3].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[4].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[5].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[6].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
+        "valueString" : "validation/resources/RiskAssessment-giofyros-1-vector.json"
+      }],
+      "issue" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 48
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/confidence|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[1].value.ofType(CodeableConcept)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 63
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 12
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[2].extension[0].value.ofType(Coding)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 96
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 12
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[3].extension[0].value.ofType(Coding)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 129
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 12
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[4].extension[0].value.ofType(Coding)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 15
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 4
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.method in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.method"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 15
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 4
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-method|0.1.0"
+        },
+        "expression" : ["RiskAssessment.method"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 24
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 4
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.code"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 165
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[0].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[0].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 165
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[0].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 192
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[1].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[1].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 192
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[1].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 219
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[2].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[2].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 219
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[2].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 246
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[3].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[3].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 246
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[3].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 273
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[4].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[4].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 273
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[4].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 300
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[5].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[5].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 300
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[5].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 327
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[6].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[6].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 327
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[6].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 15
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 4
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.method in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.method"]
+      }]
+    }
+  },
+  {
+    "resource" : {
+      "resourceType" : "OperationOutcome",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>RiskAssessment.extension[1].value.ofType(CodeableConcept)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/confidence|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[2].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[3].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[4].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[5].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[6].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[7].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-method|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.code</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[0].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[1].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[2].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[3].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[4].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[5].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[6].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
+        "valueString" : "validation/resources/RiskAssessment-giofyros-1-waterborne.json"
+      }],
+      "issue" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 48
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/confidence|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[1].value.ofType(CodeableConcept)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 63
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 12
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[2].extension[0].value.ofType(Coding)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 96
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 12
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[3].extension[0].value.ofType(Coding)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 129
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 12
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[4].extension[0].value.ofType(Coding)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 162
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 12
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[5].extension[0].value.ofType(Coding)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 195
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 12
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[6].extension[0].value.ofType(Coding)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 228
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 12
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+        },
+        "expression" : ["RiskAssessment.extension[7].extension[0].value.ofType(Coding)"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 15
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 4
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.method in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.method"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 15
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 4
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-method|0.1.0"
+        },
+        "expression" : ["RiskAssessment.method"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 24
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 4
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.code"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 273
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[0].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[0].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 273
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[0].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 300
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[1].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[1].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 300
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[1].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 327
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[2].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[2].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 327
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[2].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 354
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[3].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[3].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 354
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[3].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 381
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[4].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[4].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 381
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[4].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 408
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[5].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[5].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 408
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[5].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 435
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.prediction[6].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.prediction[6].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 435
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 8
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "TerminologyEngine"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "MSG_DRAFT"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1"
+        }],
+        "severity" : "information",
+        "code" : "business-rule",
+        "details" : {
+          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+        },
+        "expression" : ["RiskAssessment.prediction[6].outcome"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger" : 15
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger" : 4
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueString" : "InstanceValidator"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueCode" : "Terminology_TX_Binding_NoSource"
+        },
+        {
+          "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
+          "valueString" : "https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0"
+        }],
+        "severity" : "information",
+        "code" : "code-invalid",
+        "details" : {
+          "text" : "Binding for path RiskAssessment.method in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked"
+        },
+        "expression" : ["RiskAssessment.method"]
+      }]
+    }
+  }]
+}

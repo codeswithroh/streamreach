@@ -1,0 +1,61 @@
+{
+  "resourceType": "Observation",
+  "id": "obs-6dc5f47b",
+  "meta": {
+    "profile": [
+      "http://hl7.eu/fhir/ig/oah/StructureDefinition/observation-indicators-oah"
+    ],
+    "tag": [
+      {
+        "system": "https://tributary.health/fhir/CodeSystem/data-origin",
+        "code": "citizen-unverified"
+      }
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Foam/colour/smell at giofyros-1: Extensive (Volunteer V-F69, 2026-09-28)</p></div>"
+  },
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "survey"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.eu/fhir/ig/oah/CodeSystem/temporarySystem-oah-eu",
+        "code": "foam",
+        "display": "Foam/colour/smell"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Location/giofyros-1"
+  },
+  "effectiveDateTime": "2026-09-28T05:35:25.446Z",
+  "performer": [
+    {
+      "identifier": {
+        "system": "https://tributary.health/fhir/sid/volunteer",
+        "value": "V-F69"
+      },
+      "display": "Volunteer V-F69"
+    }
+  ],
+  "valueCodeableConcept": {
+    "coding": [
+      {
+        "system": "http://hl7.eu/fhir/ig/oah/CodeSystem/temporarySystem-oah-eu",
+        "code": "extensive",
+        "display": "Extensive"
+      }
+    ]
+  }
+}

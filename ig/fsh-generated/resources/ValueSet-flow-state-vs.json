@@ -1,0 +1,17 @@
+{
+  "resourceType": "ValueSet",
+  "status": "draft",
+  "name": "StreamFlowStateVS",
+  "id": "flow-state-vs",
+  "title": "Stream flow states",
+  "description": "All citizen-observable flow states.",
+  "version": "0.1.0",
+  "url": "https://tributary.health/fhir/ValueSet/flow-state-vs",
+  "compose": {
+    "include": [
+      {
+        "system": "https://tributary.health/fhir/CodeSystem/flow-state"
+      }
+    ]
+  }
+}

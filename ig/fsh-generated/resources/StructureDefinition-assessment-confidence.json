@@ -1,0 +1,55 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "assessment-confidence",
+  "url": "https://tributary.health/fhir/StructureDefinition/assessment-confidence",
+  "version": "0.1.0",
+  "name": "AssessmentConfidenceExt",
+  "title": "Assessment confidence",
+  "status": "draft",
+  "description": "Confidence in the estimate given evidence freshness, with a human-readable reason.",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "expression": "RiskAssessment",
+      "type": "element"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "Assessment confidence",
+        "definition": "Confidence in the estimate given evidence freshness, with a human-readable reason."
+      },
+      {
+        "id": "Extension.extension",
+        "path": "Extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "https://tributary.health/fhir/StructureDefinition/assessment-confidence"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "CodeableConcept"
+          }
+        ],
+        "binding": {
+          "strength": "required",
+          "valueSet": "https://tributary.health/fhir/ValueSet/confidence-vs"
+        }
+      }
+    ]
+  }
+}

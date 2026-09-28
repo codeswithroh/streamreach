@@ -1,0 +1,13 @@
+id: health.tributary.fhir
+canonical: https://tributary.health/fhir
+name: TributaryIG
+title: "Tributary: One Health stream-exposure early warning"
+description: "Extends the HL7 Europe OneAquaHealth IG with an explainable stream-exposure RiskAssessment, the exposed-cohort Group and the code systems needed to deliver stream risk to clinicians via CDS Hooks."
+status: draft
+version: 0.1.0
+fhirVersion: 4.0.1
+publisher:
+  name: Tributary (IEEE OneAquaHealth Hackathon 2026)
+dependencies:
+  hl7.eu.fhir.oah: current
+FSHOnly: true

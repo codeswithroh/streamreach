@@ -1,0 +1,43 @@
+{
+  "resourceType": "Location",
+  "id": "giofyros-1",
+  "meta": {
+    "profile": [
+      "http://hl7.eu/fhir/ig/oah/StructureDefinition/location-oah"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Giofyros Reach A: Giofyros stream reach in Heraklion, Greece</p></div>"
+  },
+  "identifier": [
+    {
+      "system": "https://oneaquahealth.eu/location-id",
+      "value": "giofyros-1"
+    }
+  ],
+  "status": "active",
+  "name": "Giofyros Reach A",
+  "description": "Giofyros stream reach, Heraklion (Greece). Coordinates from the OneAquaHealth IG.",
+  "mode": "instance",
+  "type": [
+    {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "420531007",
+          "display": "River"
+        }
+      ]
+    }
+  ],
+  "address": {
+    "city": "Heraklion",
+    "district": "Heraklion West",
+    "country": "GR"
+  },
+  "position": {
+    "longitude": 25.10592,
+    "latitude": 35.32135
+  }
+}

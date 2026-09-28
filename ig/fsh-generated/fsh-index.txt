@@ -1,0 +1,17 @@
+Output File                                     Name                     Type        FSH File         Lines
+CodeSystem-confidence.json                      AssessmentConfidence     CodeSystem  codesystems.fsh  51 - 58
+CodeSystem-data-origin.json                     DataOrigin               CodeSystem  codesystems.fsh  60 - 67
+CodeSystem-flow-state.json                      StreamFlowState          CodeSystem  codesystems.fsh  1 - 11
+CodeSystem-override.json                        CardOverrideReason       CodeSystem  codesystems.fsh  69 - 75
+CodeSystem-risk-factor.json                     StreamRiskFactor         CodeSystem  codesystems.fsh  23 - 42
+CodeSystem-risk-method.json                     RiskMethod               CodeSystem  codesystems.fsh  44 - 49
+CodeSystem-stream-hazard.json                   StreamHazard             CodeSystem  codesystems.fsh  13 - 21
+StructureDefinition-assessed-location.json      AssessedLocation         Extension   profiles.fsh     1 - 6
+StructureDefinition-assessment-confidence.json  AssessmentConfidenceExt  Extension   profiles.fsh     8 - 14
+StructureDefinition-risk-factor.json            RiskFactor               Extension   profiles.fsh     16 - 37
+StructureDefinition-stream-exposed-cohort.json  StreamExposedCohort      Profile     profiles.fsh     45 - 57
+StructureDefinition-stream-exposure-risk.json   StreamExposureRisk       Profile     profiles.fsh     59 - 84
+ValueSet-confidence-vs.json                     AssessmentConfidenceVS   ValueSet    profiles.fsh     86 - 90
+ValueSet-flow-state-vs.json                     StreamFlowStateVS        ValueSet    codesystems.fsh  83 - 87
+ValueSet-risk-factor-vs.json                    StreamRiskFactorVS       ValueSet    profiles.fsh     39 - 43
+ValueSet-stream-hazard-vs.json                  StreamHazardVS           ValueSet    codesystems.fsh  77 - 81

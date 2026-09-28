@@ -1,0 +1,23 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "draft",
+  "content": "complete",
+  "name": "CardOverrideReason",
+  "id": "override",
+  "title": "CDS card override reasons",
+  "description": "Why a clinician dismissed a Tributary card.",
+  "version": "0.1.0",
+  "url": "https://tributary.health/fhir/CodeSystem/override",
+  "concept": [
+    {
+      "code": "no-exposure",
+      "display": "Patient reports no stream contact"
+    },
+    {
+      "code": "alt-dx",
+      "display": "Alternative cause confirmed"
+    }
+  ],
+  "caseSensitive": true,
+  "count": 2
+}

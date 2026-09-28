@@ -1,0 +1,31 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "draft",
+  "content": "complete",
+  "name": "StreamHazard",
+  "id": "stream-hazard",
+  "title": "One Health hazards arising from urban streams",
+  "description": "Hazards whose short-term risk Tributary forecasts for people living near an urban stream reach.",
+  "version": "0.1.0",
+  "url": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+  "concept": [
+    {
+      "code": "waterborne",
+      "display": "Waterborne enteric pathogen exposure",
+      "definition": "Campylobacter, Cryptosporidium, Giardia, pathogenic E. coli and similar, typically after sewer overflow."
+    },
+    {
+      "code": "cyanobacteria",
+      "display": "Cyanobacterial toxin exposure",
+      "definition": "Toxins from harmful cyanobacterial blooms in warm, slow, nutrient-rich water."
+    },
+    {
+      "code": "vector",
+      "display": "Mosquito-borne arbovirus exposure",
+      "definition": "Culex-borne arboviruses such as West Nile virus breeding in stream margins and pools."
+    }
+  ],
+  "caseSensitive": true,
+  "experimental": false,
+  "count": 3
+}

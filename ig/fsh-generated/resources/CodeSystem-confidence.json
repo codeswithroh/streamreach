@@ -1,0 +1,30 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "draft",
+  "content": "complete",
+  "name": "AssessmentConfidence",
+  "id": "confidence",
+  "title": "Assessment confidence",
+  "description": "How much fresh evidence stands behind a risk estimate.",
+  "version": "0.1.0",
+  "url": "https://tributary.health/fhir/CodeSystem/confidence",
+  "concept": [
+    {
+      "code": "low",
+      "display": "Low",
+      "definition": "No citizen check in 14 days; weather-only estimate."
+    },
+    {
+      "code": "medium",
+      "display": "Medium",
+      "definition": "One or two citizen checks in 14 days."
+    },
+    {
+      "code": "high",
+      "display": "High",
+      "definition": "Three or more citizen checks in 14 days."
+    }
+  ],
+  "caseSensitive": true,
+  "count": 3
+}
