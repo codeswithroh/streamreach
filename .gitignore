@@ -40,3 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .validation-cache/
+
+# local agent tooling installed by vercel integrations
+.agents/
+.claude/skills/
+skills-lock.json
