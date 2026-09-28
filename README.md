@@ -11,6 +11,35 @@ Standards**, with Track 1 (citizen UX) and Track 4 (plain-language advice) eleme
 
 ---
 
+## Screenshots
+
+**Situation room:** live forecast, alerts for the next 72 hours, and a what-if planner.
+![Situation room](docs/screenshots/situation-room.png)
+
+**What-if: storm tomorrow (+40 mm).** Overflow warnings light up across cities.
+![What-if storm scenario](docs/screenshots/what-if-storm.png)
+
+**Stream health record:** a daily risk timeline, with every factor named, sourced and weighted.
+![Stream record](docs/screenshots/stream-record.png)
+
+**Clinic view:** a demo EHR receiving a real CDS Hooks card, with a draft order and anonymous feedback.
+![Clinic view with CDS Hooks card](docs/screenshots/clinic-cds-hooks.png)
+
+**Citizen stream check:** five plain-language questions using OneAquaHealth indicators.
+![Citizen stream check](docs/screenshots/stream-check.png)
+
+**Data explorer:** the full record, with a coordinator verification queue.
+![Data explorer](docs/screenshots/data-explorer.png)
+
+**Standards:** OAH IG profiles, FHIR endpoints and the CDS Hooks discovery document.
+![Standards](docs/screenshots/standards.png)
+
+<p>
+  <img src="docs/screenshots/mobile-home.png" alt="Situation room on a phone" width="260">
+  &nbsp;
+  <img src="docs/screenshots/mobile-check.png" alt="Stream check on a phone" width="260">
+</p>
+
 ## The problem
 
 Citizen scientists already watch urban streams: foam and sewage smell, still green water, mosquito larvae. Clinicians
