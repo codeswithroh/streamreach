@@ -27,6 +27,8 @@ export interface CardMeta {
 
 interface Backend {
   kind: "postgres" | "memory";
+  /** Changes whenever any instance writes; lets every instance keep a cache that is never stale. */
+  version(): Promise<string>;
   load(): Promise<Snapshot>;
   insertObservations(rows: StoredObservation[]): Promise<void>;
   insertSignal(row: StoredSignal): Promise<void>;
@@ -43,6 +45,7 @@ function memoryBackend(): Backend {
   let seededFor = "";
   let snap: Snapshot = { observations: [], signals: [] };
   const cards = new Map<string, CardMeta>();
+  let ver = 0;
   const ensure = () => {
     if (seededFor === today()) return;
     const seed = generateSeed();
@@ -51,9 +54,14 @@ function memoryBackend(): Backend {
       signals: [...seed.signals, ...snap.signals.filter((s) => s.origin === "user")],
     };
     seededFor = today();
+    ver++;
   };
   return {
     kind: "memory",
+    async version() {
+      ensure();
+      return String(ver);
+    },
     async load() {
       ensure();
       return snap;
@@ -61,14 +69,17 @@ function memoryBackend(): Backend {
     async insertObservations(rows) {
       ensure();
       snap.observations.push(...rows);
+      ver++;
     },
     async insertSignal(row) {
       ensure();
       snap.signals.push(row);
+      ver++;
     },
     async setStatus(id, status) {
       const o = snap.observations.find((x) => x.id === id);
       if (o) o.status = status;
+      ver++;
       return !!o;
     },
     async putCard(uuid, meta) {
@@ -97,7 +108,10 @@ const SCHEMA = [
   `create table if not exists cds_cards (uuid text primary key, meta jsonb not null, created_at timestamptz not null default now())`,
   `create table if not exists kv (key text primary key, value text not null)`,
   `insert into kv (key, value) values ('seed_date', '') on conflict do nothing`,
+  `insert into kv (key, value) values ('version', '0') on conflict do nothing`,
 ];
+
+const BUMP = `update kv set value = (value::bigint + 1)::text where key = 'version'`;
 
 type ObsRow = {
   id: string;
@@ -175,6 +189,7 @@ function postgresBackend(url: string): Backend {
         sql.query(`delete from signals where origin = 'seed'`),
         sql.query(INSERT_OBS, [obsJson(seed.observations)]),
         sql.query(INSERT_SIG, [sigJson(seed.signals)]),
+        sql.query(BUMP),
       ]);
     }
     checkedSeedFor = t;
@@ -182,6 +197,12 @@ function postgresBackend(url: string): Backend {
 
   return {
     kind: "postgres",
+    async version() {
+      await init();
+      await reseedIfStale();
+      const r = (await sql.query(`select value from kv where key = 'version'`)) as { value: string }[];
+      return r[0]?.value ?? "0";
+    },
     async load() {
       await init();
       await reseedIfStale();
@@ -214,15 +235,18 @@ function postgresBackend(url: string): Backend {
     },
     async insertObservations(rows) {
       await init();
-      await sql.query(INSERT_OBS, [obsJson(rows)]);
+      await sql.transaction([sql.query(INSERT_OBS, [obsJson(rows)]), sql.query(BUMP)]);
     },
     async insertSignal(row) {
       await init();
-      await sql.query(INSERT_SIG, [sigJson([row])]);
+      await sql.transaction([sql.query(INSERT_SIG, [sigJson([row])]), sql.query(BUMP)]);
     },
     async setStatus(id, status) {
       await init();
-      const r = await sql.query(`update observations set status = $2 where id = $1 returning 1`, [id, status]);
+      const [r] = await sql.transaction([
+        sql.query(`update observations set status = $2 where id = $1 returning 1`, [id, status]),
+        sql.query(BUMP),
+      ]);
       return r.length > 0;
     },
     async putCard(uuid, meta) {
@@ -241,39 +265,53 @@ function postgresBackend(url: string): Backend {
 
 // ------------------------------------------------------------------ facade
 
-const g = globalThis as unknown as { __srBackend?: Backend; __srCache?: { at: number; snap: Promise<Snapshot> } };
+const g = globalThis as unknown as {
+  __srBackendV2?: Backend;
+  __srCache?: { version: string; snap: Promise<Snapshot> };
+  __srVersion?: { at: number; v: Promise<string> };
+};
 
 function backend(): Backend {
-  if (!g.__srBackend) {
+  if (!g.__srBackendV2) {
     const url = process.env.DATABASE_URL ?? process.env.POSTGRES_URL;
-    g.__srBackend = url ? postgresBackend(url) : memoryBackend();
+    g.__srBackendV2 = url ? postgresBackend(url) : memoryBackend();
   }
-  return g.__srBackend;
+  return g.__srBackendV2;
 }
 
 export function storeKind() {
   return backend().kind;
 }
 
-const TTL = 5_000;
+/** One version lookup serves all reads within a single render (they arrive within milliseconds). */
+function currentVersion(): Promise<string> {
+  const c = g.__srVersion;
+  if (c && Date.now() - c.at < 250) return c.v;
+  const v = backend().version();
+  g.__srVersion = { at: Date.now(), v };
+  v.catch(() => (g.__srVersion = undefined));
+  return v;
+}
 
-/** Current data, cached briefly per instance and invalidated on every write. */
-export function snapshot(): Promise<Snapshot> {
+/** Current data. Cached per instance and reloaded as soon as any instance has written. */
+export async function snapshot(): Promise<Snapshot> {
+  const v = await currentVersion();
   const c = g.__srCache;
-  if (c && Date.now() - c.at < TTL) return c.snap;
+  if (c && c.version === v) return c.snap;
   const snap = backend().load();
-  g.__srCache = { at: Date.now(), snap };
+  g.__srCache = { version: v, snap };
   snap.catch(() => (g.__srCache = undefined));
   return snap;
 }
 
 function invalidate() {
   g.__srCache = undefined;
+  g.__srVersion = undefined;
 }
 
 /** Tests only: fresh in-memory store. */
 export function resetStore() {
-  g.__srBackend = memoryBackend();
+  g.__srBackendV2 = memoryBackend();
   invalidate();
 }
 

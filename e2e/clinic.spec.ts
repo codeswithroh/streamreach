@@ -70,4 +70,18 @@ test.describe("clinic view (demo EHR + CDS Hooks)", () => {
     await expect(popup).toHaveURL(/\/sites\/giofyros-1/);
     await expect(popup.locator("article")).toHaveCount(3);
   });
+
+  test("a failing CDS service degrades gracefully and can be retried", async ({ page }) => {
+    let fail = true;
+    await page.route("**/cds-services/streamreach-stream-exposure", (route) =>
+      fail ? route.fulfill({ status: 503, body: "" }) : route.continue(),
+    );
+    await page.goto("/clinic");
+    const alert = page.getByRole("alert").filter({ hasText: "CDS service" });
+    await expect(alert).toContainText("HTTP 503");
+    fail = false;
+    await page.getByRole("button", { name: "Retry" }).click();
+    await expect(alert).toHaveCount(0);
+    await expect(page.getByRole("button", { name: /CDS cards \(\d\)/ })).toBeVisible();
+  });
 });

@@ -23,6 +23,7 @@ const nameOf = (p: any) => `${p.name[0].given[0]} ${p.name[0].family}`;
 export function Ehr({ patients, serviceId }: { patients: DemoPatient[]; serviceId: string }) {
   const [sel, setSel] = useState(patients[0].patient.id);
   const [cards, setCards] = useState<Card[]>();
+  const [error, setError] = useState<string>();
   const [req, setReq] = useState<any>();
   const [res, setRes] = useState<any>();
   const [ms, setMs] = useState<number>();
@@ -34,12 +35,14 @@ export function Ehr({ patients, serviceId }: { patients: DemoPatient[]; serviceI
 
   const fire = useCallback(
     (p: DemoPatient) =>
-      runHook(p, serviceId).then(({ body, res, ms }) => {
-        setMs(ms);
-        setReq(body);
-        setRes(res);
-        setCards(res.cards ?? []);
-      }),
+      runHook(p, serviceId)
+        .then(({ body, res, ms }) => {
+          setMs(ms);
+          setReq(body);
+          setRes(res);
+          setCards(res.cards ?? []);
+        })
+        .catch((e: Error) => setError(e.message)),
     [serviceId],
   );
 
@@ -50,6 +53,7 @@ export function Ehr({ patients, serviceId }: { patients: DemoPatient[]; serviceI
   function select(p: DemoPatient) {
     setSel(p.patient.id);
     setCards(undefined);
+    setError(undefined);
     setOutcomes({});
     setOrders([]);
     fire(p);
@@ -179,7 +183,13 @@ export function Ehr({ patients, serviceId }: { patients: DemoPatient[]; serviceI
           <div className="p-4">
             {tab === "cards" && (
               <div className="space-y-3">
-                {!cards && <div className="h-24 rounded-lg bg-line/40 animate-pulse" />}
+                {error && (
+                  <div role="alert" className="text-sm rounded-lg border border-red-200 bg-red-50 text-red-900 p-4">
+                    The CDS service didn&apos;t answer ({error}). The EHR carries on without cards.{" "}
+                    <button onClick={() => select(current)} className="underline">Retry</button>
+                  </div>
+                )}
+                {!cards && !error && <div className="h-24 rounded-lg bg-line/40 animate-pulse" />}
                 {cards?.length === 0 && (
                   <div className="text-sm text-ink-3 rounded-lg border border-dashed border-line p-4">
                     No cards. Nothing relevant near this patient, so StreamReach stays quiet. Avoiding alert fatigue is part of the design.
@@ -223,6 +233,7 @@ async function runHook(p: DemoPatient, serviceId: string) {
   };
   const t0 = performance.now();
   const r = await fetch(`/cds-services/${serviceId}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
   const res = await r.json();
   return { body, res, ms: Math.round(performance.now() - t0) };
 }
