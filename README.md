@@ -49,7 +49,20 @@ that overflowed last night.
 npm install
 npm run dev        # http://localhost:3000
 npm test           # 13 unit tests: risk engine, FHIR facade, CDS Hooks
+npm run e2e        # 59 Playwright end-to-end + axe accessibility tests (local build, in-memory store)
+npm run e2e:prod   # the same suite against the live deployment; rows it creates are removed afterwards
 ```
+
+The E2E suite covers:
+- every page and all 10 stream records, with no console errors;
+- the situation-room map, alerts and what-if planner;
+- the full citizen check → stream record → coordinator verification → FHIR tag flow;
+- the clinic view: cards, draft order, anonymous share landing in the data explorer, dismiss with reason, and a failing
+  CDS service;
+- the data explorer's tabs, filters and pagination;
+- the FHIR and CDS Hooks APIs, including error paths and CORS;
+- phone layouts;
+- a WCAG 2 AA scan with axe.
 
 Without `DATABASE_URL` the app runs on an in-memory store. With it (Neon Postgres, provisioned through the Vercel
 Marketplace), everything persists. Run `vercel env pull .env.local` to use the same database locally.
