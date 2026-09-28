@@ -51,7 +51,10 @@ npm run dev        # http://localhost:3000
 npm test           # 13 unit tests: risk engine, FHIR facade, CDS Hooks
 ```
 
-No keys needed. Weather comes live from [Open-Meteo](https://open-meteo.com) and falls back to a deterministic
+Without `DATABASE_URL` the app runs on an in-memory store. With it (Neon Postgres, provisioned through the Vercel
+Marketplace), everything persists. Run `vercel env pull .env.local` to use the same database locally.
+
+No other keys are needed. Weather comes live from [Open-Meteo](https://open-meteo.com) and falls back to a deterministic
 climatology offline.
 
 | Page | What to look at |
@@ -60,6 +63,7 @@ climatology offline.
 | `/sites/giofyros-1` | Stream health record: daily risk timeline, *why this score*, citizen and lab record, FHIR JSON |
 | `/check` | Citizen stream check: shows the FHIR bundle, then the before/after risk |
 | `/clinic` | Demo EHR calling the real CDS Hooks service: accept or dismiss suggestions and watch the feedback land |
+| `/data` | Data explorer: every citizen check, lab result, clinic signal and volunteer, plus a coordinator verification queue |
 | `/standards` | Resource map, endpoints, discovery document |
 
 ## Interfaces
@@ -110,9 +114,11 @@ documented in [`docs/MODEL.md`](docs/MODEL.md).
   OneAquaHealth lab and syndromic data.
 - Three reaches (Giofyros A, Giofyros lower, Almyros) use coordinates from the OAH IG. Benevento, Oslo and Coimbra are
   demo reaches in OAH case-study cities. Vulnerability parameters are placeholders a city would replace.
-- Citizen history is seeded synthetic data. Weather is real.
-- The store is in memory. On Vercel's serverless runtime, citizen checks and clinic feedback can land on a different
-  instance and are lost on cold starts. Production would put the same REST interface in front of a FHIR server.
+- The demo dataset is synthetic: 10 reaches, 120 days, ~1,500 observations, monthly lab results and clinic signals, each
+  with a storyline. It is regenerated once a day relative to today, so it never looks stale. Weather is real.
+- **Persistence:** Neon Postgres in Frankfurt, with Vercel functions pinned to `fra1` next to it. Citizen checks,
+  coordinator verifications, clinic feedback and CDS card state survive restarts and are shared across serverless
+  instances. Demo rows (`origin = seed`) are refreshed daily. Rows added through the app (`origin = user`) are never touched.
 
 ## Data & credits
 
