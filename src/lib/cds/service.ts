@@ -11,14 +11,14 @@ import { distanceKm } from "../sites";
 import { addSignal } from "../store";
 import type { ClinicalSignal, HazardId } from "../types";
 
-export const SERVICE_ID = "tributary-stream-exposure";
+export const SERVICE_ID = "streamreach-stream-exposure";
 
 export const DISCOVERY = {
   services: [
     {
       hook: "patient-view",
       id: SERVICE_ID,
-      title: "Tributary: urban stream exposure risk",
+      title: "StreamReach: urban stream exposure risk",
       description:
         "Warns when a patient lives near an urban stream with elevated waterborne-pathogen, toxic-algae or mosquito-borne risk (OneAquaHealth citizen science + weather forecast). Links matching symptoms to likely exposures and suggests work-up.",
       prefetch: {
@@ -70,7 +70,7 @@ export function locatePatient(patient: any): PatientLocation {
   }
   const city = patient?.address?.find((a: any) => a.city)?.city;
   if (city) return { city, demoFallback: false, label: city };
-  const fallback = process.env.TRIBUTARY_DEMO_CITY ?? "Heraklion";
+  const fallback = process.env.STREAMREACH_DEMO_CITY ?? "Heraklion";
   return { city: fallback, demoFallback: true, label: `${fallback} (demo default: no address on record)` };
 }
 
@@ -201,7 +201,7 @@ function buildCard(
             intent: "proposal",
             code: { coding: [{ system: LOINC, code: "625-4", display: "Bacteria identified in Stool by Culture" }] },
             subject: patientRef,
-            reasonCode: [{ text: `Gastroenteritis with possible exposure to ${b.site.name} (Tributary ${lvl} waterborne risk)` }],
+            reasonCode: [{ text: `Gastroenteritis with possible exposure to ${b.site.name} (StreamReach ${lvl} waterborne risk)` }],
           },
         },
       ],
@@ -222,16 +222,16 @@ function buildCard(
     detail,
     indicator,
     source: {
-      label: "Tributary · OneAquaHealth citizen science + forecast",
+      label: "StreamReach · OneAquaHealth citizen science + forecast",
       url: `${appBase}/sites/${b.site.id}`,
-      topic: { system: "https://tributary.health/fhir/CodeSystem/stream-hazard", code: h.hazard, display: h.label },
+      topic: { system: "https://streamreach.io/fhir/CodeSystem/stream-hazard", code: h.hazard, display: h.label },
     },
     ...(suggestions.length ? { suggestions, selectionBehavior: "any" } : {}),
     ...(indicator === "warning"
       ? {
           overrideReasons: [
-            { code: "no-exposure", system: "https://tributary.health/fhir/CodeSystem/override", display: "Patient reports no stream contact" },
-            { code: "alt-dx", system: "https://tributary.health/fhir/CodeSystem/override", display: "Alternative cause confirmed" },
+            { code: "no-exposure", system: "https://streamreach.io/fhir/CodeSystem/override", display: "Patient reports no stream contact" },
+            { code: "alt-dx", system: "https://streamreach.io/fhir/CodeSystem/override", display: "Alternative cause confirmed" },
           ],
         }
       : {}),

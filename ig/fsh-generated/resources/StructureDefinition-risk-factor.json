@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "risk-factor",
-  "url": "https://tributary.health/fhir/StructureDefinition/risk-factor",
+  "url": "https://streamreach.io/fhir/StructureDefinition/risk-factor",
   "version": "0.1.0",
   "name": "RiskFactor",
   "title": "Explained risk factor",
@@ -59,7 +59,7 @@
         ],
         "binding": {
           "strength": "extensible",
-          "valueSet": "https://tributary.health/fhir/ValueSet/risk-factor-vs"
+          "valueSet": "https://streamreach.io/fhir/ValueSet/risk-factor-vs"
         }
       },
       {
@@ -198,7 +198,7 @@
       {
         "id": "Extension.url",
         "path": "Extension.url",
-        "fixedUri": "https://tributary.health/fhir/StructureDefinition/risk-factor"
+        "fixedUri": "https://streamreach.io/fhir/StructureDefinition/risk-factor"
       },
       {
         "id": "Extension.value[x]",

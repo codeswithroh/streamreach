@@ -1,5 +1,5 @@
 // Projection of the domain model to FHIR R4 (4.0.1), conforming to the
-// OneAquaHealth IG profiles where one exists and to Tributary's small
+// OneAquaHealth IG profiles where one exists and to StreamReach's small
 // extension profiles otherwise.
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -35,7 +35,7 @@ export function locationResource(site: Site): Resource {
     identifier: [{ system: OAH_LOCATION_ID_SYSTEM, value: site.id }],
     status: "active",
     name: site.name,
-    description: `${site.river} stream reach, ${site.city} (${site.country}). ${site.source === "oah-ig" ? "Coordinates from the OneAquaHealth IG." : "Tributary demo reach."}`,
+    description: `${site.river} stream reach, ${site.city} (${site.country}). ${site.source === "oah-ig" ? "Coordinates from the OneAquaHealth IG." : "StreamReach demo reach."}`,
     mode: "instance",
     type: [{ coding: [{ system: SCT, code: "420531007", display: "River" }] }],
     address: { city: site.city, district: site.district, country: site.countryCode },
@@ -135,7 +135,7 @@ export function provenanceResource(o: StreamObservation): Resource {
       },
     ],
     ...(o.performer.kind === "citizen"
-      ? { policy: ["https://tributary.health/policy/citizen-data-pseudonymous"] }
+      ? { policy: ["https://streamreach.io/policy/citizen-data-pseudonymous"] }
       : {}),
   };
 }
@@ -173,7 +173,7 @@ export function riskAssessmentResource(site: Site, risk: SiteRisk, h: HazardAsse
     ),
     status: "final",
     method: {
-      coding: [{ system: `${TRIB}/CodeSystem/risk-method`, code: "tributary-logit-v1", display: "Tributary explainable logistic model v1" }],
+      coding: [{ system: `${TRIB}/CodeSystem/risk-method`, code: "streamreach-logit-v1", display: "StreamReach explainable logistic model v1" }],
     },
     code: { coding: [hazardCode] },
     subject: { reference: `Group/${exposedCohortId(site.id)}`, display: `People living within 1 km of ${site.name}` },
@@ -233,7 +233,7 @@ export function healthSignalResource(site: Site, signals: ClinicalSignal[]): Res
     code: { coding: [{ system: OAH_CS, code: "gastrointestinal", display: OAH_DISPLAY.gastrointestinal }] },
     subject: { reference: `Location/${site.id}` },
     focus: [{ reference: `Group/${exposedCohortId(site.id)}` }],
-    performer: [{ display: "Tributary CDS Hooks feedback aggregator" }],
+    performer: [{ display: "StreamReach CDS Hooks feedback aggregator" }],
     text: narrative(`${recent.length} anonymous stream-linked gastrointestinal presentations near ${site.name} in 14 days`),
     effectivePeriod: { start: start.toISOString(), end: end.toISOString() },
     valueQuantity: {

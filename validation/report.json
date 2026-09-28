@@ -6,7 +6,7 @@
       "resourceType" : "OperationOutcome",
       "text" : {
         "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Group.characteristic[0].code</td><td>Invalid Code</td><td>Binding for path Group.characteristic[0].code in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/Group|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Warning</td><td>Group.characteristic[0].code</td><td>Invalid Code</td><td>None of the codings provided are in the value set 'OAH Cohort Characteristic Code' (http://hl7.eu/fhir/ig/oah/ValueSet/oah-cohort-characteristic-code-vs), and a coding should come from this value set unless it has no suitable code (note that the validator cannot judge what is suitable) (codes = http://snomed.info/sct#20733006)</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>Group.characteristic[0].code</td><td>Invalid Code</td><td>Binding for path Group.characteristic[0].code in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposed-cohort|0.1.0] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Group.characteristic[0].code</td><td>Invalid Code</td><td>Binding for path Group.characteristic[0].code in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/Group|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Warning</td><td>Group.characteristic[0].code</td><td>Invalid Code</td><td>None of the codings provided are in the value set 'OAH Cohort Characteristic Code' (http://hl7.eu/fhir/ig/oah/ValueSet/oah-cohort-characteristic-code-vs), and a coding should come from this value set unless it has no suitable code (note that the validator cannot judge what is suitable) (codes = http://snomed.info/sct#20733006)</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>Group.characteristic[0].code</td><td>Invalid Code</td><td>Binding for path Group.characteristic[0].code in profile StructureDefinition[https://streamreach.io/fhir/StructureDefinition/stream-exposed-cohort|0.1.0] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
       },
       "extension" : [{
         "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
@@ -87,12 +87,12 @@
         },
         {
           "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
-          "valueString" : "https://tributary.health/fhir/StructureDefinition/stream-exposed-cohort|0.1.0"
+          "valueString" : "https://streamreach.io/fhir/StructureDefinition/stream-exposed-cohort|0.1.0"
         }],
         "severity" : "information",
         "code" : "code-invalid",
         "details" : {
-          "text" : "Binding for path Group.characteristic[0].code in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposed-cohort|0.1.0] has no source, so can't be checked"
+          "text" : "Binding for path Group.characteristic[0].code in profile StructureDefinition[https://streamreach.io/fhir/StructureDefinition/stream-exposed-cohort|0.1.0] has no source, so can't be checked"
         },
         "expression" : ["Group.characteristic[0].code"]
       }]
@@ -144,7 +144,7 @@
       "resourceType" : "OperationOutcome",
       "text" : {
         "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Warning</td><td>Observation.value.ofType(Quantity)</td><td>Business Rule Violation</td><td>UCUM Codes that contain human readable annotations like {CFU} can be misleading (e.g. they are ignored when comparing units). Best Practice is not to depend on annotations in the UCUM code, so this usage should be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Warning</td><td>Observation.value.ofType(Quantity)</td><td>Business Rule Violation</td><td>UCUM Codes that contain human readable annotations like {CFU} can be misleading (e.g. they are ignored when comparing units). Best Practice is not to depend on annotations in the UCUM code, so this usage should be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
       },
       "extension" : [{
         "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
@@ -174,7 +174,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/data-origin|0.1.0"
         },
         "expression" : ["Observation.meta.tag[0]"]
       },
@@ -213,7 +213,7 @@
       "resourceType" : "OperationOutcome",
       "text" : {
         "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr></table></div>"
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr></table></div>"
       },
       "extension" : [{
         "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
@@ -243,7 +243,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/data-origin|0.1.0"
         },
         "expression" : ["Observation.meta.tag[0]"]
       }]
@@ -254,7 +254,7 @@
       "resourceType" : "OperationOutcome",
       "text" : {
         "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr></table></div>"
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr></table></div>"
       },
       "extension" : [{
         "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
@@ -284,7 +284,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/data-origin|0.1.0"
         },
         "expression" : ["Observation.meta.tag[0]"]
       }]
@@ -295,7 +295,7 @@
       "resourceType" : "OperationOutcome",
       "text" : {
         "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr></table></div>"
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr></table></div>"
       },
       "extension" : [{
         "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
@@ -325,7 +325,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/data-origin|0.1.0"
         },
         "expression" : ["Observation.meta.tag[0]"]
       }]
@@ -377,7 +377,7 @@
       "resourceType" : "OperationOutcome",
       "text" : {
         "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>Observation.value.ofType(CodeableConcept)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/flow-state|0.1.0</td><td/><td>TerminologyEngine</td></tr></table></div>"
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>Observation.value.ofType(CodeableConcept)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/flow-state|0.1.0</td><td/><td>TerminologyEngine</td></tr></table></div>"
       },
       "extension" : [{
         "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
@@ -407,7 +407,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/data-origin|0.1.0"
         },
         "expression" : ["Observation.meta.tag[0]"]
       },
@@ -435,7 +435,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/flow-state|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/flow-state|0.1.0"
         },
         "expression" : ["Observation.value.ofType(CodeableConcept)"]
       }]
@@ -446,7 +446,7 @@
       "resourceType" : "OperationOutcome",
       "text" : {
         "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr></table></div>"
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>Observation.meta.tag[0]</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/data-origin|0.1.0</td><td/><td>TerminologyEngine</td></tr></table></div>"
       },
       "extension" : [{
         "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
@@ -476,7 +476,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/data-origin|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/data-origin|0.1.0"
         },
         "expression" : ["Observation.meta.tag[0]"]
       }]
@@ -507,7 +507,7 @@
       "resourceType" : "OperationOutcome",
       "text" : {
         "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>RiskAssessment.extension[1].value.ofType(CodeableConcept)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/confidence|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[2].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[3].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[4].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[5].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-method|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.code</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[0].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[1].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[2].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[3].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[4].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[5].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[6].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>RiskAssessment.extension[1].value.ofType(CodeableConcept)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/confidence|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[2].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[3].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[4].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[5].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-method|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.code</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[0].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[1].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[2].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[3].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[4].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[5].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[6].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[https://streamreach.io/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
       },
       "extension" : [{
         "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
@@ -537,7 +537,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/confidence|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/confidence|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[1].value.ofType(CodeableConcept)"]
       },
@@ -565,7 +565,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[2].extension[0].value.ofType(Coding)"]
       },
@@ -593,7 +593,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[3].extension[0].value.ofType(Coding)"]
       },
@@ -621,7 +621,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[4].extension[0].value.ofType(Coding)"]
       },
@@ -649,7 +649,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[5].extension[0].value.ofType(Coding)"]
       },
@@ -705,7 +705,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-method|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-method|0.1.0"
         },
         "expression" : ["RiskAssessment.method"]
       },
@@ -733,7 +733,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.code"]
       },
@@ -789,7 +789,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[0].outcome"]
       },
@@ -845,7 +845,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[1].outcome"]
       },
@@ -901,7 +901,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[2].outcome"]
       },
@@ -957,7 +957,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[3].outcome"]
       },
@@ -1013,7 +1013,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[4].outcome"]
       },
@@ -1069,7 +1069,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[5].outcome"]
       },
@@ -1125,7 +1125,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[6].outcome"]
       },
@@ -1148,12 +1148,12 @@
         },
         {
           "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
-          "valueString" : "https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0"
+          "valueString" : "https://streamreach.io/fhir/StructureDefinition/stream-exposure-risk|0.1.0"
         }],
         "severity" : "information",
         "code" : "code-invalid",
         "details" : {
-          "text" : "Binding for path RiskAssessment.method in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked"
+          "text" : "Binding for path RiskAssessment.method in profile StructureDefinition[https://streamreach.io/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked"
         },
         "expression" : ["RiskAssessment.method"]
       }]
@@ -1164,7 +1164,7 @@
       "resourceType" : "OperationOutcome",
       "text" : {
         "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>RiskAssessment.extension[1].value.ofType(CodeableConcept)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/confidence|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[2].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[3].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[4].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-method|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.code</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[0].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[1].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[2].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[3].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[4].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[5].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[6].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>RiskAssessment.extension[1].value.ofType(CodeableConcept)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/confidence|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[2].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[3].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[4].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-method|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.code</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[0].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[1].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[2].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[3].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[4].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[5].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[6].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[https://streamreach.io/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
       },
       "extension" : [{
         "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
@@ -1194,7 +1194,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/confidence|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/confidence|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[1].value.ofType(CodeableConcept)"]
       },
@@ -1222,7 +1222,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[2].extension[0].value.ofType(Coding)"]
       },
@@ -1250,7 +1250,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[3].extension[0].value.ofType(Coding)"]
       },
@@ -1278,7 +1278,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[4].extension[0].value.ofType(Coding)"]
       },
@@ -1334,7 +1334,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-method|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-method|0.1.0"
         },
         "expression" : ["RiskAssessment.method"]
       },
@@ -1362,7 +1362,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.code"]
       },
@@ -1418,7 +1418,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[0].outcome"]
       },
@@ -1474,7 +1474,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[1].outcome"]
       },
@@ -1530,7 +1530,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[2].outcome"]
       },
@@ -1586,7 +1586,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[3].outcome"]
       },
@@ -1642,7 +1642,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[4].outcome"]
       },
@@ -1698,7 +1698,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[5].outcome"]
       },
@@ -1754,7 +1754,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[6].outcome"]
       },
@@ -1777,12 +1777,12 @@
         },
         {
           "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
-          "valueString" : "https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0"
+          "valueString" : "https://streamreach.io/fhir/StructureDefinition/stream-exposure-risk|0.1.0"
         }],
         "severity" : "information",
         "code" : "code-invalid",
         "details" : {
-          "text" : "Binding for path RiskAssessment.method in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked"
+          "text" : "Binding for path RiskAssessment.method in profile StructureDefinition[https://streamreach.io/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked"
         },
         "expression" : ["RiskAssessment.method"]
       }]
@@ -1793,7 +1793,7 @@
       "resourceType" : "OperationOutcome",
       "text" : {
         "status" : "generated",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>RiskAssessment.extension[1].value.ofType(CodeableConcept)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/confidence|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[2].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[3].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[4].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[5].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[6].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[7].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-method|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.code</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[0].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[1].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[2].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[3].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[4].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[5].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[6].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>OperationOutcome </b></p><p>All OK</p><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>Information</td><td>RiskAssessment.extension[1].value.ofType(CodeableConcept)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/confidence|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[2].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[3].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[4].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[5].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[6].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.extension[7].extension[0].value.ofType(Coding)</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-method|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.code</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[0].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[0].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[1].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[1].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[2].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[2].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[3].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[3].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[4].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[4].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[5].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[5].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Invalid Code</td><td>Binding for path RiskAssessment.prediction[6].outcome in profile StructureDefinition[http://hl7.org/fhir/StructureDefinition/RiskAssessment|4.0.1] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr><tr><td>Information</td><td>RiskAssessment.prediction[6].outcome</td><td>Business Rule Violation</td><td>Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0</td><td/><td>TerminologyEngine</td></tr><tr><td>Information</td><td>RiskAssessment.method</td><td>Invalid Code</td><td>Binding for path RiskAssessment.method in profile StructureDefinition[https://streamreach.io/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked</td><td/><td>InstanceValidator</td></tr></table></div>"
       },
       "extension" : [{
         "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-file",
@@ -1823,7 +1823,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/confidence|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/confidence|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[1].value.ofType(CodeableConcept)"]
       },
@@ -1851,7 +1851,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[2].extension[0].value.ofType(Coding)"]
       },
@@ -1879,7 +1879,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[3].extension[0].value.ofType(Coding)"]
       },
@@ -1907,7 +1907,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[4].extension[0].value.ofType(Coding)"]
       },
@@ -1935,7 +1935,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[5].extension[0].value.ofType(Coding)"]
       },
@@ -1963,7 +1963,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[6].extension[0].value.ofType(Coding)"]
       },
@@ -1991,7 +1991,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-factor|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-factor|0.1.0"
         },
         "expression" : ["RiskAssessment.extension[7].extension[0].value.ofType(Coding)"]
       },
@@ -2047,7 +2047,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/risk-method|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/risk-method|0.1.0"
         },
         "expression" : ["RiskAssessment.method"]
       },
@@ -2075,7 +2075,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.code"]
       },
@@ -2131,7 +2131,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[0].outcome"]
       },
@@ -2187,7 +2187,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[1].outcome"]
       },
@@ -2243,7 +2243,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[2].outcome"]
       },
@@ -2299,7 +2299,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[3].outcome"]
       },
@@ -2355,7 +2355,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[4].outcome"]
       },
@@ -2411,7 +2411,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[5].outcome"]
       },
@@ -2467,7 +2467,7 @@
         "severity" : "information",
         "code" : "business-rule",
         "details" : {
-          "text" : "Reference to draft CodeSystem https://tributary.health/fhir/CodeSystem/stream-hazard|0.1.0"
+          "text" : "Reference to draft CodeSystem https://streamreach.io/fhir/CodeSystem/stream-hazard|0.1.0"
         },
         "expression" : ["RiskAssessment.prediction[6].outcome"]
       },
@@ -2490,12 +2490,12 @@
         },
         {
           "url" : "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-context",
-          "valueString" : "https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0"
+          "valueString" : "https://streamreach.io/fhir/StructureDefinition/stream-exposure-risk|0.1.0"
         }],
         "severity" : "information",
         "code" : "code-invalid",
         "details" : {
-          "text" : "Binding for path RiskAssessment.method in profile StructureDefinition[https://tributary.health/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked"
+          "text" : "Binding for path RiskAssessment.method in profile StructureDefinition[https://streamreach.io/fhir/StructureDefinition/stream-exposure-risk|0.1.0] has no source, so can't be checked"
         },
         "expression" : ["RiskAssessment.method"]
       }]

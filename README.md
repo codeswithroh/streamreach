@@ -1,4 +1,4 @@
-# Tributary: from streams to systems
+# StreamReach: from streams to systems
 
 **One Health early warning for urban streams.** Citizen stream checks and the 7-day weather forecast become explainable
 FHIR risk assessments for waterborne pathogens, toxic algae and mosquito-borne disease. They reach public health teams on
@@ -16,14 +16,14 @@ already see the consequences: diarrhoea after a storm, a rash after a paddle, a 
 meet.** The observation stays in an app, and the GP never learns that the patient's dog-walking path runs along a stream
 that overflowed last night.
 
-## What Tributary does
+## What StreamReach does
 
 1. **Stream check (citizen).** A 3-minute, 5-question check using the OneAquaHealth app's own indicators. It is saved as
    a FHIR transaction of **OAH-profiled Observations** and updates the neighbourhood's warnings immediately.
 2. **Forecast-driven risk (public health).** For every reach, three explainable models combine the live Open-Meteo
    forecast, citizen checks, lab results and site vulnerability. Each gives a daily risk for the next 6 days with the
    factors behind it. A **what-if planner** stress-tests storms and heatwaves.
-3. **Stream to clinic (CDS Hooks).** When a GP opens a chart, the EHR calls our `patient-view` service. Tributary
+3. **Stream to clinic (CDS Hooks).** When a GP opens a chart, the EHR calls our `patient-view` service. StreamReach
    locates the patient, matches their active problems (SNOMED CT) to nearby stream hazards, and returns **at most two
    cards**. Cards carry the reasoning, a draft stool-culture order (LOINC 625-4) and patient advice. With no relevant
    risk, it returns nothing.
@@ -33,7 +33,7 @@ that overflowed last night.
 
 ## Why it matters
 
-| Criterion | How Tributary answers it |
+| Criterion | How StreamReach answers it |
 |---|---|
 | Impact & OneAquaHealth mission | Links ecosystem signals to human health outcomes in both directions: early detection of environmental risk, as the project aims for. |
 | Innovation | First bridge from citizen stream science into the clinical workflow via CDS Hooks. Forecast-driven rather than retrospective. |
@@ -66,10 +66,10 @@ climatology offline.
 `location`, `subject`, `code`), `Group`, `Provenance`, `CodeSystem`. `POST /fhir` accepts a transaction Bundle of
 OAH indicator Observations.
 
-**CDS Hooks 2.0**: `GET /cds-services`, `POST /cds-services/tributary-stream-exposure`,
-`POST /cds-services/tributary-stream-exposure/feedback`. CORS is enabled. Once deployed, you can register the discovery URL in
+**CDS Hooks 2.0**: `GET /cds-services`, `POST /cds-services/streamreach-stream-exposure`,
+`POST /cds-services/streamreach-stream-exposure/feedback`. CORS is enabled. Once deployed, you can register the discovery URL in
 the public [CDS Hooks sandbox](https://sandbox.cds-hooks.org). Patients without an address default to
-`TRIBUTARY_DEMO_CITY` (Heraklion).
+`STREAMREACH_DEMO_CITY` (Heraklion).
 
 **Profiles.** We reuse the [HL7 Europe OneAquaHealth IG](https://github.com/hl7-eu/oah) (`LocationOah`,
 `ObservationIndicatorsOah`, `ObservationHealthMeasureOah`, `GroupOah`, code system `temporarySystem-oah-eu`) and add a small
@@ -83,7 +83,7 @@ FSH extension IG in [`ig/`](ig/) with:
 ## Validation
 
 `scripts/validate.sh` exports live resources and runs the official **HL7 FHIR validator** against the OneAquaHealth IG
-(built from the hl7-eu/oah FSH sources) plus the Tributary IG. Latest result ([`validation/SUMMARY.md`](validation/SUMMARY.md)):
+(built from the hl7-eu/oah FSH sources) plus the StreamReach IG. Latest result ([`validation/SUMMARY.md`](validation/SUMMARY.md)):
 **0 errors, 4 warnings**. Two warnings come from codes that the OAH IG's own examples also use (SNOMED "River" for
 Location.type, SNOMED "Living place" for cohort characteristics). The other two are UCUM annotation notes.
 

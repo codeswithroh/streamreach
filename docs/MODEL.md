@@ -1,4 +1,4 @@
-# Tributary risk model (v1): transparent by construction
+# StreamReach risk model (v1): transparent by construction
 
 Each hazard is a small **logistic model**:
 

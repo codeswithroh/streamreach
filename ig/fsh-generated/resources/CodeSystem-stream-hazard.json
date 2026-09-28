@@ -5,9 +5,9 @@
   "name": "StreamHazard",
   "id": "stream-hazard",
   "title": "One Health hazards arising from urban streams",
-  "description": "Hazards whose short-term risk Tributary forecasts for people living near an urban stream reach.",
+  "description": "Hazards whose short-term risk StreamReach forecasts for people living near an urban stream reach.",
   "version": "0.1.0",
-  "url": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+  "url": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
   "concept": [
     {
       "code": "waterborne",

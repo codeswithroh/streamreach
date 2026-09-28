@@ -7,7 +7,7 @@
   "title": "Stream flow state (citizen-observable)",
   "description": "Flow states a volunteer can judge by eye. The OAH IG models hydrology as an indicator but has no coded values for it.",
   "version": "0.1.0",
-  "url": "https://tributary.health/fhir/CodeSystem/flow-state",
+  "url": "https://streamreach.io/fhir/CodeSystem/flow-state",
   "concept": [
     {
       "code": "dry",

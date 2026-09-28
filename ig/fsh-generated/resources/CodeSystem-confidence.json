@@ -7,7 +7,7 @@
   "title": "Assessment confidence",
   "description": "How much fresh evidence stands behind a risk estimate.",
   "version": "0.1.0",
-  "url": "https://tributary.health/fhir/CodeSystem/confidence",
+  "url": "https://streamreach.io/fhir/CodeSystem/confidence",
   "concept": [
     {
       "code": "low",

@@ -178,7 +178,7 @@ export function CheckForm({ sites }: { sites: { id: string; name: string; city: 
 /** Pseudonymous volunteer code, kept on this device only. */
 function volunteerId() {
   try {
-    const k = "tributary-volunteer";
+    const k = "streamreach-volunteer";
     const existing = localStorage.getItem(k);
     if (existing) return existing;
     const v = `V-${Math.random().toString(36).slice(2, 5).toUpperCase()}`;

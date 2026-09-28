@@ -2,7 +2,7 @@ import { DEMO_PATIENTS } from "@/lib/cds/demo-patients";
 import { DISCOVERY } from "@/lib/cds/service";
 import { Ehr } from "./Ehr";
 
-export const metadata = { title: "Clinic view · Tributary" };
+export const metadata = { title: "Clinic view · StreamReach" };
 
 export default function ClinicPage() {
   return (
@@ -13,7 +13,7 @@ export default function ClinicPage() {
           <h1 className="font-display text-4xl mt-1">The stream shows up in the consultation.</h1>
           <p className="text-ink-2 mt-2">
             When a GP opens a chart, the EHR fires the <code className="text-[13px] bg-stone-200/70 px-1 rounded">patient-view</code> hook.
-            Tributary checks where the patient lives, matches their symptoms to nearby stream hazards, and returns at most two
+            StreamReach checks where the patient lives, matches their symptoms to nearby stream hazards, and returns at most two
             cards. The GP can share an anonymous case back, and that feeds the stream&apos;s risk score.
           </p>
         </div>

@@ -1,6 +1,6 @@
 // Internal domain model. Everything here is projected to FHIR R4 in src/lib/fhir.
 
-/** Codes from the OneAquaHealth IG code system (TemporaryOahSystem) that Tributary reads. */
+/** Codes from the OneAquaHealth IG code system (TemporaryOahSystem) that StreamReach reads. */
 export type OahIndicatorCode =
   | "foam" // Foam/colour/smell
   | "diptera" // Diptera (Culicidae and Psychodidae)

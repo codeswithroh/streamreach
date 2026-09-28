@@ -1,4 +1,4 @@
-// Minimal FHIR R4 REST facade over the Tributary store.
+// Minimal FHIR R4 REST facade over the StreamReach store.
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { OAH_CS, TRIB_CS } from "../codes";
 import { allSiteBundles, siteBundleById } from "../risk/service";

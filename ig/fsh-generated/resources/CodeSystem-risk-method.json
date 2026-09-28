@@ -4,14 +4,14 @@
   "content": "complete",
   "name": "RiskMethod",
   "id": "risk-method",
-  "title": "Tributary risk methods",
+  "title": "StreamReach risk methods",
   "description": "Versioned risk model identifiers.",
   "version": "0.1.0",
-  "url": "https://tributary.health/fhir/CodeSystem/risk-method",
+  "url": "https://streamreach.io/fhir/CodeSystem/risk-method",
   "concept": [
     {
-      "code": "tributary-logit-v1",
-      "display": "Tributary explainable logistic model v1"
+      "code": "streamreach-logit-v1",
+      "display": "StreamReach explainable logistic model v1"
     }
   ],
   "caseSensitive": true,

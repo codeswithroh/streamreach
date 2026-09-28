@@ -1,4 +1,4 @@
-"""Export sample resources from a running Tributary server for validation."""
+"""Export sample resources from a running StreamReach server for validation."""
 import json, os, sys, urllib.request
 
 B = (sys.argv[1] if len(sys.argv) > 1 else "http://localhost:3000") + "/fhir"

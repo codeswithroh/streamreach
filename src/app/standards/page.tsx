@@ -1,14 +1,14 @@
 import { DISCOVERY } from "@/lib/cds/service";
 import { OAH_CS, OAH_PROFILE, TRIB_CS, TRIB_PROFILE } from "@/lib/codes";
 
-export const metadata = { title: "Standards · Tributary" };
+export const metadata = { title: "Standards · StreamReach" };
 
 const MAP = [
   ["Stream reach", "Location", OAH_PROFILE.location, "OAH IG"],
   ["Citizen / lab indicator (foam, flow, algae, larvae, temperature, coliforms)", "Observation", OAH_PROFILE.indicator, "OAH IG"],
   ["Who reported it (pseudonymous volunteer, lab)", "Provenance", "core R4", "FHIR core"],
-  ["People exposed to a reach", "Group", `${OAH_PROFILE.group} + ${TRIB_PROFILE.exposedCohort}`, "OAH IG + Tributary"],
-  ["Hazard forecast with explanation", "RiskAssessment", TRIB_PROFILE.riskAssessment, "Tributary"],
+  ["People exposed to a reach", "Group", `${OAH_PROFILE.group} + ${TRIB_PROFILE.exposedCohort}`, "OAH IG + StreamReach"],
+  ["Hazard forecast with explanation", "RiskAssessment", TRIB_PROFILE.riskAssessment, "StreamReach"],
   ["Clinic-reported stream-linked cases (anonymous)", "Observation", OAH_PROFILE.healthMeasure, "OAH IG"],
   ["Alert inside the EHR", "CDS Hooks card (patient-view)", "CDS Hooks 2.0", "HL7"],
   ["Suggested work-up", "ServiceRequest (draft, LOINC 625-4)", "core R4", "FHIR core"],
@@ -29,7 +29,7 @@ export default function StandardsPage() {
       <p className="eyebrow">Track 7 · Digital Health Standards</p>
       <h1 className="font-display text-4xl mt-1">Built on the standards health systems already speak.</h1>
       <p className="text-ink-2 mt-3 max-w-3xl">
-        Tributary adds no new data silo. Stream data is stored with the official <b>HL7 Europe OneAquaHealth FHIR IG</b> profiles,
+        StreamReach adds no new data silo. Stream data is stored with the official <b>HL7 Europe OneAquaHealth FHIR IG</b> profiles,
         risk is published as FHIR <b>RiskAssessment</b>, and alerts reach clinicians through <b>CDS Hooks</b>, the HL7 standard
         EHRs already use for decision support. Anything that speaks FHIR R4 can read it, including OneAquaHealth&apos;s own platform.
       </p>
@@ -79,7 +79,7 @@ export default function StandardsPage() {
           </table>
         </div>
         <p className="text-xs text-ink-3 mt-2">
-          Indicator codes come from the OAH code system <code className="font-mono">{OAH_CS}</code>. Tributary only adds codes the
+          Indicator codes come from the OAH code system <code className="font-mono">{OAH_CS}</code>. StreamReach only adds codes the
           IG lacks: <code className="font-mono">{TRIB_CS.flowState}</code> (citizen-observable flow) and{" "}
           <code className="font-mono">{TRIB_CS.hazard}</code>.
         </p>

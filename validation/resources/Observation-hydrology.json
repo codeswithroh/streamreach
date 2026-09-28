@@ -1,20 +1,20 @@
 {
   "resourceType": "Observation",
-  "id": "obs-d38c4609",
+  "id": "obs-53",
   "meta": {
     "profile": [
       "http://hl7.eu/fhir/ig/oah/StructureDefinition/observation-indicators-oah"
     ],
     "tag": [
       {
-        "system": "https://tributary.health/fhir/CodeSystem/data-origin",
+        "system": "https://streamreach.io/fhir/CodeSystem/data-origin",
         "code": "citizen-unverified"
       }
     ]
   },
   "text": {
     "status": "generated",
-    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Hydrology of the stream at giofyros-1: High / turbid flow (Volunteer V-F69, 2026-09-28)</p></div>"
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Hydrology of the stream at giofyros-1: Low flow (Volunteer V-P5N, 2026-09-23)</p></div>"
   },
   "status": "final",
   "category": [
@@ -39,22 +39,22 @@
   "subject": {
     "reference": "Location/giofyros-1"
   },
-  "effectiveDateTime": "2026-09-28T05:35:25.446Z",
+  "effectiveDateTime": "2026-09-23T10:00:00.000Z",
   "performer": [
     {
       "identifier": {
-        "system": "https://tributary.health/fhir/sid/volunteer",
-        "value": "V-F69"
+        "system": "https://streamreach.io/fhir/sid/volunteer",
+        "value": "V-P5N"
       },
-      "display": "Volunteer V-F69"
+      "display": "Volunteer V-P5N"
     }
   ],
   "valueCodeableConcept": {
     "coding": [
       {
-        "system": "https://tributary.health/fhir/CodeSystem/flow-state",
-        "code": "high",
-        "display": "High / turbid flow"
+        "system": "https://streamreach.io/fhir/CodeSystem/flow-state",
+        "code": "low",
+        "display": "Low flow"
       }
     ]
   }

@@ -26,26 +26,26 @@
   ],
   "performer": [
     {
-      "display": "Tributary CDS Hooks feedback aggregator"
+      "display": "StreamReach CDS Hooks feedback aggregator"
     }
   ],
   "text": {
     "status": "generated",
-    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>3 anonymous stream-linked gastrointestinal presentations near Giofyros Reach A in 14 days</p></div>"
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>2 anonymous stream-linked gastrointestinal presentations near Giofyros Reach A in 14 days</p></div>"
   },
   "effectivePeriod": {
-    "start": "2026-09-14T05:51:32.795Z",
-    "end": "2026-09-28T05:51:32.795Z"
+    "start": "2026-09-14T06:03:46.231Z",
+    "end": "2026-09-28T06:03:46.231Z"
   },
   "valueQuantity": {
-    "value": 20.27,
+    "value": 13.514,
     "unit": "cases per 100 000 (14 d)",
     "system": "http://unitsofmeasure.org",
     "code": "{cases}/100000"
   },
   "note": [
     {
-      "text": "3 clinician-reported presentations with stream exposure (anonymous, via CDS Hooks feedback)."
+      "text": "2 clinician-reported presentations with stream exposure (anonymous, via CDS Hooks feedback)."
     }
   ]
 }

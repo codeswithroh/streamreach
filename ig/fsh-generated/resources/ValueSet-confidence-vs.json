@@ -6,11 +6,11 @@
   "title": "Assessment confidence",
   "description": "All confidence levels.",
   "version": "0.1.0",
-  "url": "https://tributary.health/fhir/ValueSet/confidence-vs",
+  "url": "https://streamreach.io/fhir/ValueSet/confidence-vs",
   "compose": {
     "include": [
       {
-        "system": "https://tributary.health/fhir/CodeSystem/confidence"
+        "system": "https://streamreach.io/fhir/CodeSystem/confidence"
       }
     ]
   }

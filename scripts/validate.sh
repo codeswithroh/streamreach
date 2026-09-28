@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Validate live Tributary resources with the official HL7 FHIR validator against
-# the HL7 Europe OneAquaHealth IG (built from hl7-eu/oah) and Tributary's IG (ig/).
+# Validate live StreamReach resources with the official HL7 FHIR validator against
+# the HL7 Europe OneAquaHealth IG (built from hl7-eu/oah) and StreamReach's IG (ig/).
 # Needs: Java 17+, a running server (npm run dev), network access to tx.fhir.org.
 set -euo pipefail
 cd "$(dirname "$0")/.."

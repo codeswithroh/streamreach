@@ -1,6 +1,6 @@
 # Validation summary
 
-HL7 FHIR validator (FHIR 4.0.1) against the HL7 Europe OneAquaHealth IG (built from hl7-eu/oah) and the Tributary IG.
+HL7 FHIR validator (FHIR 4.0.1) against the HL7 Europe OneAquaHealth IG (built from hl7-eu/oah) and the StreamReach IG.
 
 **Errors: 0 · Warnings: 4 · Information: 80**
 

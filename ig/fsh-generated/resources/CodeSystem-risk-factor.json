@@ -5,9 +5,9 @@
   "name": "StreamRiskFactor",
   "id": "risk-factor",
   "title": "Stream risk factors",
-  "description": "Named factors of the Tributary explainable risk models.",
+  "description": "Named factors of the StreamReach explainable risk models.",
   "version": "0.1.0",
-  "url": "https://tributary.health/fhir/CodeSystem/risk-factor",
+  "url": "https://streamreach.io/fhir/CodeSystem/risk-factor",
   "concept": [
     {
       "code": "overflow",

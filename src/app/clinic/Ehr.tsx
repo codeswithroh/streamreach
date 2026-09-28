@@ -182,7 +182,7 @@ export function Ehr({ patients, serviceId }: { patients: DemoPatient[]; serviceI
                 {!cards && <div className="h-24 rounded-lg bg-line/40 animate-pulse" />}
                 {cards?.length === 0 && (
                   <div className="text-sm text-ink-3 rounded-lg border border-dashed border-line p-4">
-                    No cards. Nothing relevant near this patient, so Tributary stays quiet. Avoiding alert fatigue is part of the design.
+                    No cards. Nothing relevant near this patient, so StreamReach stays quiet. Avoiding alert fatigue is part of the design.
                     {res?._meta && (
                       <span className="block text-[11px] mt-1">
                         Located: {res._meta.location.label} · {res._meta.sitesConsidered} reach(es) considered

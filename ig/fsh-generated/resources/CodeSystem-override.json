@@ -5,9 +5,9 @@
   "name": "CardOverrideReason",
   "id": "override",
   "title": "CDS card override reasons",
-  "description": "Why a clinician dismissed a Tributary card.",
+  "description": "Why a clinician dismissed a StreamReach card.",
   "version": "0.1.0",
-  "url": "https://tributary.health/fhir/CodeSystem/override",
+  "url": "https://streamreach.io/fhir/CodeSystem/override",
   "concept": [
     {
       "code": "no-exposure",

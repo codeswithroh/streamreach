@@ -3,28 +3,28 @@
   "id": "risk-giofyros-1-cyanobacteria",
   "meta": {
     "profile": [
-      "https://tributary.health/fhir/StructureDefinition/stream-exposure-risk"
+      "https://streamreach.io/fhir/StructureDefinition/stream-exposure-risk"
     ],
-    "lastUpdated": "2026-09-28T05:51:32.801Z"
+    "lastUpdated": "2026-09-28T06:03:46.237Z"
   },
   "text": {
     "status": "generated",
-    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Cyanobacterial toxin exposure near Giofyros Reach A: low (14%) peaking 2026-09-28. Nutrient-rich water, Warm water, Strong sunshine.</p></div>"
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Cyanobacterial toxin exposure near Giofyros Reach A: low (10%) peaking 2026-09-28. Warm water, Slow, still water, Strong sunshine.</p></div>"
   },
   "status": "final",
   "method": {
     "coding": [
       {
-        "system": "https://tributary.health/fhir/CodeSystem/risk-method",
-        "code": "tributary-logit-v1",
-        "display": "Tributary explainable logistic model v1"
+        "system": "https://streamreach.io/fhir/CodeSystem/risk-method",
+        "code": "streamreach-logit-v1",
+        "display": "StreamReach explainable logistic model v1"
       }
     ]
   },
   "code": {
     "coding": [
       {
-        "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+        "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
         "code": "cyanobacteria",
         "display": "Cyanobacterial toxin exposure"
       }
@@ -34,67 +34,34 @@
     "reference": "Group/cohort-giofyros-1",
     "display": "People living within 1 km of Giofyros Reach A"
   },
-  "occurrenceDateTime": "2026-09-28T05:51:32.801Z",
+  "occurrenceDateTime": "2026-09-28T06:03:46.237Z",
   "extension": [
     {
-      "url": "https://tributary.health/fhir/StructureDefinition/assessed-location",
+      "url": "https://streamreach.io/fhir/StructureDefinition/assessed-location",
       "valueReference": {
         "reference": "Location/giofyros-1",
         "display": "Giofyros Reach A"
       }
     },
     {
-      "url": "https://tributary.health/fhir/StructureDefinition/assessment-confidence",
+      "url": "https://streamreach.io/fhir/StructureDefinition/assessment-confidence",
       "valueCodeableConcept": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/confidence",
-            "code": "high"
+            "system": "https://streamreach.io/fhir/CodeSystem/confidence",
+            "code": "medium"
           }
         ],
-        "text": "3 citizen checks in the last 14 days"
+        "text": "Only 2 citizen check(s) in 14 days. A fresh check would sharpen this."
       }
     },
     {
-      "url": "https://tributary.health/fhir/StructureDefinition/risk-factor",
+      "url": "https://streamreach.io/fhir/StructureDefinition/risk-factor",
       "extension": [
         {
           "url": "factor",
           "valueCoding": {
-            "system": "https://tributary.health/fhir/CodeSystem/risk-factor",
-            "code": "nutrients",
-            "display": "Nutrient-rich water"
-          }
-        },
-        {
-          "url": "source",
-          "valueCode": "citizen"
-        },
-        {
-          "url": "value",
-          "valueDecimal": 0.736
-        },
-        {
-          "url": "weight",
-          "valueDecimal": 1.6
-        },
-        {
-          "url": "contribution",
-          "valueDecimal": 1.177
-        },
-        {
-          "url": "explanation",
-          "valueString": "Filamentous algae covering 61-80% of the bed (0 d ago)"
-        }
-      ]
-    },
-    {
-      "url": "https://tributary.health/fhir/StructureDefinition/risk-factor",
-      "extension": [
-        {
-          "url": "factor",
-          "valueCoding": {
-            "system": "https://tributary.health/fhir/CodeSystem/risk-factor",
+            "system": "https://streamreach.io/fhir/CodeSystem/risk-factor",
             "code": "water-temp",
             "display": "Warm water"
           }
@@ -122,12 +89,45 @@
       ]
     },
     {
-      "url": "https://tributary.health/fhir/StructureDefinition/risk-factor",
+      "url": "https://streamreach.io/fhir/StructureDefinition/risk-factor",
       "extension": [
         {
           "url": "factor",
           "valueCoding": {
-            "system": "https://tributary.health/fhir/CodeSystem/risk-factor",
+            "system": "https://streamreach.io/fhir/CodeSystem/risk-factor",
+            "code": "stagnation",
+            "display": "Slow, still water"
+          }
+        },
+        {
+          "url": "source",
+          "valueCode": "citizen"
+        },
+        {
+          "url": "value",
+          "valueDecimal": 0.427
+        },
+        {
+          "url": "weight",
+          "valueDecimal": 1.3
+        },
+        {
+          "url": "contribution",
+          "valueDecimal": 0.555
+        },
+        {
+          "url": "explanation",
+          "valueString": "12.7 mm rain in 7 d; citizens report \"low flow\""
+        }
+      ]
+    },
+    {
+      "url": "https://streamreach.io/fhir/StructureDefinition/risk-factor",
+      "extension": [
+        {
+          "url": "factor",
+          "valueCoding": {
+            "system": "https://streamreach.io/fhir/CodeSystem/risk-factor",
             "code": "sunshine",
             "display": "Strong sunshine"
           }
@@ -155,14 +155,14 @@
       ]
     },
     {
-      "url": "https://tributary.health/fhir/StructureDefinition/risk-factor",
+      "url": "https://streamreach.io/fhir/StructureDefinition/risk-factor",
       "extension": [
         {
           "url": "factor",
           "valueCoding": {
-            "system": "https://tributary.health/fhir/CodeSystem/risk-factor",
-            "code": "stagnation",
-            "display": "Slow, still water"
+            "system": "https://streamreach.io/fhir/CodeSystem/risk-factor",
+            "code": "nutrients",
+            "display": "Nutrient-rich water"
           }
         },
         {
@@ -171,19 +171,19 @@
         },
         {
           "url": "value",
-          "valueDecimal": 0.077
+          "valueDecimal": 0.174
         },
         {
           "url": "weight",
-          "valueDecimal": 1.3
+          "valueDecimal": 1.6
         },
         {
           "url": "contribution",
-          "valueDecimal": 0.1
+          "valueDecimal": 0.278
         },
         {
           "url": "explanation",
-          "valueString": "12.7 mm rain in 7 d; citizens report \"high / turbid flow\""
+          "valueString": "Filamentous algae covering 21-40% of the bed (5 d ago)"
         }
       ]
     }
@@ -193,10 +193,10 @@
       "reference": "Location/giofyros-1"
     },
     {
-      "reference": "Observation/obs-55512452"
+      "reference": "Observation/obs-53"
     },
     {
-      "reference": "Observation/obs-d38c4609"
+      "reference": "Observation/obs-54"
     }
   ],
   "prediction": [
@@ -204,13 +204,13 @@
       "outcome": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
             "code": "cyanobacteria",
             "display": "Cyanobacterial toxin exposure"
           }
         ]
       },
-      "probabilityDecimal": 0.143,
+      "probabilityDecimal": 0.097,
       "qualitativeRisk": {
         "coding": [
           {
@@ -231,13 +231,13 @@
       "outcome": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
             "code": "cyanobacteria",
             "display": "Cyanobacterial toxin exposure"
           }
         ]
       },
-      "probabilityDecimal": 0.13,
+      "probabilityDecimal": 0.093,
       "qualitativeRisk": {
         "coding": [
           {
@@ -258,13 +258,13 @@
       "outcome": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
             "code": "cyanobacteria",
             "display": "Cyanobacterial toxin exposure"
           }
         ]
       },
-      "probabilityDecimal": 0.116,
+      "probabilityDecimal": 0.087,
       "qualitativeRisk": {
         "coding": [
           {
@@ -285,13 +285,13 @@
       "outcome": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
             "code": "cyanobacteria",
             "display": "Cyanobacterial toxin exposure"
           }
         ]
       },
-      "probabilityDecimal": 0.09,
+      "probabilityDecimal": 0.071,
       "qualitativeRisk": {
         "coding": [
           {
@@ -312,13 +312,13 @@
       "outcome": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
             "code": "cyanobacteria",
             "display": "Cyanobacterial toxin exposure"
           }
         ]
       },
-      "probabilityDecimal": 0.081,
+      "probabilityDecimal": 0.066,
       "qualitativeRisk": {
         "coding": [
           {
@@ -339,13 +339,13 @@
       "outcome": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
             "code": "cyanobacteria",
             "display": "Cyanobacterial toxin exposure"
           }
         ]
       },
-      "probabilityDecimal": 0.08,
+      "probabilityDecimal": 0.057,
       "qualitativeRisk": {
         "coding": [
           {
@@ -366,13 +366,13 @@
       "outcome": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
             "code": "cyanobacteria",
             "display": "Cyanobacterial toxin exposure"
           }
         ]
       },
-      "probabilityDecimal": 0.092,
+      "probabilityDecimal": 0.068,
       "qualitativeRisk": {
         "coding": [
           {

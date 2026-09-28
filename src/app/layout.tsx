@@ -10,7 +10,7 @@ const newsreader = Newsreader({ variable: "--font-newsreader", subsets: ["latin"
 const jbmono = JetBrains_Mono({ variable: "--font-jbmono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Tributary: from streams to systems",
+  title: "StreamReach: from streams to systems",
   description:
     "One Health early warning for urban streams. Citizen science and weather forecasts become FHIR risk assessments that reach clinicians through CDS Hooks.",
 };
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 h-14 flex items-center gap-6">
             <Link href="/" className="flex items-center gap-2 shrink-0">
               <Logo />
-              <span className="font-display text-xl">Tributary</span>
+              <span className="font-display text-xl">StreamReach</span>
             </Link>
             <NavLinks />
           </div>
@@ -32,7 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <footer className="border-t border-line mt-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 py-6 text-xs text-ink-3 flex flex-wrap gap-x-6 gap-y-2 justify-between">
             <span>
-              Tributary · IEEE OneAquaHealth Global Hackathon 2026 · Track 6 Resilience Informatics + Track 7 Digital Health
+              StreamReach · IEEE OneAquaHealth Global Hackathon 2026 · Track 6 Resilience Informatics + Track 7 Digital Health
               Standards
             </span>
             <span>

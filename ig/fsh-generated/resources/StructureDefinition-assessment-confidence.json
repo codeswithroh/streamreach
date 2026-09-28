@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "assessment-confidence",
-  "url": "https://tributary.health/fhir/StructureDefinition/assessment-confidence",
+  "url": "https://streamreach.io/fhir/StructureDefinition/assessment-confidence",
   "version": "0.1.0",
   "name": "AssessmentConfidenceExt",
   "title": "Assessment confidence",
@@ -35,7 +35,7 @@
       {
         "id": "Extension.url",
         "path": "Extension.url",
-        "fixedUri": "https://tributary.health/fhir/StructureDefinition/assessment-confidence"
+        "fixedUri": "https://streamreach.io/fhir/StructureDefinition/assessment-confidence"
       },
       {
         "id": "Extension.value[x]",
@@ -47,7 +47,7 @@
         ],
         "binding": {
           "strength": "required",
-          "valueSet": "https://tributary.health/fhir/ValueSet/confidence-vs"
+          "valueSet": "https://streamreach.io/fhir/ValueSet/confidence-vs"
         }
       }
     ]

@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { SITES } from "@/lib/sites";
 import { CheckForm } from "./CheckForm";
 
-export const metadata = { title: "Stream check · Tributary" };
+export const metadata = { title: "Stream check · StreamReach" };
 
 export default function CheckPage() {
   return (

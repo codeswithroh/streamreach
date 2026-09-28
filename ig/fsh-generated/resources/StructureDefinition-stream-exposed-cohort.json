@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "stream-exposed-cohort",
-  "url": "https://tributary.health/fhir/StructureDefinition/stream-exposed-cohort",
+  "url": "https://streamreach.io/fhir/StructureDefinition/stream-exposed-cohort",
   "version": "0.1.0",
   "name": "StreamExposedCohort",
   "title": "Stream-exposed cohort",

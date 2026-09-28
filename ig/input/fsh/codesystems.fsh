@@ -13,7 +13,7 @@ Description: "Flow states a volunteer can judge by eye. The OAH IG models hydrol
 CodeSystem: StreamHazard
 Id: stream-hazard
 Title: "One Health hazards arising from urban streams"
-Description: "Hazards whose short-term risk Tributary forecasts for people living near an urban stream reach."
+Description: "Hazards whose short-term risk StreamReach forecasts for people living near an urban stream reach."
 * ^caseSensitive = true
 * ^experimental = false
 * #waterborne "Waterborne enteric pathogen exposure" "Campylobacter, Cryptosporidium, Giardia, pathogenic E. coli and similar, typically after sewer overflow."
@@ -23,7 +23,7 @@ Description: "Hazards whose short-term risk Tributary forecasts for people livin
 CodeSystem: StreamRiskFactor
 Id: risk-factor
 Title: "Stream risk factors"
-Description: "Named factors of the Tributary explainable risk models."
+Description: "Named factors of the StreamReach explainable risk models."
 * ^caseSensitive = true
 * ^experimental = false
 * #overflow "Storm overflow likely"
@@ -43,10 +43,10 @@ Description: "Named factors of the Tributary explainable risk models."
 
 CodeSystem: RiskMethod
 Id: risk-method
-Title: "Tributary risk methods"
+Title: "StreamReach risk methods"
 Description: "Versioned risk model identifiers."
 * ^caseSensitive = true
-* #tributary-logit-v1 "Tributary explainable logistic model v1"
+* #streamreach-logit-v1 "StreamReach explainable logistic model v1"
 
 CodeSystem: AssessmentConfidence
 Id: confidence
@@ -69,7 +69,7 @@ Description: "Where an observation came from and whether it has been verified."
 CodeSystem: CardOverrideReason
 Id: override
 Title: "CDS card override reasons"
-Description: "Why a clinician dismissed a Tributary card."
+Description: "Why a clinician dismissed a StreamReach card."
 * ^caseSensitive = true
 * #no-exposure "Patient reports no stream contact"
 * #alt-dx "Alternative cause confirmed"
@@ -77,7 +77,7 @@ Description: "Why a clinician dismissed a Tributary card."
 ValueSet: StreamHazardVS
 Id: stream-hazard-vs
 Title: "Stream hazards"
-Description: "All Tributary stream hazards."
+Description: "All StreamReach stream hazards."
 * include codes from system StreamHazard
 
 ValueSet: StreamFlowStateVS

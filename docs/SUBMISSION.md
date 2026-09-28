@@ -1,4 +1,4 @@
-# Devpost submission: Tributary
+# Devpost submission: StreamReach
 
 ## Tagline
 From streams to systems: citizen stream science that shows up in the GP's EHR before the outbreak does.
@@ -31,7 +31,7 @@ already use.
 2. **Situation room.** A map, 72-hour alerts, and a daily risk timeline for each reach. Every score has a "why this
    score" breakdown: storm overflow likely, sewage signs reported, warm water, larvae spotted, and so on. Each factor
    is tagged with its source (forecast, citizen, lab, site, clinic).
-3. **Stream to clinic.** A CDS Hooks `patient-view` service. When a GP opens a chart, Tributary:
+3. **Stream to clinic.** A CDS Hooks `patient-view` service. When a GP opens a chart, StreamReach:
    - locates the patient;
    - matches their active SNOMED CT problems to nearby hazards;
    - returns at most two cards with the reasoning, a draft stool-culture order and patient advice.
@@ -62,7 +62,7 @@ already use.
 ## Accomplishments
 - The loop is real and demoable in 3 minutes. A citizen check changes a forecast, the forecast raises a card in an EHR,
   and the GP's feedback changes the forecast again.
-- It runs on the real forecast. On 28 Sep 2026, Open-Meteo forecast ~27 mm of rain over Heraklion. Tributary flagged
+- It runs on the real forecast. On 28 Sep 2026, Open-Meteo forecast ~27 mm of rain over Heraklion. StreamReach flagged
   very high waterborne risk at Giofyros Reach A for 1 October, three days ahead.
 
 ## What's next
@@ -80,7 +80,7 @@ nextjs, typescript, tailwindcss, fhir, hl7, cds-hooks, fsh-sushi, open-meteo, op
 
 **0:00–0:20 · Hook** (situation room)
 > "This is Giofyros Reach A in Heraklion, one of OneAquaHealth's monitoring sites. Right now it's calm. But the real
-> forecast says 27 mm of rain on Wednesday. Tributary already knows what that means."
+> forecast says 27 mm of rain on Wednesday. StreamReach already knows what that means."
 
 Point at the red dot and the "Very high: waterborne pathogens" alert.
 

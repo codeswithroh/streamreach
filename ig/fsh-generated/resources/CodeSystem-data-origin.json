@@ -7,7 +7,7 @@
   "title": "Data origin",
   "description": "Where an observation came from and whether it has been verified.",
   "version": "0.1.0",
-  "url": "https://tributary.health/fhir/CodeSystem/data-origin",
+  "url": "https://streamreach.io/fhir/CodeSystem/data-origin",
   "concept": [
     {
       "code": "citizen-unverified",

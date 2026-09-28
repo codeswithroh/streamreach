@@ -1,7 +1,7 @@
 {
   "resourceType": "StructureDefinition",
   "id": "stream-exposure-risk",
-  "url": "https://tributary.health/fhir/StructureDefinition/stream-exposure-risk",
+  "url": "https://streamreach.io/fhir/StructureDefinition/stream-exposure-risk",
   "version": "0.1.0",
   "name": "StreamExposureRisk",
   "title": "Stream-exposure risk assessment",
@@ -40,7 +40,7 @@
           {
             "code": "Extension",
             "profile": [
-              "https://tributary.health/fhir/StructureDefinition/assessed-location"
+              "https://streamreach.io/fhir/StructureDefinition/assessed-location"
             ]
           }
         ]
@@ -55,7 +55,7 @@
           {
             "code": "Extension",
             "profile": [
-              "https://tributary.health/fhir/StructureDefinition/assessment-confidence"
+              "https://streamreach.io/fhir/StructureDefinition/assessment-confidence"
             ]
           }
         ]
@@ -70,7 +70,7 @@
           {
             "code": "Extension",
             "profile": [
-              "https://tributary.health/fhir/StructureDefinition/risk-factor"
+              "https://streamreach.io/fhir/StructureDefinition/risk-factor"
             ]
           }
         ]
@@ -91,7 +91,7 @@
         "min": 1,
         "binding": {
           "strength": "required",
-          "valueSet": "https://tributary.health/fhir/ValueSet/stream-hazard-vs"
+          "valueSet": "https://streamreach.io/fhir/ValueSet/stream-hazard-vs"
         }
       },
       {
@@ -128,7 +128,7 @@
         "min": 1,
         "binding": {
           "strength": "required",
-          "valueSet": "https://tributary.health/fhir/ValueSet/stream-hazard-vs"
+          "valueSet": "https://streamreach.io/fhir/ValueSet/stream-hazard-vs"
         }
       },
       {

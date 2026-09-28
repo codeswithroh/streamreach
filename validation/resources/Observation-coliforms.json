@@ -7,7 +7,7 @@
     ],
     "tag": [
       {
-        "system": "https://tributary.health/fhir/CodeSystem/data-origin",
+        "system": "https://streamreach.io/fhir/CodeSystem/data-origin",
         "code": "laboratory"
       }
     ]

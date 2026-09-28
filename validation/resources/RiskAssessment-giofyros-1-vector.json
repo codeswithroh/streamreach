@@ -3,9 +3,9 @@
   "id": "risk-giofyros-1-vector",
   "meta": {
     "profile": [
-      "https://tributary.health/fhir/StructureDefinition/stream-exposure-risk"
+      "https://streamreach.io/fhir/StructureDefinition/stream-exposure-risk"
     ],
-    "lastUpdated": "2026-09-28T05:51:32.804Z"
+    "lastUpdated": "2026-09-28T06:03:46.240Z"
   },
   "text": {
     "status": "generated",
@@ -15,16 +15,16 @@
   "method": {
     "coding": [
       {
-        "system": "https://tributary.health/fhir/CodeSystem/risk-method",
-        "code": "tributary-logit-v1",
-        "display": "Tributary explainable logistic model v1"
+        "system": "https://streamreach.io/fhir/CodeSystem/risk-method",
+        "code": "streamreach-logit-v1",
+        "display": "StreamReach explainable logistic model v1"
       }
     ]
   },
   "code": {
     "coding": [
       {
-        "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+        "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
         "code": "vector",
         "display": "Mosquito-borne arbovirus exposure"
       }
@@ -34,34 +34,34 @@
     "reference": "Group/cohort-giofyros-1",
     "display": "People living within 1 km of Giofyros Reach A"
   },
-  "occurrenceDateTime": "2026-09-28T05:51:32.804Z",
+  "occurrenceDateTime": "2026-09-28T06:03:46.240Z",
   "extension": [
     {
-      "url": "https://tributary.health/fhir/StructureDefinition/assessed-location",
+      "url": "https://streamreach.io/fhir/StructureDefinition/assessed-location",
       "valueReference": {
         "reference": "Location/giofyros-1",
         "display": "Giofyros Reach A"
       }
     },
     {
-      "url": "https://tributary.health/fhir/StructureDefinition/assessment-confidence",
+      "url": "https://streamreach.io/fhir/StructureDefinition/assessment-confidence",
       "valueCodeableConcept": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/confidence",
-            "code": "high"
+            "system": "https://streamreach.io/fhir/CodeSystem/confidence",
+            "code": "medium"
           }
         ],
-        "text": "3 citizen checks in the last 14 days"
+        "text": "Only 2 citizen check(s) in 14 days. A fresh check would sharpen this."
       }
     },
     {
-      "url": "https://tributary.health/fhir/StructureDefinition/risk-factor",
+      "url": "https://streamreach.io/fhir/StructureDefinition/risk-factor",
       "extension": [
         {
           "url": "factor",
           "valueCoding": {
-            "system": "https://tributary.health/fhir/CodeSystem/risk-factor",
+            "system": "https://streamreach.io/fhir/CodeSystem/risk-factor",
             "code": "warmth",
             "display": "Mosquito-friendly warmth"
           }
@@ -89,12 +89,12 @@
       ]
     },
     {
-      "url": "https://tributary.health/fhir/StructureDefinition/risk-factor",
+      "url": "https://streamreach.io/fhir/StructureDefinition/risk-factor",
       "extension": [
         {
           "url": "factor",
           "valueCoding": {
-            "system": "https://tributary.health/fhir/CodeSystem/risk-factor",
+            "system": "https://streamreach.io/fhir/CodeSystem/risk-factor",
             "code": "endemic",
             "display": "Regional West Nile activity"
           }
@@ -122,12 +122,12 @@
       ]
     },
     {
-      "url": "https://tributary.health/fhir/StructureDefinition/risk-factor",
+      "url": "https://streamreach.io/fhir/StructureDefinition/risk-factor",
       "extension": [
         {
           "url": "factor",
           "valueCoding": {
-            "system": "https://tributary.health/fhir/CodeSystem/risk-factor",
+            "system": "https://streamreach.io/fhir/CodeSystem/risk-factor",
             "code": "pools",
             "display": "Breeding pools"
           }
@@ -165,7 +165,7 @@
       "outcome": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
             "code": "vector",
             "display": "Mosquito-borne arbovirus exposure"
           }
@@ -192,7 +192,7 @@
       "outcome": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
             "code": "vector",
             "display": "Mosquito-borne arbovirus exposure"
           }
@@ -219,7 +219,7 @@
       "outcome": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
             "code": "vector",
             "display": "Mosquito-borne arbovirus exposure"
           }
@@ -246,7 +246,7 @@
       "outcome": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
             "code": "vector",
             "display": "Mosquito-borne arbovirus exposure"
           }
@@ -273,7 +273,7 @@
       "outcome": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
             "code": "vector",
             "display": "Mosquito-borne arbovirus exposure"
           }
@@ -300,7 +300,7 @@
       "outcome": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
             "code": "vector",
             "display": "Mosquito-borne arbovirus exposure"
           }
@@ -327,7 +327,7 @@
       "outcome": {
         "coding": [
           {
-            "system": "https://tributary.health/fhir/CodeSystem/stream-hazard",
+            "system": "https://streamreach.io/fhir/CodeSystem/stream-hazard",
             "code": "vector",
             "display": "Mosquito-borne arbovirus exposure"
           }

@@ -11,8 +11,8 @@ export const OAH_PROFILE = {
 };
 export const OAH_LOCATION_ID_SYSTEM = "https://oneaquahealth.eu/location-id";
 
-// Tributary's own artefacts (small extension IG, see /standards)
-export const TRIB = "https://tributary.health/fhir";
+// StreamReach's own artefacts (small extension IG, see /standards)
+export const TRIB = "https://streamreach.io/fhir";
 export const TRIB_CS = {
   flowState: `${TRIB}/CodeSystem/flow-state`,
   hazard: `${TRIB}/CodeSystem/stream-hazard`,

@@ -116,15 +116,15 @@ function seed(now = Date.now()): Store {
   return { observations, signals, version: 1 };
 }
 
-const g = globalThis as unknown as { __tributaryStore?: Store };
+const g = globalThis as unknown as { __streamreachStore?: Store };
 
 export function store(): Store {
-  if (!g.__tributaryStore) g.__tributaryStore = seed();
-  return g.__tributaryStore;
+  if (!g.__streamreachStore) g.__streamreachStore = seed();
+  return g.__streamreachStore;
 }
 
 export function resetStore() {
-  g.__tributaryStore = seed();
+  g.__streamreachStore = seed();
 }
 
 export function observationsFor(siteId: string): StreamObservation[] {
