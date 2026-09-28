@@ -22,7 +22,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
     .filter(({ h }) => LEVELS.indexOf(h.peak.level) >= 1)
     .sort((x, y) => y.h.peak.p - x.h.peak.p);
   const warnings = alerts.filter(({ h }) => LEVELS.indexOf(h.peak.level) >= 2);
-  const { checks, clinic } = recentStats();
+  const { checks, clinic } = await recentStats();
   const liveWeather = bundles.every((b) => b.weather.source === "open-meteo");
 
   return (

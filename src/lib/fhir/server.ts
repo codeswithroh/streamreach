@@ -3,7 +3,7 @@
 import { OAH_CS, TRIB_CS } from "../codes";
 import { allSiteBundles, siteBundleById } from "../risk/service";
 import { SITES, getSite } from "../sites";
-import { addObservations, signalsFor, store } from "../store";
+import { addObservations, snapshot } from "../store";
 import type { HazardId, OahIndicatorCode, StreamObservation } from "../types";
 import { capabilityStatement, codeSystems } from "./conformance";
 import {
@@ -57,9 +57,10 @@ export async function fhirGet(path: string[], q: URLSearchParams, base: string):
     }
 
     case "Observation": {
+      const snap = await snapshot();
       const all = (): Resource[] => [
-        ...store().observations.map(observationResource),
-        ...SITES.map((s) => healthSignalResource(s, signalsFor(s.id))),
+        ...snap.observations.map(observationResource),
+        ...SITES.map((s) => healthSignalResource(s, snap.signals.filter((x) => x.siteId === s.id))),
       ];
       if (id) {
         const r = all().find((x) => x.id === id);
@@ -81,7 +82,7 @@ export async function fhirGet(path: string[], q: URLSearchParams, base: string):
 
     case "Provenance": {
       const target = refId(q.get("target"), "Observation");
-      const obs = store().observations.filter((o) => (id ? `prov-${o.id}` === id : target ? o.id === target : true));
+      const obs = (await snapshot()).observations.filter((o) => (id ? `prov-${o.id}` === id : target ? o.id === target : true));
       if (id && !obs.length) throw new FhirError(404, `Provenance/${id} not found`, "not-found");
       const rs = obs.slice(0, 200).map(provenanceResource);
       return id ? rs[0] : bundle("searchset", rs, base);
@@ -151,12 +152,12 @@ export function parseObservation(r: any): Omit<StreamObservation, "id"> {
 export async function fhirPost(path: string[], body: any): Promise<{ status: number; body: Resource }> {
   const [type] = path;
   if (type === "Observation" || (!type && body?.resourceType === "Observation")) {
-    const [created] = addObservations([parseObservation(body)]);
+    const [created] = await addObservations([parseObservation(body)]);
     return { status: 201, body: observationResource(created) };
   }
   if (!type && body?.resourceType === "Bundle" && (body.type === "transaction" || body.type === "batch")) {
     const parsed = (body.entry ?? []).map((e: any) => parseObservation(e.resource));
-    const created = addObservations(parsed);
+    const created = await addObservations(parsed);
     return {
       status: 200,
       body: {

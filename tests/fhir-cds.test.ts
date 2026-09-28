@@ -42,7 +42,7 @@ describe("FHIR facade", () => {
 
   it("serves Locations with the OAH profile", async () => {
     const b = await fhirGet(["Location"], new URLSearchParams(), BASE);
-    expect(b.total).toBe(6);
+    expect(b.total).toBe(10);
     expect(b.entry[0].resource.meta.profile).toContain(OAH_PROFILE.location);
   });
 
@@ -119,10 +119,10 @@ describe("CDS Hooks service", () => {
   it("feedback on the share suggestion records an anonymous clinic signal", async () => {
     const { cards } = await patientViewCards(req(eleni), "http://app");
     const share = cards[0].suggestions!.find((s: { label: string }) => s.label.includes("anonymous"));
-    const before = signalsFor("giofyros-1").length;
-    const n = handleFeedback({ feedback: [{ card: cards[0].uuid, outcome: "accepted", acceptedSuggestions: [{ id: share.uuid }] }] });
+    const before = (await signalsFor("giofyros-1")).length;
+    const n = await handleFeedback({ feedback: [{ card: cards[0].uuid, outcome: "accepted", acceptedSuggestions: [{ id: share.uuid }] }] });
     expect(n).toBe(1);
-    expect(signalsFor("giofyros-1").length).toBe(before + 1);
+    expect((await signalsFor("giofyros-1")).length).toBe(before + 1);
   });
 
   it("stays quiet for a symptom-free patient unless risk is high", async () => {

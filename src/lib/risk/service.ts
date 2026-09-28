@@ -11,7 +11,8 @@ export interface SiteBundle {
 
 export async function siteBundle(site: Site, scenario: Scenario = NO_SCENARIO): Promise<SiteBundle> {
   const weather = applyScenario(await getWeather(site), scenario);
-  const risk = assessSite(site, weather, observationsFor(site.id), signalsFor(site.id));
+  const [obs, sig] = await Promise.all([observationsFor(site.id), signalsFor(site.id)]);
+  const risk = assessSite(site, weather, obs, sig);
   return { site, weather, risk };
 }
 

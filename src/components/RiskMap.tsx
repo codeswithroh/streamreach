@@ -20,9 +20,9 @@ const HEX: Record<RiskLevel, string> = { low: "#3f8a5a", moderate: "#b8901c", hi
 const REGIONS: Record<string, { label: string; bounds: [[number, number], [number, number]] }> = {
   europe: { label: "All", bounds: [[34.5, -10], [61, 27]] },
   heraklion: { label: "Heraklion", bounds: [[35.24, 25.0], [35.36, 25.15]] },
-  benevento: { label: "Benevento", bounds: [[41.1, 14.73], [41.15, 14.8]] },
-  oslo: { label: "Oslo", bounds: [[59.93, 10.73], [59.97, 10.8]] },
-  coimbra: { label: "Coimbra", bounds: [[40.2, -8.45], [40.24, -8.39]] },
+  benevento: { label: "Benevento", bounds: [[41.115, 14.75], [41.142, 14.79]] },
+  oslo: { label: "Oslo", bounds: [[59.9, 10.74], [59.955, 10.81]] },
+  coimbra: { label: "Coimbra", bounds: [[40.205, -8.455], [40.232, -8.405]] },
 };
 
 function Fit({ region }: { region: string }) {

@@ -7,6 +7,7 @@ const LINKS = [
   { href: "/", label: "Situation room" },
   { href: "/check", label: "Stream check" },
   { href: "/clinic", label: "Clinic view" },
+  { href: "/data", label: "Data" },
   { href: "/standards", label: "Standards" },
 ];
 

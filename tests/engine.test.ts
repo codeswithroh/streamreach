@@ -14,10 +14,12 @@ function dryWeather(): WeatherSeries {
   return { siteId: "x", source: "fallback-climatology", fetchedAt: "", days, todayIndex: 14 };
 }
 
-describe("risk engine", () => {
+describe("risk engine", async () => {
   const site = SITES[0];
+  const obs = await observationsFor(site.id);
+  const sig = await signalsFor(site.id);
   it("produces three explained hazards", () => {
-    const r = assessSite(site, dryWeather(), observationsFor(site.id), signalsFor(site.id));
+    const r = assessSite(site, dryWeather(), obs, sig);
     expect(r.hazards.map((h) => h.hazard)).toEqual(["waterborne", "cyanobacteria", "vector"]);
     for (const h of r.hazards) {
       expect(h.factors.length).toBeGreaterThan(0);
@@ -28,8 +30,8 @@ describe("risk engine", () => {
   });
 
   it("a forecast storm raises waterborne risk above the overflow threshold", () => {
-    const base = assessSite(site, dryWeather(), observationsFor(site.id), signalsFor(site.id));
-    const storm = assessSite(site, applyScenario(dryWeather(), { rainMm: 40, heatC: 0 }), observationsFor(site.id), signalsFor(site.id));
+    const base = assessSite(site, dryWeather(), obs, sig);
+    const storm = assessSite(site, applyScenario(dryWeather(), { rainMm: 40, heatC: 0 }), obs, sig);
     const b = base.hazards[0].peak.p;
     const s = storm.hazards[0].peak.p;
     expect(s).toBeGreaterThan(b + 0.3);
@@ -37,8 +39,8 @@ describe("risk engine", () => {
   });
 
   it("heat raises bloom risk", () => {
-    const base = assessSite(site, dryWeather(), observationsFor(site.id), signalsFor(site.id));
-    const hot = assessSite(site, applyScenario(dryWeather(), { rainMm: 0, heatC: 6 }), observationsFor(site.id), signalsFor(site.id));
+    const base = assessSite(site, dryWeather(), obs, sig);
+    const hot = assessSite(site, applyScenario(dryWeather(), { rainMm: 0, heatC: 6 }), obs, sig);
     expect(hot.hazards[1].peak.p).toBeGreaterThan(base.hazards[1].peak.p);
   });
 });

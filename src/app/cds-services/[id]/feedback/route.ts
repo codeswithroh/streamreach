@@ -5,7 +5,7 @@ export async function POST(req: Request, ctx: RouteContext<"/cds-services/[id]/f
   const { id } = await ctx.params;
   if (id !== SERVICE_ID) return json({ error: `Unknown service ${id}` }, 404);
   const body = await req.json().catch(() => null);
-  const recorded = handleFeedback(body);
+  const recorded = await handleFeedback(body);
   return json({ recorded });
 }
 

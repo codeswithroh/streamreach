@@ -17,7 +17,7 @@ export default async function SitePage({ params, searchParams }: PageProps<"/sit
   const sb = await siteBundleById(id, scenario);
   if (!sb) notFound();
   const { site, weather, risk } = sb;
-  const obs = observationsFor(site.id);
+  const obs = await observationsFor(site.id);
   const checks = groupChecks(obs).slice(0, 8);
   const window = weather.days.slice(Math.max(0, weather.todayIndex - 7));
   const maxRain = Math.max(10, ...window.map((d) => d.rainMm));

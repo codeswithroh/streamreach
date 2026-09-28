@@ -8,7 +8,7 @@ import { SYNDROMES, SCT, LOINC } from "../codes";
 import { LEVELS, LEVEL_LABEL, type HazardAssessment } from "../risk/engine";
 import { allSiteBundles, type SiteBundle } from "../risk/service";
 import { distanceKm } from "../sites";
-import { addSignal } from "../store";
+import { addSignal, putCard, takeCard } from "../store";
 import type { ClinicalSignal, HazardId } from "../types";
 
 export const SERVICE_ID = "streamreach-stream-exposure";
@@ -43,14 +43,6 @@ const SYNDROME_LABEL: Record<ClinicalSignal["syndrome"], string> = {
   febrile: "fever",
 };
 
-interface CardMeta {
-  siteId: string;
-  district: string;
-  hazard: HazardId;
-  syndrome?: ClinicalSignal["syndrome"];
-}
-const g = globalThis as unknown as { __tribCards?: Map<string, CardMeta> };
-const cardIndex = () => (g.__tribCards ??= new Map());
 
 export interface PatientLocation {
   lat?: number;
@@ -150,11 +142,11 @@ export async function patientViewCards(req: any, appBase: string) {
     return true;
   }).slice(0, 2);
 
-  const cards = chosen.map((c) => buildCard(c, loc, req, appBase));
+  const cards = await Promise.all(chosen.map((c) => buildCard(c, loc, req, appBase)));
   return { cards, _meta: { location: loc, syndromes: [...syndromes], sitesConsidered: near.length } };
 }
 
-function buildCard(
+async function buildCard(
   c: { b: SiteBundle; d?: number; h: HazardAssessment; match?: ClinicalSignal["syndrome"] },
   loc: PatientLocation,
   req: any,
@@ -162,7 +154,7 @@ function buildCard(
 ) {
   const { b, d, h, match } = c;
   const uuid = crypto.randomUUID();
-  cardIndex().set(uuid, { siteId: b.site.id, district: b.site.district, hazard: h.hazard, syndrome: match });
+  await putCard(uuid, { siteId: b.site.id, district: b.site.district, hazard: h.hazard, syndrome: match });
   const where = d != null ? `${d.toFixed(1)} km from ${b.site.name}` : `near ${b.site.name}, ${b.site.city}`;
   const lvl = LEVEL_LABEL[h.peak.level].toLowerCase();
   const indicator = match ? (rank(h) >= 2 ? "warning" : "info") : rank(h) >= 3 ? "warning" : "info";
@@ -209,7 +201,7 @@ function buildCard(
   }
   if (match) {
     const reportId = crypto.randomUUID();
-    cardIndex().set(reportId, { siteId: b.site.id, district: b.site.district, hazard: h.hazard, syndrome: match });
+    await putCard(reportId, { siteId: b.site.id, district: b.site.district, hazard: h.hazard, syndrome: match });
     suggestions.push({
       label: "Share anonymous stream-linked case with OneAquaHealth",
       uuid: reportId,
@@ -240,21 +232,20 @@ function buildCard(
 }
 
 /** CDS Hooks feedback: accepted "share" suggestions become anonymous syndromic signals. */
-export function handleFeedback(body: any) {
+export async function handleFeedback(body: any) {
   let recorded = 0;
   for (const fb of body?.feedback ?? []) {
     if (fb.outcome !== "accepted") continue;
     for (const s of fb.acceptedSuggestions ?? []) {
-      const meta = cardIndex().get(s.id);
+      const meta = await takeCard(s.id);
       if (!meta?.syndrome) continue;
-      addSignal({
+      await addSignal({
         siteId: meta.siteId,
         district: meta.district,
         date: (fb.outcomeTimestamp ?? new Date().toISOString()).slice(0, 10),
         syndrome: meta.syndrome,
         source: "cds-feedback",
       });
-      cardIndex().delete(s.id);
       recorded++;
     }
   }

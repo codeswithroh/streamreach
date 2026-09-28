@@ -1,161 +1,320 @@
-// In-memory data store, seeded relative to "today" so the demo always has
-// recent citizen checks. Swap for a FHIR server by pointing FHIR_UPSTREAM at one
-// (see src/lib/fhir/upstream.ts).
+// Data store. With DATABASE_URL set (Neon Postgres, provisioned through the
+// Vercel Marketplace in the same region as the functions) every citizen check,
+// clinic signal and CDS card survives restarts and is shared across serverless
+// instances. Without it (local dev, tests) the same API runs in memory.
+//
+// Demo rows (origin = "seed") are regenerated once per day relative to today,
+// so the record never goes stale. Rows added through the app (origin = "user")
+// are never touched by a reseed.
 
-import { OAH_CS, TRIB_CS, FLOW_DISPLAY, OAH_DISPLAY } from "./codes";
-import { SITES } from "./sites";
-import type { ClinicalSignal, FlowState, ObservationValue, StreamObservation } from "./types";
+import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
+import { generateSeed, type StoredObservation, type StoredSignal } from "./seed";
+import type { ClinicalSignal, HazardId, StreamObservation } from "./types";
 
-interface Store {
-  observations: StreamObservation[];
-  signals: ClinicalSignal[];
-  version: number;
+export { celsius, cfu, coded, flow } from "./seed";
+
+export interface Snapshot {
+  observations: StoredObservation[];
+  signals: StoredSignal[];
 }
 
-const DAY = 86_400_000;
+export interface CardMeta {
+  siteId: string;
+  district: string;
+  hazard: HazardId;
+  syndrome?: ClinicalSignal["syndrome"];
+}
 
-function mulberry32(seed: number) {
-  return () => {
-    seed |= 0;
-    seed = (seed + 0x6d2b79f5) | 0;
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+interface Backend {
+  kind: "postgres" | "memory";
+  load(): Promise<Snapshot>;
+  insertObservations(rows: StoredObservation[]): Promise<void>;
+  insertSignal(row: StoredSignal): Promise<void>;
+  setStatus(id: string, status: StreamObservation["status"]): Promise<boolean>;
+  putCard(uuid: string, meta: CardMeta): Promise<void>;
+  takeCard(uuid: string): Promise<CardMeta | undefined>;
+}
+
+const today = () => new Date().toISOString().slice(0, 10);
+
+// ------------------------------------------------------------------ memory
+
+function memoryBackend(): Backend {
+  let seededFor = "";
+  let snap: Snapshot = { observations: [], signals: [] };
+  const cards = new Map<string, CardMeta>();
+  const ensure = () => {
+    if (seededFor === today()) return;
+    const seed = generateSeed();
+    snap = {
+      observations: [...seed.observations, ...snap.observations.filter((o) => o.origin === "user")],
+      signals: [...seed.signals, ...snap.signals.filter((s) => s.origin === "user")],
+    };
+    seededFor = today();
+  };
+  return {
+    kind: "memory",
+    async load() {
+      ensure();
+      return snap;
+    },
+    async insertObservations(rows) {
+      ensure();
+      snap.observations.push(...rows);
+    },
+    async insertSignal(row) {
+      ensure();
+      snap.signals.push(row);
+    },
+    async setStatus(id, status) {
+      const o = snap.observations.find((x) => x.id === id);
+      if (o) o.status = status;
+      return !!o;
+    },
+    async putCard(uuid, meta) {
+      cards.set(uuid, meta);
+    },
+    async takeCard(uuid) {
+      const m = cards.get(uuid);
+      cards.delete(uuid);
+      return m;
+    },
   };
 }
 
-export function coded(code: string): ObservationValue {
-  return { kind: "coded", system: OAH_CS, code, display: OAH_DISPLAY[code] ?? code };
-}
-export function flow(state: FlowState): ObservationValue {
-  return { kind: "coded", system: TRIB_CS.flowState, code: state, display: FLOW_DISPLAY[state] };
-}
-export function celsius(v: number): ObservationValue {
-  return { kind: "quantity", value: Math.round(v * 10) / 10, unit: "°C", ucum: "Cel" };
-}
-export function cfu(v: number): ObservationValue {
-  return { kind: "quantity", value: v, unit: "CFU/100 mL", ucum: "{CFU}/100.mL" };
-}
+// ---------------------------------------------------------------- postgres
 
-interface SiteProfile {
-  /** probability that a citizen check reports foam/smell present */
-  sewage: number;
-  diptera: number;
-  algaeBand: number; // 0..4 index into cover bands
-  flow: FlowState[];
-  waterTempBase: number;
-  coliformRecent?: number;
-}
+const SCHEMA = [
+  `create table if not exists observations (
+     id text primary key, site_id text not null, effective timestamptz not null, code text not null,
+     value jsonb not null, performer jsonb not null, status text not null, note text,
+     origin text not null default 'user', created_at timestamptz not null default now())`,
+  `create index if not exists observations_site on observations (site_id, effective desc)`,
+  `create table if not exists signals (
+     id text primary key, site_id text not null, district text not null, date date not null,
+     syndrome text not null, source text not null, origin text not null default 'user',
+     created_at timestamptz not null default now())`,
+  `create table if not exists cds_cards (uuid text primary key, meta jsonb not null, created_at timestamptz not null default now())`,
+  `create table if not exists kv (key text primary key, value text not null)`,
+  `insert into kv (key, value) values ('seed_date', '') on conflict do nothing`,
+];
 
-const PROFILES: Record<string, SiteProfile> = {
-  "giofyros-1": { sewage: 0.55, diptera: 0.35, algaeBand: 1, flow: ["low", "low", "normal"], waterTempBase: 21, coliformRecent: 1480 },
-  "giofyros-2": { sewage: 0.2, diptera: 0.5, algaeBand: 2, flow: ["stagnant", "low", "low"], waterTempBase: 22 },
-  "almyros-1": { sewage: 0.1, diptera: 0.45, algaeBand: 1, flow: ["normal", "low"], waterTempBase: 20 },
-  "sabato-bn": { sewage: 0.3, diptera: 0.4, algaeBand: 3, flow: ["low", "stagnant", "low"], waterTempBase: 19, coliformRecent: 720 },
-  "akerselva-oslo": { sewage: 0.12, diptera: 0.05, algaeBand: 0, flow: ["normal", "high", "normal"], waterTempBase: 10, coliformRecent: 310 },
-  "coselhas-coimbra": { sewage: 0.35, diptera: 0.15, algaeBand: 2, flow: ["low", "normal"], waterTempBase: 17 },
+type ObsRow = {
+  id: string;
+  site_id: string;
+  effective: string | Date;
+  code: StreamObservation["code"];
+  value: StreamObservation["value"];
+  performer: StreamObservation["performer"];
+  status: StreamObservation["status"];
+  note: string | null;
+  origin: "seed" | "user";
+};
+type SigRow = {
+  id: string;
+  site_id: string;
+  district: string;
+  date: string | Date;
+  syndrome: ClinicalSignal["syndrome"];
+  source: ClinicalSignal["source"];
+  origin: "seed" | "user";
 };
 
-const ALGAE = ["0-20-percent", "21-40-percent", "41-60-percent", "61-80-percent", "81-100-percent"];
-const VOLUNTEERS = ["V-7Q2", "V-K3M", "V-R8D", "V-2XA", "V-P5N", "V-H9C", "V-W4T", "V-B6L"];
+const iso = (d: string | Date) => (d instanceof Date ? d.toISOString() : new Date(d).toISOString());
+const day = (d: string | Date) => (d instanceof Date ? d.toISOString().slice(0, 10) : String(d).slice(0, 10));
 
-function seed(now = Date.now()): Store {
-  const rand = mulberry32(20260928);
-  const observations: StreamObservation[] = [];
-  let n = 0;
-  const today = new Date(now);
-  today.setUTCHours(10, 0, 0, 0);
+const obsJson = (rows: StoredObservation[]) =>
+  JSON.stringify(
+    rows.map((o) => ({
+      id: o.id,
+      site_id: o.siteId,
+      effective: o.effective,
+      code: o.code,
+      value: o.value,
+      performer: o.performer,
+      status: o.status,
+      note: o.note ?? null,
+      origin: o.origin,
+    })),
+  );
+const sigJson = (rows: StoredSignal[]) => JSON.stringify(rows.map((s) => ({ ...s, site_id: s.siteId })));
 
-  for (const site of SITES) {
-    const p = PROFILES[site.id];
-    // one citizen check every ~4-6 days over the past 60 days
-    for (let daysAgo = 58; daysAgo >= 1; daysAgo -= 4 + Math.floor(rand() * 3)) {
-      const when = new Date(today.getTime() - daysAgo * DAY + Math.floor(rand() * 6) * 3_600_000).toISOString();
-      const vol = VOLUNTEERS[Math.floor(rand() * VOLUNTEERS.length)];
-      const performer = { kind: "citizen" as const, id: vol, display: `Volunteer ${vol}` };
-      const status = daysAgo > 10 ? ("final" as const) : ("preliminary" as const);
-      const push = (code: StreamObservation["code"], value: ObservationValue, note?: string) =>
-        observations.push({ id: `obs-${++n}`, siteId: site.id, effective: when, code, value, performer, status, note });
+const INSERT_OBS = `insert into observations (id, site_id, effective, code, value, performer, status, note, origin)
+  select id, site_id, effective, code, value, performer, status, note, origin
+  from json_to_recordset($1::json) as x(id text, site_id text, effective timestamptz, code text, value jsonb,
+    performer jsonb, status text, note text, origin text)
+  on conflict (id) do nothing`;
 
-      // recent checks lean towards the site's "story" so the demo has signal
-      const recency = daysAgo < 15 ? 1.25 : 0.8;
-      const smell = rand() < p.sewage * recency;
-      push("foam", coded(smell ? (rand() < 0.35 ? "extensive" : "present") : "absent"),
-        smell ? "Grey foam and sewage smell below the outfall" : undefined);
-      push("diptera", coded(rand() < p.diptera * recency ? "present" : "absent"));
-      push("hydrology", flow(p.flow[Math.floor(rand() * p.flow.length)]));
-      push("filamentous-algae", coded(ALGAE[Math.min(4, Math.max(0, p.algaeBand + Math.round((rand() - 0.5) * 1.6)))]));
-      push("waterTemperature", celsius(p.waterTempBase + (rand() - 0.5) * 3));
+const INSERT_SIG = `insert into signals (id, site_id, district, date, syndrome, source, origin)
+  select id, site_id, district, date, syndrome, source, origin
+  from json_to_recordset($1::json) as x(id text, site_id text, district text, date date, syndrome text, source text, origin text)
+  on conflict (id) do nothing`;
+
+function postgresBackend(url: string): Backend {
+  const sql: NeonQueryFunction<false, false> = neon(url);
+  let ready: Promise<void> | undefined;
+  let checkedSeedFor = "";
+
+  const init = () =>
+    (ready ??= (async () => {
+      for (const s of SCHEMA) await sql.query(s);
+    })().catch((e) => {
+      ready = undefined;
+      throw e;
+    }));
+
+  /** Refresh demo rows once per day. The conditional UPDATE lets exactly one instance win. */
+  async function reseedIfStale() {
+    const t = today();
+    if (checkedSeedFor === t) return;
+    const claimed = await sql.query(`update kv set value = $1 where key = 'seed_date' and value <> $1 returning 1`, [t]);
+    if (claimed.length) {
+      const seed = generateSeed();
+      await sql.transaction([
+        sql.query(`delete from observations where origin = 'seed'`),
+        sql.query(`delete from signals where origin = 'seed'`),
+        sql.query(INSERT_OBS, [obsJson(seed.observations)]),
+        sql.query(INSERT_SIG, [sigJson(seed.signals)]),
+      ]);
     }
-    if (p.coliformRecent) {
-      observations.push({
-        id: `obs-${++n}`,
-        siteId: site.id,
-        effective: new Date(today.getTime() - 9 * DAY).toISOString(),
-        code: "coliforms",
-        value: cfu(p.coliformRecent),
-        performer: { kind: "lab", id: "lab-oah", display: "OneAquaHealth partner laboratory" },
-        status: "final",
-        note: "E. coli, membrane filtration (ISO 9308-1)",
-      });
-    }
+    checkedSeedFor = t;
   }
 
-  const signals: ClinicalSignal[] = [];
-  // background syndromic signal: a couple of GI presentations near Giofyros A
-  for (const d of [6, 3]) {
-    signals.push({
-      id: `sig-seed-${d}`,
-      siteId: "giofyros-1",
-      district: "Heraklion West",
-      date: new Date(today.getTime() - d * DAY).toISOString().slice(0, 10),
-      syndrome: "gastrointestinal",
-      source: "seed",
-    });
+  return {
+    kind: "postgres",
+    async load() {
+      await init();
+      await reseedIfStale();
+      const [obs, sig] = (await Promise.all([
+        sql.query(`select id, site_id, effective, code, value, performer, status, note, origin from observations`),
+        sql.query(`select id, site_id, district, date, syndrome, source, origin from signals`),
+      ])) as [ObsRow[], SigRow[]];
+      return {
+        observations: obs.map((r) => ({
+          id: r.id,
+          siteId: r.site_id,
+          effective: iso(r.effective),
+          code: r.code,
+          value: r.value,
+          performer: r.performer,
+          status: r.status,
+          note: r.note ?? undefined,
+          origin: r.origin,
+        })),
+        signals: sig.map((r) => ({
+          id: r.id,
+          siteId: r.site_id,
+          district: r.district,
+          date: day(r.date),
+          syndrome: r.syndrome,
+          source: r.source,
+          origin: r.origin,
+        })),
+      };
+    },
+    async insertObservations(rows) {
+      await init();
+      await sql.query(INSERT_OBS, [obsJson(rows)]);
+    },
+    async insertSignal(row) {
+      await init();
+      await sql.query(INSERT_SIG, [sigJson([row])]);
+    },
+    async setStatus(id, status) {
+      await init();
+      const r = await sql.query(`update observations set status = $2 where id = $1 returning 1`, [id, status]);
+      return r.length > 0;
+    },
+    async putCard(uuid, meta) {
+      await init();
+      await sql.query(`insert into cds_cards (uuid, meta) values ($1, $2::jsonb) on conflict do nothing`, [uuid, JSON.stringify(meta)]);
+      // cards only matter for feedback within a few days; prune occasionally
+      if (Math.random() < 0.05) await sql.query(`delete from cds_cards where created_at < now() - interval '7 days'`);
+    },
+    async takeCard(uuid) {
+      await init();
+      const r = (await sql.query(`delete from cds_cards where uuid = $1 returning meta`, [uuid])) as { meta: CardMeta }[];
+      return r[0]?.meta;
+    },
+  };
+}
+
+// ------------------------------------------------------------------ facade
+
+const g = globalThis as unknown as { __srBackend?: Backend; __srCache?: { at: number; snap: Promise<Snapshot> } };
+
+function backend(): Backend {
+  if (!g.__srBackend) {
+    const url = process.env.DATABASE_URL ?? process.env.POSTGRES_URL;
+    g.__srBackend = url ? postgresBackend(url) : memoryBackend();
   }
-  return { observations, signals, version: 1 };
+  return g.__srBackend;
 }
 
-const g = globalThis as unknown as { __streamreachStore?: Store };
-
-export function store(): Store {
-  if (!g.__streamreachStore) g.__streamreachStore = seed();
-  return g.__streamreachStore;
+export function storeKind() {
+  return backend().kind;
 }
 
+const TTL = 5_000;
+
+/** Current data, cached briefly per instance and invalidated on every write. */
+export function snapshot(): Promise<Snapshot> {
+  const c = g.__srCache;
+  if (c && Date.now() - c.at < TTL) return c.snap;
+  const snap = backend().load();
+  g.__srCache = { at: Date.now(), snap };
+  snap.catch(() => (g.__srCache = undefined));
+  return snap;
+}
+
+function invalidate() {
+  g.__srCache = undefined;
+}
+
+/** Tests only: fresh in-memory store. */
 export function resetStore() {
-  g.__streamreachStore = seed();
+  g.__srBackend = memoryBackend();
+  invalidate();
 }
 
-export function observationsFor(siteId: string): StreamObservation[] {
-  return store()
-    .observations.filter((o) => o.siteId === siteId)
-    .sort((a, b) => b.effective.localeCompare(a.effective));
+export async function observationsFor(siteId: string): Promise<StoredObservation[]> {
+  const s = await snapshot();
+  return s.observations.filter((o) => o.siteId === siteId).sort((a, b) => b.effective.localeCompare(a.effective));
 }
 
-export function addObservations(obs: Omit<StreamObservation, "id">[]): StreamObservation[] {
-  const s = store();
-  const created = obs.map((o) => ({ ...o, id: `obs-${crypto.randomUUID().slice(0, 8)}` }));
-  s.observations.push(...created);
-  s.version++;
+export async function signalsFor(siteId: string): Promise<StoredSignal[]> {
+  const s = await snapshot();
+  return s.signals.filter((x) => x.siteId === siteId);
+}
+
+export async function addObservations(obs: Omit<StreamObservation, "id">[]): Promise<StoredObservation[]> {
+  const created = obs.map((o) => ({ ...o, id: `obs-${crypto.randomUUID().slice(0, 8)}`, origin: "user" as const }));
+  await backend().insertObservations(created);
+  invalidate();
   return created;
 }
 
-export function addSignal(sig: Omit<ClinicalSignal, "id">): ClinicalSignal {
-  const s = store();
-  const created = { ...sig, id: `sig-${crypto.randomUUID().slice(0, 8)}` };
-  s.signals.push(created);
-  s.version++;
+export async function addSignal(sig: Omit<ClinicalSignal, "id">): Promise<StoredSignal> {
+  const created = { ...sig, id: `sig-${crypto.randomUUID().slice(0, 8)}`, origin: "user" as const };
+  await backend().insertSignal(created);
+  invalidate();
   return created;
 }
 
-export function signalsFor(siteId: string): ClinicalSignal[] {
-  return store().signals.filter((x) => x.siteId === siteId);
+/** Coordinator review: verify (final) or send back to pending (preliminary). */
+export async function setObservationStatus(ids: string[], status: StreamObservation["status"]) {
+  let n = 0;
+  for (const id of ids) if (await backend().setStatus(id, status)) n++;
+  invalidate();
+  return n;
 }
+
+export const putCard = (uuid: string, meta: CardMeta) => backend().putCard(uuid, meta);
+export const takeCard = (uuid: string) => backend().takeCard(uuid);
 
 /** Distinct citizen checks and clinic signals in the last 14 days. */
-export function recentStats(now = Date.now()) {
-  const s = store();
+export async function recentStats(now = Date.now()) {
+  const s = await snapshot();
   const since = now - 14 * 86_400_000;
   const checks = new Set(
     s.observations
