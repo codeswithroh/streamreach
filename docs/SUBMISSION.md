@@ -51,7 +51,12 @@ already use.
   plus our own FSH IG: a StreamExposureRisk profile, risk-factor, assessed-location and confidence extensions, and the
   flow-state and stream-hazard code systems.
 - **Validation:** `scripts/validate.sh` runs the official HL7 validator against both IGs. Result: 0 errors.
-- **Tests:** 13 Vitest tests covering the risk engine, FHIR facade and CDS Hooks service (including the feedback loop).
+- **Persistence:** Neon Postgres (Frankfurt) via the Vercel Marketplace, with functions pinned to the same region. The
+  store holds a 120-day demo dataset across 10 reaches; anything visitors add persists.
+- **Data explorer:** every check, lab result, clinic signal and volunteer, plus a coordinator verification queue
+  (human in the loop).
+- **Tests:** 13 Vitest unit tests, and 59 Playwright end-to-end tests with an axe WCAG 2 AA scan. The E2E suite
+  passes against the live deployment.
 
 ## Challenges
 - The OAH IG isn't published as a package yet, so we built it from the hl7-eu/oah FSH sources to validate against it.
