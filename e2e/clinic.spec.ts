@@ -4,7 +4,7 @@ import { watchErrors } from "./helpers";
 test.describe("clinic view (demo EHR + CDS Hooks)", () => {
   test("Eleni: warning card, draft order, anonymous share feeds the stream", async ({ page }) => {
     const w = watchErrors(page);
-    await page.goto("/clinic");
+    await page.goto("/app/clinic");
     await expect(page.getByText("Eleni Markaki").first()).toBeVisible();
     const card = page.locator("article").first();
     await expect(card).toBeVisible();
@@ -31,14 +31,14 @@ test.describe("clinic view (demo EHR + CDS Hooks)", () => {
     await expect(page.getByRole("status")).toContainText("Anonymous case shared");
     await expect(card.getByRole("button", { name: /✓ Share anonymous/ })).toBeDisabled();
 
-    await page.goto("/data?tab=clinic&site=giofyros-1");
+    await page.goto("/app/data?tab=clinic&site=giofyros-1");
     await expect(page.getByText("CDS Hooks feedback (live)").first()).toBeVisible();
     w.assertClean();
   });
 
   test("every demo patient gets a CDS response, and dismissing sends feedback", async ({ page }) => {
     const w = watchErrors(page);
-    await page.goto("/clinic");
+    await page.goto("/app/clinic");
     for (const name of ["Marco Esposito", "Nikos Papadakis", "Ingrid Solberg", "Eleni Markaki"]) {
       const resp = page.waitForResponse((r) => r.url().includes("/cds-services/") && r.request().method() === "POST");
       await page.getByRole("button", { name: new RegExp(name) }).click();
@@ -63,11 +63,11 @@ test.describe("clinic view (demo EHR + CDS Hooks)", () => {
   });
 
   test("card source link opens the stream record", async ({ page, context }) => {
-    await page.goto("/clinic");
+    await page.goto("/app/clinic");
     const link = page.locator("article").first().getByRole("link", { name: /Open stream health record/ });
     const [popup] = await Promise.all([context.waitForEvent("page"), link.click()]);
     await popup.waitForLoadState();
-    await expect(popup).toHaveURL(/\/sites\/giofyros-1/);
+    await expect(popup).toHaveURL(/\/app\/streams\/giofyros-1/);
     await expect(popup.locator("article")).toHaveCount(3);
   });
 
@@ -76,7 +76,7 @@ test.describe("clinic view (demo EHR + CDS Hooks)", () => {
     await page.route("**/cds-services/streamreach-stream-exposure", (route) =>
       fail ? route.fulfill({ status: 503, body: "" }) : route.continue(),
     );
-    await page.goto("/clinic");
+    await page.goto("/app/clinic");
     const alert = page.getByRole("alert").filter({ hasText: "CDS service" });
     await expect(alert).toContainText("HTTP 503");
     fail = false;

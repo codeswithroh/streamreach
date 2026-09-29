@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test.describe("stream record", () => {
   test("hazards explain themselves and link to FHIR", async ({ page, request }) => {
-    await page.goto("/sites/giofyros-1");
+    await page.goto("/app/streams/giofyros-1");
     for (const h of ["Waterborne pathogens", "Toxic algal bloom", "Mosquito-borne disease"]) {
       await expect(page.getByRole("heading", { name: h })).toBeVisible();
     }
@@ -26,9 +26,9 @@ test.describe("stream record", () => {
   });
 
   test("'Add a stream check' preselects the reach", async ({ page }) => {
-    await page.goto("/sites/sabato-bn");
-    await page.getByRole("link", { name: "Add a stream check" }).click();
-    await expect(page).toHaveURL(/\/check\?site=sabato-bn/);
+    await page.goto("/app/streams/sabato-bn");
+    await page.getByRole("link", { name: /Add a stream check/ }).click();
+    await expect(page).toHaveURL(/\/app\/check\?site=sabato-bn/);
     await expect(page.locator("select")).toHaveValue("sabato-bn");
   });
 });

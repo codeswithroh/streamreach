@@ -1,4 +1,5 @@
 import { agentMode, AGENT_MODEL, runAgent, type AgentEvent } from "@/lib/agent/run";
+import { requireUser } from "@/lib/auth";
 import { json } from "@/lib/http";
 import { getSite } from "@/lib/sites";
 import { countAgentRun, listPlans, savePlan } from "@/lib/store";
@@ -17,6 +18,8 @@ export type StreamEvent = AgentEvent | { type: "saved"; planId: string; reused: 
 
 /** Runs the duty-officer agent and streams its progress as server-sent events. */
 export async function POST(req: Request) {
+  const auth = await requireUser(["officer"]);
+  if ("response" in auth) return auth.response;
   const body = await req.json().catch(() => null);
   const siteId = typeof body?.siteId === "string" ? body.siteId : "";
   const fresh = body?.fresh === true;

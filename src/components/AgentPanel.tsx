@@ -44,7 +44,7 @@ const PRIORITY: Record<string, string> = {
   urgent: "lvl-very-high",
 };
 
-export function AgentPanel({ siteId, mode }: { siteId: string; mode: "live" | "mock" | "off" }) {
+export function AgentPanel({ siteId, mode, officerName }: { siteId: string; mode: "live" | "mock" | "off" | "forbidden"; officerName: string }) {
   const router = useRouter();
   const [running, setRunning] = useState(false);
   const [trace, setTrace] = useState<TraceItem[]>([]);
@@ -53,7 +53,6 @@ export function AgentPanel({ siteId, mode }: { siteId: string; mode: "live" | "m
   const [meta, setMeta] = useState<{ model?: string; reused?: boolean; createdAt?: string }>({});
   const [error, setError] = useState<string>();
   const [lang, setLang] = useState<"local" | "en">("local");
-  const [officer, setOfficer] = useState("");
   const [decision, setDecision] = useState<"approved" | "discarded">();
   const [busy, setBusy] = useState(false);
   const abort = useRef<AbortController | null>(null);
@@ -132,7 +131,7 @@ export function AgentPanel({ siteId, mode }: { siteId: string; mode: "live" | "m
     const res = await fetch(`/api/agent/plans/${planId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ decision: d, officer: officer.trim() || "Duty officer" }),
+      body: JSON.stringify({ decision: d }),
     });
     setBusy(false);
     if (res.ok) {
@@ -161,14 +160,14 @@ export function AgentPanel({ siteId, mode }: { siteId: string; mode: "live" | "m
           {!started && (
             <button
               onClick={() => draft(false)}
-              disabled={mode === "off"}
-              className="rounded-lg bg-river text-white text-sm px-4 py-2 hover:bg-river-deep disabled:opacity-40"
+              disabled={mode === "off" || mode === "forbidden"}
+              className="btn-accent text-sm px-4 py-2 disabled:opacity-40"
             >
               Draft response plan
             </button>
           )}
           {started && !running && (
-            <button onClick={() => draft(true)} disabled={mode === "off"} className="rounded-lg border border-line text-sm px-3 py-2 hover:border-ink-3 disabled:opacity-40">
+            <button onClick={() => draft(true)} disabled={mode === "off" || mode === "forbidden"} className="rounded-lg border border-line text-sm px-3 py-2 hover:border-ink-3 disabled:opacity-40">
               Draft a new plan
             </button>
           )}
@@ -180,6 +179,9 @@ export function AgentPanel({ siteId, mode }: { siteId: string; mode: "live" | "m
         </div>
       </div>
       {mode === "off" && <p className="text-sm text-ink-3 mt-3">The AI agent isn&apos;t configured on this deployment.</p>}
+      {mode === "forbidden" && (
+        <p className="text-sm text-ink-3 mt-3">Response plans are drafted and approved by public-health officers. Sign in as an officer to use the agent.</p>
+      )}
 
       {started && (
         <div className="grid lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)] gap-6 mt-5">
@@ -299,20 +301,14 @@ export function AgentPanel({ siteId, mode }: { siteId: string; mode: "live" | "m
 
                 {planId && !decision && (
                   <div className="mt-5 pt-4 border-t border-line flex flex-col sm:flex-row sm:items-center gap-2">
-                    <label className="text-xs text-ink-2 flex items-center gap-2">
-                      Your name
-                      <input
-                        value={officer}
-                        onChange={(e) => setOfficer(e.target.value)}
-                        placeholder="Duty officer"
-                        className="rounded-md border border-line bg-white px-2 py-1.5 text-sm w-40"
-                      />
-                    </label>
+                    <p className="text-xs text-ink-2">
+                      You are approving as <b>{officerName}</b>. Your name is recorded on the published record.
+                    </p>
                     <div className="flex gap-2 sm:ml-auto">
                       <button disabled={busy} onClick={() => decide("discard")} className="rounded-lg border border-line text-sm px-3 py-2 hover:border-ink-3 disabled:opacity-40">
                         Discard
                       </button>
-                      <button disabled={busy} onClick={() => decide("approve")} className="rounded-lg bg-river text-white text-sm px-4 py-2 hover:bg-river-deep disabled:opacity-40">
+                      <button disabled={busy} onClick={() => decide("approve")} className="btn-accent text-sm px-4 py-2 disabled:opacity-40">
                         Approve &amp; publish
                       </button>
                     </div>

@@ -39,6 +39,17 @@ export interface StoredPlan {
   decidedBy?: string;
 }
 
+export type Role = "citizen" | "officer" | "clinician";
+
+export interface UserRecord {
+  id: string;
+  email: string;
+  name: string;
+  role: Role;
+  passwordHash: string;
+  createdAt: string;
+}
+
 interface Backend {
   kind: "postgres" | "memory";
   /** Changes whenever any instance writes; lets every instance keep a cache that is never stale. */
@@ -56,6 +67,11 @@ interface Backend {
   decidePlan(id: string, status: "approved" | "discarded", by: string): Promise<StoredPlan | undefined>;
   /** increments and returns today's agent-run counter */
   countAgentRun(day: string): Promise<number>;
+  createUser(u: UserRecord): Promise<boolean>;
+  findUserByEmail(email: string): Promise<UserRecord | undefined>;
+  createSession(tokenHash: string, userId: string, expiresAt: string): Promise<void>;
+  sessionUser(tokenHash: string): Promise<UserRecord | undefined>;
+  deleteSession(tokenHash: string): Promise<void>;
 }
 
 const today = () => new Date().toISOString().slice(0, 10);
@@ -68,6 +84,8 @@ function memoryBackend(): Backend {
   const cards = new Map<string, CardMeta>();
   const plans = new Map<string, StoredPlan>();
   const runs = new Map<string, number>();
+  const users = new Map<string, UserRecord>();
+  const sessions = new Map<string, { userId: string; expiresAt: string }>();
   let ver = 0;
   const ensure = () => {
     if (seededFor === today()) return;
@@ -138,6 +156,27 @@ function memoryBackend(): Backend {
       runs.set(day, n);
       return n;
     },
+    async createUser(u) {
+      if ([...users.values()].some((x) => x.email === u.email)) return false;
+      users.set(u.id, { ...u });
+      return true;
+    },
+    async findUserByEmail(email) {
+      const u = [...users.values()].find((x) => x.email === email);
+      return u && { ...u };
+    },
+    async createSession(tokenHash, userId, expiresAt) {
+      sessions.set(tokenHash, { userId, expiresAt });
+    },
+    async sessionUser(tokenHash) {
+      const sess = sessions.get(tokenHash);
+      if (!sess || sess.expiresAt < new Date().toISOString()) return undefined;
+      const u = users.get(sess.userId);
+      return u && { ...u };
+    },
+    async deleteSession(tokenHash) {
+      sessions.delete(tokenHash);
+    },
   };
 }
 
@@ -161,7 +200,23 @@ const SCHEMA = [
      id text primary key, site_id text not null, status text not null, plan jsonb not null, trace jsonb not null,
      model text not null, created_at timestamptz not null default now(), decided_at timestamptz, decided_by text)`,
   `create index if not exists agent_plans_site on agent_plans (site_id, created_at desc)`,
+  `create table if not exists users (
+     id text primary key, email text not null unique, name text not null, role text not null,
+     password_hash text not null, created_at timestamptz not null default now())`,
+  `create table if not exists sessions (
+     token_hash text primary key, user_id text not null references users(id) on delete cascade,
+     expires_at timestamptz not null, created_at timestamptz not null default now())`,
 ];
+
+type UserRow = { id: string; email: string; name: string; role: Role; password_hash: string; created_at: string | Date };
+const userFromRow = (r: UserRow): UserRecord => ({
+  id: r.id,
+  email: r.email,
+  name: r.name,
+  role: r.role,
+  passwordHash: r.password_hash,
+  createdAt: new Date(r.created_at).toISOString(),
+});
 
 type PlanRow = {
   id: string;
@@ -370,6 +425,36 @@ function postgresBackend(url: string): Backend {
       )) as { value: string }[];
       return Number(r[0].value);
     },
+    async createUser(u) {
+      await init();
+      const r = await sql.query(
+        `insert into users (id, email, name, role, password_hash, created_at) values ($1, $2, $3, $4, $5, $6) on conflict (email) do nothing returning id`,
+        [u.id, u.email, u.name, u.role, u.passwordHash, u.createdAt],
+      );
+      return r.length > 0;
+    },
+    async findUserByEmail(email) {
+      await init();
+      const r = (await sql.query(`select * from users where email = $1`, [email])) as UserRow[];
+      return r[0] && userFromRow(r[0]);
+    },
+    async createSession(tokenHash, userId, expiresAt) {
+      await init();
+      await sql.query(`insert into sessions (token_hash, user_id, expires_at) values ($1, $2, $3)`, [tokenHash, userId, expiresAt]);
+      if (Math.random() < 0.05) await sql.query(`delete from sessions where expires_at < now()`);
+    },
+    async sessionUser(tokenHash) {
+      await init();
+      const r = (await sql.query(
+        `select u.* from sessions s join users u on u.id = s.user_id where s.token_hash = $1 and s.expires_at > now()`,
+        [tokenHash],
+      )) as UserRow[];
+      return r[0] && userFromRow(r[0]);
+    },
+    async deleteSession(tokenHash) {
+      await init();
+      await sql.query(`delete from sessions where token_hash = $1`, [tokenHash]);
+    },
   };
 }
 
@@ -478,3 +563,9 @@ export const getPlan = (id: string) => backend().getPlan(id);
 export const listPlans = (siteId?: string) => backend().listPlans(siteId);
 export const decidePlan = (id: string, status: "approved" | "discarded", by: string) => backend().decidePlan(id, status, by);
 export const countAgentRun = (day = new Date().toISOString().slice(0, 10)) => backend().countAgentRun(day);
+
+export const createUser = (u: UserRecord) => backend().createUser(u);
+export const findUserByEmail = (email: string) => backend().findUserByEmail(email);
+export const createSessionRecord = (tokenHash: string, userId: string, expiresAt: string) => backend().createSession(tokenHash, userId, expiresAt);
+export const sessionUser = (tokenHash: string) => backend().sessionUser(tokenHash);
+export const deleteSessionRecord = (tokenHash: string) => backend().deleteSession(tokenHash);

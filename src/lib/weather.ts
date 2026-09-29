@@ -13,6 +13,17 @@ export interface WeatherDay {
   forecast: boolean;
 }
 
+export interface CurrentWeather {
+  time: string;
+  tempC: number;
+  humidity: number;
+  windKmh: number;
+  cloudCover: number;
+  precipMm: number;
+  /** WMO weather interpretation code */
+  code: number;
+}
+
 export interface WeatherSeries {
   siteId: string;
   source: "open-meteo" | "fallback-climatology";
@@ -20,6 +31,7 @@ export interface WeatherSeries {
   days: WeatherDay[];
   /** index of "today" in days */
   todayIndex: number;
+  current?: CurrentWeather;
 }
 
 /** What-if levers for resilience planning. */
@@ -42,6 +54,7 @@ export async function getWeather(site: Site): Promise<WeatherSeries> {
   const url =
     `https://api.open-meteo.com/v1/forecast?latitude=${site.lat}&longitude=${site.lon}` +
     `&daily=precipitation_sum,temperature_2m_max,temperature_2m_mean,sunshine_duration` +
+    `&current=temperature_2m,relative_humidity_2m,wind_speed_10m,cloud_cover,precipitation,weather_code` +
     `&past_days=14&forecast_days=7&timezone=auto`;
   let data: WeatherSeries;
   try {
@@ -50,7 +63,19 @@ export async function getWeather(site: Site): Promise<WeatherSeries> {
     const j = await res.json();
     const d = j.daily;
     const todayIndex = 14;
+    const c = j.current;
     data = {
+      current: c
+        ? {
+            time: c.time,
+            tempC: c.temperature_2m,
+            humidity: c.relative_humidity_2m,
+            windKmh: c.wind_speed_10m,
+            cloudCover: c.cloud_cover,
+            precipMm: c.precipitation,
+            code: c.weather_code,
+          }
+        : undefined,
       siteId: site.id,
       source: "open-meteo",
       fetchedAt: new Date().toISOString(),
@@ -120,4 +145,18 @@ export function parseScenario(sp: URLSearchParams | Record<string, string | stri
     rainMm: clamp(Number(get("rain")) || 0, 0, 120),
     heatC: clamp(Number(get("heat")) || 0, -5, 10),
   };
+}
+
+/** Short description for a WMO weather code. */
+export function describeWeather(code: number): string {
+  if (code === 0) return "Clear sky";
+  if (code <= 2) return "Partly cloudy";
+  if (code === 3) return "Overcast";
+  if (code <= 48) return "Fog";
+  if (code <= 57) return "Drizzle";
+  if (code <= 67) return "Rain";
+  if (code <= 77) return "Snow";
+  if (code <= 82) return "Rain showers";
+  if (code <= 86) return "Snow showers";
+  return "Thunderstorm";
 }

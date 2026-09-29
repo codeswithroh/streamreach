@@ -4,6 +4,8 @@ import { FactorBars, HazardIcon, LevelChip, Timeline } from "@/components/risk-u
 import { riskAssessmentResource } from "@/lib/fhir/resources";
 import { LEVEL_LABEL } from "@/lib/risk/engine";
 import { siteBundleById } from "@/lib/risk/service";
+import { PageHeader } from "@/components/shell/PageHeader";
+import { getCurrentUser } from "@/lib/auth";
 import { listPlans, observationsFor } from "@/lib/store";
 import { AgentPanel } from "@/components/AgentPanel";
 import { agentMode } from "@/lib/agent/run";
@@ -13,7 +15,7 @@ import { parseScenario } from "@/lib/weather";
 
 export const dynamic = "force-dynamic";
 
-export default async function SitePage({ params, searchParams }: PageProps<"/sites/[id]">) {
+export default async function SitePage({ params, searchParams }: PageProps<"/app/streams/[id]">) {
   const { id } = await params;
   const sp = await searchParams;
   const scenario = parseScenario(sp);
@@ -21,6 +23,7 @@ export default async function SitePage({ params, searchParams }: PageProps<"/sit
   if (!sb) notFound();
   const { site, weather, risk } = sb;
   const obs = await observationsFor(site.id);
+  const user = (await getCurrentUser())!;
   const advisories = (await listPlans(site.id)).filter((p) => p.status === "approved").slice(0, 3);
   const checks = groupChecks(obs).slice(0, 8);
   const window = weather.days.slice(Math.max(0, weather.todayIndex - 7));
@@ -30,34 +33,41 @@ export default async function SitePage({ params, searchParams }: PageProps<"/sit
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
-      <Link href={`/${scenarioOn ? `?rain=${scenario.rainMm}&heat=${scenario.heatC}` : ""}`} className="text-sm text-ink-3 hover:text-ink">
-        ← Situation room
+      <Link href={`/app?reach=${site.id}${scenarioOn ? `&rain=${scenario.rainMm}&heat=${scenario.heatC}` : ""}`} className="text-sm text-ink-3 hover:text-ink">
+        ← Monitoring
       </Link>
 
-      <header className="mt-3 flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-          <p className="eyebrow">Stream health record · FHIR Location/{site.id}</p>
-          <h1 className="font-display text-4xl mt-1">{site.name}</h1>
-          <p className="text-ink-2 mt-1">
-            {site.river} · {site.district}, {site.city}, {site.country} ·{" "}
-            <span className="text-ink-3">{site.source === "oah-ig" ? "coordinates from the OneAquaHealth IG" : "demo reach"}</span>
-          </p>
-          <p className="text-sm text-ink-3 mt-1">
-            Used for {site.uses}. ~{site.vulnerability.residentsWithin1km.toLocaleString("en")} residents within 1 km.
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <LevelChip level={risk.overall}>Overall {LEVEL_LABEL[risk.overall].toLowerCase()}</LevelChip>
-          <Link href={`/check?site=${site.id}`} className="rounded-lg bg-river text-white text-sm px-4 py-2 hover:bg-river-deep">
-            Add a stream check
-          </Link>
-        </div>
-      </header>
+      <div className="mt-3">
+        <PageHeader
+          eyebrow={`Stream health record · FHIR Location/${site.id}`}
+          title={site.name}
+          subtitle={
+            <>
+              <p>
+                {site.river} · {site.district}, {site.city}, {site.country} ·{" "}
+                <span className="text-ink-3">{site.source === "oah-ig" ? "coordinates from the OneAquaHealth IG" : "demo reach"}</span>
+              </p>
+              <p className="text-sm text-ink-3 mt-1">
+                Used for {site.uses}. ~{site.vulnerability.residentsWithin1km.toLocaleString("en")} residents within 1 km.
+              </p>
+              <div className="flex flex-wrap items-center gap-3 mt-3">
+                <LevelChip level={risk.overall}>Overall {LEVEL_LABEL[risk.overall].toLowerCase()}</LevelChip>
+                <Link href={`/app/check?site=${site.id}`} className="btn-accent text-sm px-4 py-2">
+                  + Add a stream check
+                </Link>
+                <Link href={`/app?reach=${site.id}`} className="rounded-[10px] border border-line bg-white text-sm px-4 py-2 hover:border-ink-3">
+                  View on map
+                </Link>
+              </div>
+            </>
+          }
+        />
+      </div>
 
       {scenarioOn ? (
         <div className="mt-5 rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-sm text-amber-900">
           What-if scenario active: +{scenario.rainMm} mm rain over the next 48 h, {scenario.heatC >= 0 ? "+" : ""}
-          {scenario.heatC} °C. <Link href={`/sites/${site.id}`} className="underline">Back to the real forecast</Link>
+          {scenario.heatC} °C. <Link href={`/app/streams/${site.id}`} className="underline">Back to the real forecast</Link>
         </div>
       ) : null}
 
@@ -83,13 +93,15 @@ export default async function SitePage({ params, searchParams }: PageProps<"/sit
         </section>
       )}
 
-      <AgentPanel siteId={site.id} mode={agentMode()} />
+      <div id="agent" className="scroll-mt-4">
+        <AgentPanel siteId={site.id} mode={user.role === "officer" ? agentMode() : "forbidden"} officerName={user.name} />
+      </div>
 
       <section className="mt-6 space-y-5">
         {risk.hazards.map((h) => (
-          <article key={h.hazard} className="card p-5 grid lg:grid-cols-[1.15fr_1fr] gap-8">
+          <article key={h.hazard} className="card p-5 grid lg:grid-cols-[1.15fr_1fr] gap-8 [&>*]:min-w-0">
             <div>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                 <span className={`lvl-${h.peak.level}`} style={{ color: "var(--lvl)" }}>
                   <HazardIcon hazard={h.hazard} className="w-6 h-6" />
                 </span>

@@ -16,7 +16,7 @@ export default defineConfig({
   reporter: [["list"], ["html", { open: "never", outputFolder: "e2e-report" }]],
   globalSetup: "./e2e/setup.ts",
   globalTeardown: "./e2e/teardown.ts",
-  use: { baseURL, trace: "retain-on-failure", screenshot: "only-on-failure" },
+  use: { baseURL, trace: "retain-on-failure", screenshot: "only-on-failure", storageState: "e2e/.auth/officer.json" },
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } }, testIgnore: /mobile\.spec\.ts/ },
     { name: "mobile", use: { ...devices["Pixel 7"] }, testMatch: /mobile\.spec\.ts/ },

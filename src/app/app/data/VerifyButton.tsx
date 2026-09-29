@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
 /** Human-in-the-loop: a coordinator verifies a citizen check (or sends it back). */
-export function VerifyButton({ ids, status }: { ids: string[]; status: "final" | "preliminary" }) {
+export function VerifyButton({ ids, status, canEdit = true }: { ids: string[]; status: "final" | "preliminary"; canEdit?: boolean }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [, start] = useTransition();
@@ -20,6 +20,12 @@ export function VerifyButton({ ids, status }: { ids: string[]; status: "final" |
     start(() => router.refresh());
   }
 
+  if (!canEdit)
+    return status === "final" ? (
+      <span className="text-[11px] rounded bg-emerald-100 text-emerald-800 px-1.5 py-0.5">verified</span>
+    ) : (
+      <span className="text-[11px] rounded bg-amber-100 text-amber-900 px-1.5 py-0.5">awaiting</span>
+    );
   if (status === "final")
     return (
       <span className="inline-flex items-center gap-2">

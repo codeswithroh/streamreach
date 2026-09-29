@@ -2,6 +2,8 @@ import Link from "next/link";
 import { SITES, getSite } from "@/lib/sites";
 import { snapshot, storeKind } from "@/lib/store";
 import type { StoredObservation } from "@/lib/seed";
+import { PageHeader } from "@/components/shell/PageHeader";
+import { getCurrentUser } from "@/lib/auth";
 import { VerifyButton } from "./VerifyButton";
 
 export const dynamic = "force-dynamic";
@@ -51,12 +53,13 @@ function groupChecks(obs: StoredObservation[]): Check[] {
 const fmt = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 const val = (o: StoredObservation) => (o.value.kind === "coded" ? o.value.display : `${o.value.value} ${o.value.unit}`);
 
-export default async function DataPage({ searchParams }: PageProps<"/data">) {
+export default async function DataPage({ searchParams }: PageProps<"/app/data">) {
   const sp = await searchParams;
   const tab = (TABS.find((t) => t.id === sp.tab)?.id ?? "checks") as Tab;
   const site = typeof sp.site === "string" && getSite(sp.site) ? sp.site : "";
   const limit = Math.min(1000, Number(sp.limit) || 60);
   const snap = await snapshot();
+  const user = (await getCurrentUser())!;
   const obs = site ? snap.observations.filter((o) => o.siteId === site) : snap.observations;
   const sigs = (site ? snap.signals.filter((s) => s.siteId === site) : snap.signals).sort((a, b) => b.date.localeCompare(a.date));
   const checks = groupChecks(obs);
@@ -79,27 +82,30 @@ export default async function DataPage({ searchParams }: PageProps<"/data">) {
     const q = new URLSearchParams();
     const merged = { tab, site, ...p };
     for (const [k, v] of Object.entries(merged)) if (v && !(k === "tab" && v === "checks")) q.set(k, v);
-    return `/data${q.size ? `?${q}` : ""}`;
+    return `/app/data${q.size ? `?${q}` : ""}`;
   };
   const counts: Record<Tab, number> = { checks: checks.length, queue: queue.length, lab: labs.length, clinic: sigs.length, volunteers: volunteers.length };
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div className="max-w-2xl">
-          <p className="eyebrow">Data explorer · every record behind the forecasts</p>
-          <h1 className="font-display text-4xl mt-1">The full record, open to inspection.</h1>
-          <p className="text-ink-2 mt-2">
-            {snap.observations.length.toLocaleString("en")} observations and {snap.signals.length} clinic signals across {SITES.length} reaches
-            over 120 days. {userChecks > 0 && <>{userChecks} check{userChecks === 1 ? "" : "s"} added by visitors. </>}
-            Everything is also available as FHIR at{" "}
-            <a className="text-river underline" href="/fhir/Observation?_count=50" target="_blank">/fhir/Observation</a>.
-          </p>
-        </div>
-        <span className="text-[11px] text-ink-3 shrink-0">
-          Storage: {storeKind() === "postgres" ? "Neon Postgres (persistent)" : "in-memory (local dev)"}
-        </span>
-      </div>
+      <PageHeader
+        eyebrow="Data explorer · every record behind the forecasts"
+        title="The full record, open to inspection."
+        subtitle={
+          <>
+            <p>
+              {snap.observations.length.toLocaleString("en")} observations and {snap.signals.length} clinic signals across {SITES.length} reaches
+              over 120 days. {userChecks > 0 && <>{userChecks} check{userChecks === 1 ? "" : "s"} added by visitors. </>}
+              Everything is also available as FHIR at{" "}
+              <a className="text-accent underline" href="/fhir/Observation?_count=50" target="_blank">/fhir/Observation</a>.
+            </p>
+            <p className="text-[11px] text-ink-3 mt-1">
+              Storage: {storeKind() === "postgres" ? "Neon Postgres (persistent)" : "in-memory (local dev)"}
+              {user.role !== "officer" && " · Only public-health officers can verify checks."}
+            </p>
+          </>
+        }
+      />
 
       <div className="mt-6 flex flex-wrap items-center gap-2">
         {TABS.map((t) => (
@@ -107,7 +113,7 @@ export default async function DataPage({ searchParams }: PageProps<"/data">) {
             {t.label} <span className="tabular-nums opacity-80">{counts[t.id]}</span>
           </Link>
         ))}
-        <form className="ml-auto" action="/data">
+        <form className="ml-auto" action="/app/data">
           <input type="hidden" name="tab" value={tab} />
           <select name="site" aria-label="Filter by reach" defaultValue={site} className="rounded-lg border border-line bg-white px-2 py-1.5 text-sm">
             <option value="">All reaches</option>
@@ -138,7 +144,7 @@ export default async function DataPage({ searchParams }: PageProps<"/data">) {
                 <tr key={c.key} className="border-b border-line last:border-0 align-top">
                   <td className="p-3 whitespace-nowrap text-ink-2">{fmt(c.when)}</td>
                   <td className="p-3 whitespace-nowrap">
-                    <Link href={`/sites/${c.siteId}`} className="hover:underline">{getSite(c.siteId)?.name}</Link>
+                    <Link href={`/app/streams/${c.siteId}`} className="hover:underline">{getSite(c.siteId)?.name}</Link>
                     <span className="block text-[11px] text-ink-3">{getSite(c.siteId)?.city}</span>
                   </td>
                   <td className="p-3 whitespace-nowrap font-mono text-xs">
@@ -156,7 +162,7 @@ export default async function DataPage({ searchParams }: PageProps<"/data">) {
                     {c.items.find((o) => o.note)?.note && <p className="text-[11px] text-ink-3 mt-1 italic">“{c.items.find((o) => o.note)!.note}”</p>}
                   </td>
                   <td className="p-3 whitespace-nowrap">
-                    <VerifyButton ids={c.items.map((o) => o.id)} status={c.status as "final" | "preliminary"} />
+                    <VerifyButton ids={c.items.map((o) => o.id)} status={c.status as "final" | "preliminary"} canEdit={user.role === "officer"} />
                   </td>
                 </tr>
               ))}
@@ -185,7 +191,7 @@ export default async function DataPage({ searchParams }: PageProps<"/data">) {
                 return (
                   <tr key={o.id} className="border-b border-line last:border-0">
                     <td className="p-3 whitespace-nowrap text-ink-2">{fmt(o.effective)}</td>
-                    <td className="p-3"><Link href={`/sites/${o.siteId}`} className="hover:underline">{getSite(o.siteId)?.name}</Link></td>
+                    <td className="p-3"><Link href={`/app/streams/${o.siteId}`} className="hover:underline">{getSite(o.siteId)?.name}</Link></td>
                     <td className="p-3 tabular-nums font-medium">{val(o)}</td>
                     <td className="p-3"><span className={`chip ${cls[1]}`}>{cls[0]}</span></td>
                     <td className="p-3 text-xs text-ink-3">{o.note}</td>
@@ -211,7 +217,7 @@ export default async function DataPage({ searchParams }: PageProps<"/data">) {
               {sigs.slice(0, limit).map((s) => (
                 <tr key={s.id} className="border-b border-line last:border-0">
                   <td className="p-3 whitespace-nowrap text-ink-2">{fmt(s.date)}</td>
-                  <td className="p-3"><Link href={`/sites/${s.siteId}`} className="hover:underline">{getSite(s.siteId)?.name}</Link></td>
+                  <td className="p-3"><Link href={`/app/streams/${s.siteId}`} className="hover:underline">{getSite(s.siteId)?.name}</Link></td>
                   <td className="p-3 text-ink-2">{s.district}</td>
                   <td className="p-3">{SYNDROME[s.syndrome]}</td>
                   <td className="p-3 text-xs">

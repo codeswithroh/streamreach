@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Newsreader } from "next/font/google";
-import Link from "next/link";
+import { JetBrains_Mono, Poppins } from "next/font/google";
 import "leaflet/dist/leaflet.css";
 import "./globals.css";
-import { NavLinks } from "@/components/NavLinks";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
-const newsreader = Newsreader({ variable: "--font-newsreader", subsets: ["latin"], style: ["normal", "italic"] });
+const poppins = Poppins({ variable: "--font-poppins", subsets: ["latin", "latin-ext"], weight: ["300", "400", "500", "600", "700"] });
 const jbmono = JetBrains_Mono({ variable: "--font-jbmono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,38 +14,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${newsreader.variable} ${jbmono.variable} antialiased`}>
-      <body className="min-h-screen flex flex-col">
-        <header className="border-b border-line bg-paper/90 backdrop-blur sticky top-0 z-[1000]">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 h-14 flex items-center gap-6">
-            <Link href="/" className="flex items-center gap-2 shrink-0">
-              <Logo />
-              <span className="font-display text-xl">StreamReach</span>
-            </Link>
-            <NavLinks />
-          </div>
-        </header>
-        <main className="flex-1">{children}</main>
-        <footer className="border-t border-line mt-16">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 py-6 text-xs text-ink-3 flex items-center justify-between">
-            <span>© 2026 StreamReach</span>
-            <a href="https://github.com/codeswithroh/streamreach" className="hover:text-ink">
-              GitHub
-            </a>
-          </div>
-        </footer>
-      </body>
+    <html lang="en" className={`${poppins.variable} ${jbmono.variable} antialiased`}>
+      <body className="min-h-screen">{children}</body>
     </html>
-  );
-}
-
-function Logo() {
-  return (
-    <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden>
-      <rect width="32" height="32" rx="8" fill="#0d6e79" />
-      <path d="M6 20c4-6 7 2 11-3s5-6 9-5" stroke="#dcefee" strokeWidth="2.4" fill="none" strokeLinecap="round" />
-      <path d="M6 25c4-4 8 1 12-2.5S23 18 26 18.5" stroke="#8fd0cf" strokeWidth="1.6" fill="none" strokeLinecap="round" />
-      <circle cx="23" cy="9" r="2.2" fill="#f3b34c" />
-    </svg>
   );
 }

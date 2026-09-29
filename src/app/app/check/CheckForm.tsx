@@ -49,7 +49,7 @@ const LARVAE: Choice<string>[] = [
 const LVL = ["low", "moderate", "high", "very-high"];
 const LVL_LABEL: Record<string, string> = { low: "Low", moderate: "Moderate", high: "High", "very-high": "Very high" };
 
-export function CheckForm({ sites }: { sites: { id: string; name: string; city: string }[] }) {
+export function CheckForm({ sites, volunteer }: { sites: { id: string; name: string; city: string }[]; volunteer: string }) {
   const sp = useSearchParams();
   const [siteId, setSiteId] = useState(sp.get("site") ?? sites[0].id);
   const [foam, setFoam] = useState<string>();
@@ -61,7 +61,6 @@ export function CheckForm({ sites }: { sites: { id: string; name: string; city: 
   const [result, setResult] = useState<{ before: Summary; after: Summary; ids: string[] }>();
   const [error, setError] = useState<string>();
   const [showFhir, setShowFhir] = useState(false);
-  const [volunteer, setVolunteer] = useState("V-you");
 
   const answered = [foam, flow, algae, larvae].filter(Boolean).length;
   const bundle = useMemo(() => buildBundle({ siteId, foam, flow, algae, larvae, temp, volunteer }), [siteId, foam, flow, algae, larvae, temp, volunteer]);
@@ -69,11 +68,9 @@ export function CheckForm({ sites }: { sites: { id: string; name: string; city: 
   async function submit() {
     setBusy(true);
     setError(undefined);
-    const vol = volunteerId();
-    setVolunteer(vol);
     try {
       const before: Summary = await fetch(`/api/sites/${siteId}`).then((r) => r.json());
-      const res = await fetch("/fhir", { method: "POST", headers: { "Content-Type": "application/fhir+json" }, body: JSON.stringify({ ...bundle, entry: bundle.entry.map((e) => ({ ...e, resource: { ...e.resource, performer: [{ identifier: { system: TRIB_CS.volunteer, value: vol } }] } })) }) });
+      const res = await fetch("/fhir", { method: "POST", headers: { "Content-Type": "application/fhir+json" }, body: JSON.stringify(bundle) });
       const body = await res.json();
       if (!res.ok) throw new Error(body.issue?.[0]?.diagnostics ?? `HTTP ${res.status}`);
       const after: Summary = await fetch(`/api/sites/${siteId}`).then((r) => r.json());
@@ -102,8 +99,8 @@ export function CheckForm({ sites }: { sites: { id: string; name: string; city: 
               const delta = Math.round((h.p - b.p) * 100);
               const moved = LVL.indexOf(h.level) - LVL.indexOf(b.level);
               return (
-                <li key={h.hazard} className="py-3 flex items-center gap-3 text-sm">
-                  <span className="flex-1">{h.label}</span>
+                <li key={h.hazard} className="py-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+                  <span className="basis-full sm:basis-auto sm:flex-1">{h.label}</span>
                   <span className={`chip lvl-${b.level}`}>{LVL_LABEL[b.level]}</span>
                   <span className="text-ink-3">→</span>
                   <span className={`chip lvl-${h.level}`}>{LVL_LABEL[h.level]}</span>
@@ -111,7 +108,7 @@ export function CheckForm({ sites }: { sites: { id: string; name: string; city: 
                     {delta > 0 ? "+" : ""}
                     {delta} pts
                   </span>
-                  {moved !== 0 && <span className="text-[11px] text-ink-3 w-28">{moved > 0 ? "warning raised" : "warning eased"}</span>}
+                  {moved !== 0 && <span className="text-[11px] text-ink-3 sm:w-28">{moved > 0 ? "warning raised" : "warning eased"}</span>}
                 </li>
               );
             })}
@@ -121,7 +118,7 @@ export function CheckForm({ sites }: { sites: { id: string; name: string; city: 
             forecast sharper.
           </p>
           <div className="flex flex-wrap gap-2 mt-5">
-            <Link href={`/sites/${siteId}`} className="rounded-lg bg-river text-white text-sm px-4 py-2 hover:bg-river-deep">
+            <Link href={`/app/streams/${siteId}`} className="rounded-lg bg-river text-white text-sm px-4 py-2 hover:bg-river-deep">
               See the stream record
             </Link>
             <button onClick={() => { setResult(undefined); setFoam(undefined); setFlow(undefined); setAlgae(undefined); setLarvae(undefined); setTemp(""); }} className="rounded-lg border border-line text-sm px-4 py-2 hover:border-ink-3">
@@ -162,7 +159,7 @@ export function CheckForm({ sites }: { sites: { id: string; name: string; city: 
       {error && <p className="text-sm text-lvl-very-high">Couldn&apos;t save: {error}</p>}
 
       <div className="flex items-center gap-3 pt-2">
-        <button disabled={answered < 3 || busy} onClick={submit} className="rounded-lg bg-river text-white px-5 py-2.5 disabled:opacity-40 hover:bg-river-deep">
+        <button disabled={answered < 3 || busy} onClick={submit} className="btn-accent px-5 py-2.5 disabled:opacity-40">
           {busy ? "Saving…" : "Submit check"}
         </button>
         <span className="text-xs text-ink-3">{answered}/4 answered{answered < 3 ? ". Answer at least 3." : ""}</span>
@@ -173,20 +170,6 @@ export function CheckForm({ sites }: { sites: { id: string; name: string; city: 
       {showFhir && <pre tabIndex={0} className="json max-h-96 overflow-auto rounded-lg bg-ink text-emerald-100 p-4">{JSON.stringify(bundle, null, 2)}</pre>}
     </div>
   );
-}
-
-/** Pseudonymous volunteer code, kept on this device only. */
-function volunteerId() {
-  try {
-    const k = "streamreach-volunteer";
-    const existing = localStorage.getItem(k);
-    if (existing) return existing;
-    const v = `V-${Math.random().toString(36).slice(2, 5).toUpperCase()}`;
-    localStorage.setItem(k, v);
-    return v;
-  } catch {
-    return "V-ANON";
-  }
 }
 
 function Question<T extends string>({ n, title, why, options, value, onChange, cols = 3 }: { n: number; title: string; why: string; options: Choice<T>[]; value?: string; onChange: (v: T) => void; cols?: number }) {

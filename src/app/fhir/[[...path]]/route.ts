@@ -1,4 +1,5 @@
 import { FhirError, fhirGet, fhirPost, operationOutcome } from "@/lib/fhir/server";
+import { requireUser } from "@/lib/auth";
 import { baseUrl, CORS, json } from "@/lib/http";
 
 export const dynamic = "force-dynamic";
@@ -18,11 +19,14 @@ export async function GET(req: Request, ctx: RouteContext<"/fhir/[[...path]]">) 
 
 export async function POST(req: Request, ctx: RouteContext<"/fhir/[[...path]]">) {
   const { path = [] } = await ctx.params;
+  // Reads are open (interoperability); writes need a signed-in user, whose pseudonymous code is stamped on every observation.
+  const auth = await requireUser();
+  if ("response" in auth) return json(operationOutcome(401, "Sign in to submit observations", "login"), 401, FHIR_JSON);
   try {
     const body = await req.json().catch(() => {
       throw new FhirError(400, "Body must be FHIR JSON", "structure");
     });
-    const r = await fhirPost(path, body);
+    const r = await fhirPost(path, body, { id: auth.user.volunteerCode, display: `Volunteer ${auth.user.volunteerCode}` });
     return json(r.body, r.status, FHIR_JSON);
   } catch (e) {
     return fail(e);

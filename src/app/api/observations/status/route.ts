@@ -1,3 +1,4 @@
+import { requireUser } from "@/lib/auth";
 import { json } from "@/lib/http";
 import { setObservationStatus } from "@/lib/store";
 
@@ -5,6 +6,8 @@ export const dynamic = "force-dynamic";
 
 /** Coordinator review of citizen observations: verify (final) or send back (preliminary). */
 export async function POST(req: Request) {
+  const auth = await requireUser(["officer"]);
+  if ("response" in auth) return auth.response;
   const body = await req.json().catch(() => null);
   const ids: unknown = body?.ids;
   const status = body?.status;

@@ -1,66 +1,79 @@
 import { expect, test } from "@playwright/test";
 import { watchErrors } from "./helpers";
 
-test.describe("situation room", () => {
-  test("KPIs, map markers, alerts and reach cards", async ({ page }) => {
+test.describe("monitoring dashboard", () => {
+  test("map, stream list, legend, chart and checks", async ({ page }) => {
     const w = watchErrors(page);
-    await page.goto("/");
-    await expect(page.getByText("reaches", { exact: true })).toBeVisible();
-    await expect(page.locator("dl dd").first()).toHaveText("10");
+    await page.goto("/app");
+    await expect(page.getByRole("heading", { name: "Monitoring" })).toBeVisible();
     await expect(page.locator("path.leaflet-interactive")).toHaveCount(10);
-    await expect(page.getByText("Alerts · next 72 h")).toBeVisible();
-    // one card per reach, each with three hazard sparklines
-    const cards = page.locator('section:has(h2) a[href^="/sites/"]');
-    await expect(cards).toHaveCount(10);
+    const list = page.getByRole("region", { name: "Streams" });
+    await expect(list.getByRole("listitem")).toHaveCount(10);
+    await expect(page.getByText("Risk distribution model")).toBeVisible();
+    await expect(page.getByRole("img", { name: /Risk probability by hazard/ })).toBeVisible();
+    await expect(page.getByRole("region", { name: "Stream checks" })).toBeVisible();
     w.assertClean();
   });
 
-  test("map region filter and marker click open a stream record", async ({ page }) => {
-    await page.goto("/");
-    await page.getByRole("button", { name: "Oslo", exact: true }).click();
-    await page.waitForTimeout(1200); // flyTo animation
-    await page.locator("path.marker-akerselva-oslo").click();
-    await expect(page).toHaveURL(/\/sites\/akerselva-oslo/);
-    await expect(page.locator("article")).toHaveCount(3);
+  test("search, select a stream, see details and go back", async ({ page }) => {
+    await page.goto("/app");
+    const list = page.getByRole("region", { name: "Streams" });
+    await list.getByPlaceholder("Search streams and cities").fill("oslo");
+    await expect(list.getByRole("listitem")).toHaveCount(3);
+    await list.getByRole("button", { name: /Akerselva at Nydalen/ }).click();
+    await expect(page).toHaveURL(/reach=akerselva-oslo/);
+    const detail = page.getByRole("region", { name: "Stream details" });
+    await expect(detail.getByText("Akerselva at Nydalen")).toBeVisible();
+    await expect(detail.getByText("Waterborne pathogens")).toBeVisible();
+    await expect(detail.getByText("Current weather")).toBeVisible();
+    await expect(detail.getByRole("link", { name: /Draft response plan with AI/ })).toBeVisible();
+    await detail.getByRole("button", { name: "Stream" }).click();
+    await expect(page.getByRole("region", { name: "Streams" })).toBeVisible();
   });
 
-  test("what-if presets and sliders recompute and carry into stream records", async ({ page }) => {
+  test("clicking a map marker selects that stream", async ({ page }) => {
+    await page.goto("/app");
+    await page.locator("path.marker-akerselva-oslo").click({ force: true });
+    await expect(page).toHaveURL(/reach=/);
+    await expect(page.getByRole("region", { name: "Stream details" })).toBeVisible();
+  });
+
+  test("date strip, hazard and weather selectors, CSV export", async ({ page }) => {
     const w = watchErrors(page);
-    await page.goto("/");
-    const before = await page.locator("dl dd").nth(1).textContent();
+    await page.goto("/app?reach=giofyros-1");
+    const today = page.getByRole("button", { name: /^Today/ });
+    await expect(today).toHaveAttribute("aria-pressed", "true");
+    const strip = page.locator("button[aria-pressed]").filter({ hasText: /Oct|Sep|Today/ });
+    const next = strip.nth((await strip.count()) - 1);
+    await next.click();
+    await expect(next).toHaveAttribute("aria-pressed", "true");
+    await expect(today).toHaveAttribute("aria-pressed", "false");
+    await expect(page.getByRole("region", { name: "Stream details" }).getByText(/Hazards · \d+ \w+/)).toBeVisible();
 
-    await page.getByRole("button", { name: /Storm tomorrow/ }).click();
+    await page.locator("select").filter({ hasText: "Pathogens" }).selectOption("waterborne");
+    await expect(page.getByRole("img", { name: /Risk probability by hazard/ }).locator("path")).toHaveCount(1);
+    await page.locator("select").filter({ hasText: "Temperature" }).selectOption("temp");
+    await expect(page.getByText("Max temperature, °C")).toBeVisible();
+
+    const [dl] = await Promise.all([page.waitForEvent("download"), page.getByRole("button", { name: /Download chart data/ }).click()]);
+    expect(dl.suggestedFilename()).toBe("giofyros-1-risk.csv");
+    w.assertClean();
+  });
+
+  test("what-if scenario recomputes and carries into stream records", async ({ page }) => {
+    await page.goto("/app");
+    await page.getByLabel("What-if scenario").selectOption("storm");
     await expect(page).toHaveURL(/rain=40/);
-    await expect(page.getByRole("button", { name: /Storm tomorrow/ })).toHaveClass(/bg-ink/);
-    const storm = Number(await page.locator("dl dd").nth(1).textContent());
-    expect(storm).toBeGreaterThanOrEqual(Number(before));
-
-    await page.getByRole("button", { name: /Heatwave/ }).click();
-    await expect(page).toHaveURL(/heat=6/);
-
-    // slider via keyboard
-    const rain = page.getByRole("slider").first();
-    await rain.focus();
-    await page.keyboard.press("ArrowRight");
-    await expect(page).toHaveURL(/rain=5/);
-
-    // scenario travels to the stream record and can be cleared there
-    await page.locator('section:has(h2) a[href^="/sites/giofyros-1"]').click();
+    await expect(page.getByText(/What-if: Storm tomorrow/)).toBeVisible();
+    await page.goto("/app/streams/giofyros-1?rain=40");
     await expect(page.getByText("What-if scenario active")).toBeVisible();
     await page.getByRole("link", { name: "Back to the real forecast" }).click();
     await expect(page.getByText("What-if scenario active")).toHaveCount(0);
-
-    await page.goto("/");
-    await page.getByRole("button", { name: "Today's forecast" }).click();
-    await expect(page).toHaveURL(/\/$/);
-    w.assertClean();
   });
 
-  test("alert links open the right stream record", async ({ page }) => {
-    await page.goto("/?rain=60");
-    const first = page.locator('ul a[href^="/sites/"]').first();
-    const href = await first.getAttribute("href");
-    await first.click();
-    await expect(page).toHaveURL(new RegExp(href!.split("?")[0]));
+  test("add stream check from the dashboard", async ({ page }) => {
+    await page.goto("/app?reach=sabato-bn");
+    await page.getByRole("link", { name: /Add new stream check/ }).click();
+    await expect(page).toHaveURL(/\/app\/check\?site=sabato-bn/);
   });
 });

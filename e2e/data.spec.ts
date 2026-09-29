@@ -4,7 +4,7 @@ import { watchErrors } from "./helpers";
 test.describe("data explorer", () => {
   test("tabs, counts, filter and pagination", async ({ page }) => {
     const w = watchErrors(page);
-    await page.goto("/data");
+    await page.goto("/app/data");
     await expect(page.getByText(/observations and \d+ clinic signals across 10 reaches/)).toBeVisible();
 
     for (const tab of ["Citizen checks", "Verification queue", "Lab results", "Clinic signals", "Volunteers"]) {
@@ -20,14 +20,14 @@ test.describe("data explorer", () => {
 
     // site filter
     await page.getByRole("link", { name: /^Citizen checks/ }).click();
-    await page.locator("select[name=site]").selectOption("akerselva-oslo");
+    await page.getByLabel("Filter by reach").selectOption("akerselva-oslo");
     await page.getByRole("button", { name: "Filter" }).click();
     await expect(page).toHaveURL(/site=akerselva-oslo/);
     const reaches = await page.locator("tbody tr td:nth-child(2) a").allTextContents();
     expect(new Set(reaches)).toEqual(new Set(["Akerselva at Nydalen"]));
 
     // pagination
-    await page.goto("/data");
+    await page.goto("/app/data");
     const before = await page.locator("tbody tr").count();
     await page.getByRole("link", { name: /Show more/ }).click();
     await expect.poll(() => page.locator("tbody tr").count()).toBeGreaterThan(before);
@@ -35,8 +35,8 @@ test.describe("data explorer", () => {
   });
 
   test("links in tables lead to stream records", async ({ page }) => {
-    await page.goto("/data?tab=lab");
+    await page.goto("/app/data?tab=lab");
     await page.locator("tbody a").first().click();
-    await expect(page).toHaveURL(/\/sites\//);
+    await expect(page).toHaveURL(/\/app\/streams\//);
   });
 });

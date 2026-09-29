@@ -215,7 +215,7 @@ async function buildCard(
     indicator,
     source: {
       label: "StreamReach · OneAquaHealth citizen science + forecast",
-      url: `${appBase}/sites/${b.site.id}`,
+      url: `${appBase}/app/streams/${b.site.id}`,
       topic: { system: "https://streamreach.io/fhir/CodeSystem/stream-hazard", code: h.hazard, display: h.label },
     },
     ...(suggestions.length ? { suggestions, selectionBehavior: "any" } : {}),
@@ -227,7 +227,7 @@ async function buildCard(
           ],
         }
       : {}),
-    links: [{ label: "Open stream health record", url: `${appBase}/sites/${b.site.id}`, type: "absolute" }],
+    links: [{ label: "Open stream health record", url: `${appBase}/app/streams/${b.site.id}`, type: "absolute" }],
   };
 }
 

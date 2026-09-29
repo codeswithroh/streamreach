@@ -35,7 +35,8 @@ export function Sparkline({ timeline, today }: { timeline: HazardDay[]; today: s
 /** Larger timeline with day labels, used on the stream record. */
 export function Timeline({ timeline, today }: { timeline: HazardDay[]; today: string }) {
   return (
-    <div>
+    <div className="overflow-x-auto scroll-thin" tabIndex={0} aria-label="Daily risk timeline">
+      <div className="min-w-[420px]">
       <div className="relative flex items-end gap-1.5 h-28 border-b border-line">
         {[0.2, 0.4, 0.65].map((t) => (
           <div key={t} className="absolute left-0 right-0 border-t border-dashed border-line" style={{ bottom: `${t * 100}%` }} />
@@ -65,6 +66,7 @@ export function Timeline({ timeline, today }: { timeline: HazardDay[]; today: st
         <span className="flex items-center gap-1.5"><i className="w-3 h-2 rounded-sm bg-ink-3/50 inline-block" /> observed</span>
         <span className="flex items-center gap-1.5"><i className="w-3 h-2 rounded-sm bg-ink-3 hatch inline-block" /> forecast</span>
         <span>dashed lines: moderate · high · very high</span>
+      </div>
       </div>
     </div>
   );

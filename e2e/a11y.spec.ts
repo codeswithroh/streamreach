@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 import { PAGES } from "./helpers";
 
 test.describe("accessibility (axe, WCAG 2 A/AA)", () => {
-  for (const path of [...PAGES, "/data?tab=lab"]) {
+  for (const path of [...PAGES, "/app/data?tab=lab", "/app?reach=giofyros-1"]) {
     test(`no serious or critical violations on ${path}`, async ({ page }) => {
       await page.goto(path);
       await page.waitForLoadState("networkidle");

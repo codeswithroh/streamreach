@@ -143,7 +143,7 @@ export async function fhirGet(path: string[], q: URLSearchParams, base: string):
 const OAH_CODES: OahIndicatorCode[] = ["foam", "diptera", "waterTemperature", "hydrology", "filamentous-algae", "coliforms"];
 
 /** Parse an incoming OAH indicator Observation into the domain model. */
-export function parseObservation(r: any): Omit<StreamObservation, "id"> {
+export function parseObservation(r: any, performer?: { id: string; display: string }): Omit<StreamObservation, "id"> {
   if (r?.resourceType !== "Observation") throw new FhirError(400, "Expected an Observation", "invalid");
   const coding = r.code?.coding?.find((c: any) => c.system === OAH_CS);
   if (!coding || !OAH_CODES.includes(coding.code))
@@ -158,7 +158,7 @@ export function parseObservation(r: any): Omit<StreamObservation, "id"> {
     if (![OAH_CS, TRIB_CS.flowState].includes(c.system)) throw new FhirError(422, `Unsupported value system ${c.system}`, "code-invalid");
     value = { kind: "coded", system: c.system, code: c.code, display: c.display ?? c.code };
   } else throw new FhirError(422, "Observation.value[x] is required (CodeableConcept or Quantity)", "required");
-  const volunteer = r.performer?.[0]?.identifier?.value ?? "anonymous";
+  const volunteer = performer?.id ?? r.performer?.[0]?.identifier?.value ?? "anonymous";
   return {
     siteId,
     effective: r.effectiveDateTime ?? new Date().toISOString(),
@@ -170,14 +170,14 @@ export function parseObservation(r: any): Omit<StreamObservation, "id"> {
   };
 }
 
-export async function fhirPost(path: string[], body: any): Promise<{ status: number; body: Resource }> {
+export async function fhirPost(path: string[], body: any, performer?: { id: string; display: string }): Promise<{ status: number; body: Resource }> {
   const [type] = path;
   if (type === "Observation" || (!type && body?.resourceType === "Observation")) {
-    const [created] = await addObservations([parseObservation(body)]);
+    const [created] = await addObservations([parseObservation(body, performer)]);
     return { status: 201, body: observationResource(created) };
   }
   if (!type && body?.resourceType === "Bundle" && (body.type === "transaction" || body.type === "batch")) {
-    const parsed = (body.entry ?? []).map((e: any) => parseObservation(e.resource));
+    const parsed = (body.entry ?? []).map((e: any) => parseObservation(e.resource, performer));
     const created = await addObservations(parsed);
     return {
       status: 200,

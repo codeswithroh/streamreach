@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { uniqueVolunteer } from "./helpers";
+import { AUTH, e2eState } from "./helpers";
 
 const OAH = "http://hl7.eu/fhir/ig/oah/CodeSystem/temporarySystem-oah-eu";
 
@@ -67,8 +67,9 @@ test.describe("FHIR R4 API", () => {
     expect(notSupported.status()).toBe(405);
   });
 
-  test("create Observation, then read it back", async ({ request }) => {
-    const vol = uniqueVolunteer();
+  test("create Observation as a signed-in citizen, then read it back", async ({ playwright }) => {
+    const request = await playwright.request.newContext({ baseURL: test.info().project.use.baseURL, storageState: AUTH.citizen });
+    const vol = e2eState().citizenCode;
     const r = await request.post("/fhir/Observation", {
       headers: { "Content-Type": "application/fhir+json" },
       data: {
@@ -76,14 +77,15 @@ test.describe("FHIR R4 API", () => {
         code: { coding: [{ system: OAH, code: "waterTemperature" }] },
         subject: { reference: "Location/calore-bn" },
         valueQuantity: { value: 19.2, unit: "°C", system: "http://unitsofmeasure.org", code: "Cel" },
-        performer: [{ identifier: { value: vol } }],
+        performer: [{ identifier: { value: "V-SPOOFED" } }],
       },
     });
     expect(r.status()).toBe(201);
     const created = await r.json();
     const back = await (await request.get(`/fhir/Observation/${created.id}`)).json();
     expect(back.valueQuantity.value).toBe(19.2);
-    expect(back.performer[0].identifier.value).toBe(vol);
+    expect(back.performer[0].identifier.value).toBe(vol); // server stamps the signed-in user's code, not the client's claim
+    await request.dispose();
   });
 
   test("CORS preflight is allowed for FHIR and CDS Hooks", async ({ request }) => {

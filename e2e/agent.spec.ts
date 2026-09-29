@@ -12,7 +12,7 @@ test.describe("AI duty officer", () => {
 
   test("drafts a grounded plan, a human approves it, it is published as FHIR", async ({ page, request }) => {
     const w = watchErrors(page);
-    await page.goto("/sites/coselhas-coimbra");
+    await page.goto("/app/streams/coselhas-coimbra");
     const panel = page.locator("section", { has: page.getByRole("heading", { name: "Response plan" }) });
     await panel.getByRole("button", { name: /Draft (response|a new) plan/ }).first().click();
 
@@ -33,7 +33,7 @@ test.describe("AI duty officer", () => {
 
     // human in the loop: nothing is public before approval
     const before = await (await request.get("/fhir/Communication?about=Location/coselhas-coimbra")).json();
-    await plan.getByPlaceholder("Duty officer").fill("E2E Officer");
+    await expect(plan.getByText(/You are approving as Dr\. Marco Russo/)).toBeVisible();
     await plan.getByRole("button", { name: "Approve & publish" }).click();
     await expect(plan.getByRole("status")).toContainText("Published as");
     const link = await plan.getByRole("link", { name: /FHIR Communication\// }).getAttribute("href");
@@ -49,19 +49,19 @@ test.describe("AI duty officer", () => {
     const prov = await (await request.get(`/fhir/Provenance?target=Communication/${id}`)).json();
     const roles = prov.entry[0].resource.agent.map((a: { type: { coding: { code: string }[] } }) => a.type.coding[0].code);
     expect(roles).toEqual(["author", "verifier"]);
-    expect(prov.entry[0].resource.agent[1].who.display).toBe("E2E Officer");
+    expect(prov.entry[0].resource.agent[1].who.display).toBe("Dr. Marco Russo");
 
     // the approved advisory appears on the stream record
     await page.reload();
-    await expect(page.getByLabel("Current advisory")).toContainText("E2E Officer");
+    await expect(page.getByLabel("Current advisory")).toContainText("Dr. Marco Russo");
     // a second decision is refused
-    const again = await request.post(`/api/agent/plans/${id}`, { data: { decision: "discard", officer: "x" } });
+    const again = await request.post(`/api/agent/plans/${id}`, { data: { decision: "discard" } });
     expect(again.status()).toBe(409);
     w.assertClean();
   });
 
   test("discarding publishes nothing", async ({ page, request }) => {
-    await page.goto("/sites/calore-bn");
+    await page.goto("/app/streams/calore-bn");
     const panel = page.locator("section", { has: page.getByRole("heading", { name: "Response plan" }) });
     await panel.getByRole("button", { name: "Draft response plan" }).click();
     const plan = panel.getByTestId("response-plan");
@@ -75,7 +75,7 @@ test.describe("AI duty officer", () => {
 
   test("API validation", async ({ request }) => {
     expect((await request.post("/api/agent/plan", { data: { siteId: "nope" } })).status()).toBe(400);
-    expect((await request.post("/api/agent/plans/nope", { data: { decision: "approve", officer: "x" } })).status()).toBe(404);
+    expect((await request.post("/api/agent/plans/nope", { data: { decision: "approve" } })).status()).toBe(404);
     expect((await request.post("/api/agent/plans/nope", { data: { decision: "maybe" } })).status()).toBe(400);
     expect((await request.get("/fhir/Communication/nope")).status()).toBe(404);
     const cap = await (await request.get("/fhir/metadata")).json();
