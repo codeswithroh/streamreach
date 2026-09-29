@@ -7,22 +7,22 @@ export const SOURCES = ["forecast", "weather", "citizen", "lab", "clinic", "site
 export const PRIORITIES = ["routine", "elevated", "urgent"] as const;
 
 export const ResponsePlan = z.object({
-  headline: z.string().min(1).max(160),
+  headline: z.string().min(1).max(800),
   priority: z.enum(PRIORITIES),
-  situation: z.string().min(1).max(900),
+  situation: z.string().min(1).max(3000),
   public_advisory: z.object({
     language: z.string().min(1),
-    local_text: z.string().min(1).max(900),
-    english_text: z.string().min(1).max(900),
+    local_text: z.string().min(1).max(3000),
+    english_text: z.string().min(1).max(3000),
   }),
-  clinician_note: z.string().min(1).max(700),
+  clinician_note: z.string().min(1).max(2000),
   actions: z
     .array(
       z.object({
-        action: z.string().min(1).max(240),
+        action: z.string().min(1).max(600),
         owner: z.enum(OWNERS),
-        when: z.string().min(1).max(60),
-        rationale: z.string().min(1).max(300),
+        when: z.string().min(1).max(120),
+        rationale: z.string().min(1).max(800),
       }),
     )
     .min(1)
@@ -30,14 +30,14 @@ export const ResponsePlan = z.object({
   evidence: z
     .array(
       z.object({
-        claim: z.string().min(1).max(240),
+        claim: z.string().min(1).max(600),
         source: z.enum(SOURCES),
-        reference: z.string().min(1).max(160),
+        reference: z.string().min(1).max(800),
       }),
     )
     .min(1)
     .max(10),
-  uncertainties: z.array(z.string().min(1).max(240)).max(5),
+  uncertainties: z.array(z.string().min(1).max(600)).max(5),
 });
 
 export type ResponsePlan = z.infer<typeof ResponsePlan>;
@@ -52,7 +52,7 @@ export const RESPONSE_PLAN_JSON_SCHEMA = {
   properties: {
     headline: { ...str, description: "One line, max ~15 words, what is happening and where." },
     priority: { type: "string", enum: [...PRIORITIES] },
-    situation: { ...str, description: "3-5 sentences for the public-health team. Every number must come from a tool result." },
+    situation: { ...str, description: "3-5 sentences (under 700 characters) for the public-health team. Every number must come from a tool result." },
     public_advisory: {
       type: "object",
       additionalProperties: false,
