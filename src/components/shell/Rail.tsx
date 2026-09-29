@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, ClipboardCheck, Database, LayoutDashboard, LogOut, Stethoscope, Waves } from "lucide-react";
+import { ClipboardCheck, Database, LayoutDashboard, LogOut, Stethoscope, Waves } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { LogoMark } from "../Logo";
@@ -11,7 +11,6 @@ const ITEMS = [
   { href: "/app/check", label: "Stream check", icon: ClipboardCheck, match: (p: string) => p.startsWith("/app/check") },
   { href: "/app/clinic", label: "Clinic view", icon: Stethoscope, match: (p: string) => p.startsWith("/app/clinic") },
   { href: "/app/data", label: "Data", icon: Database, match: (p: string) => p.startsWith("/app/data") },
-  { href: "/standards", label: "Standards", icon: BookOpen, match: () => false },
 ];
 
 export function Rail() {
@@ -43,7 +42,7 @@ export function Rail() {
             aria-current={active ? "page" : undefined}
             className={`group relative grid place-items-center w-11 h-11 rounded-xl transition-colors ${
               active ? "bg-river text-white" : "text-ink-2 hover:bg-river-soft"
-            } ${label === "Standards" ? "hidden md:grid" : ""}`}
+            }`}
           >
             <Icon size={20} strokeWidth={1.8} />
             <span className="pointer-events-none absolute left-14 hidden md:group-hover:block whitespace-nowrap rounded-md bg-ink text-white text-xs px-2 py-1">

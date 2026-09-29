@@ -99,7 +99,6 @@ export default function Landing() {
               How it works
             </Link>
           </div>
-          <p className="mt-6 text-xs text-ink-3">Built on HL7 FHIR R4 · CDS Hooks 2.0 · OneAquaHealth FHIR IG · Claude</p>
         </div>
         <div className="relative">
           <div className="rounded-[22px] bg-[#1b1f24] p-2.5 shadow-[0_30px_80px_rgba(12,18,28,0.35)]">
