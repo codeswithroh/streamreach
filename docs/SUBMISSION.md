@@ -27,10 +27,13 @@ mission is to connect ecosystem health and human health. We wanted to connect th
 already use.
 
 ## What it does
+0. **Landing page, sign-in and roles.** Anyone can explore through one-click demo accounts: a public-health officer, a
+   citizen volunteer or a clinician. Real accounts use hashed passwords and database sessions. Each role only gets what
+   it needs: citizens report, officers verify and approve AI drafts, clinicians see the EHR integration.
 1. **Stream check.** Residents answer five picture-based questions (the OneAquaHealth app's indicators). Each check is
    stored as OAH-profiled FHIR Observations and immediately updates the neighbourhood's warnings. The volunteer sees
    what their check changed.
-2. **Situation room.** A map, 72-hour alerts, and a daily risk timeline for each reach. Every score has a "why this
+2. **Monitoring dashboard.** A satellite map with each stream's risk zone, a day-by-day forecast strip, a risk and rain chart, live weather and the latest checks. Each reach also has a daily risk timeline. Every score has a "why this
    score" breakdown: storm overflow likely, sewage signs reported, warm water, larvae spotted, and so on. Each factor
    is tagged with its source (forecast, citizen, lab, site, clinic).
 3. **Stream to clinic.** A CDS Hooks `patient-view` service. When a GP opens a chart, StreamReach:
@@ -73,7 +76,7 @@ already use.
   steps stream to the browser as server-sent events. Drafts and decisions are stored in Postgres. Usage guards: a
   per-visitor cooldown, a daily cap and one-hour draft reuse. A deterministic mock mode lets the E2E suite test the
   whole flow without model calls.
-- **Tests:** 13 Vitest unit tests, a live agent test, and 62 Playwright end-to-end tests with an axe WCAG 2 AA scan. The E2E suite
+- **Tests:** 13 Vitest unit tests, a live agent test, and 83 Playwright end-to-end tests with an axe WCAG 2 AA scan. The E2E suite
   passes against the live deployment.
 
 ## Challenges

@@ -1,6 +1,6 @@
 # StreamReach: from streams to systems
 
-**Live demo:** https://streamreach-health.vercel.app · **CDS Hooks discovery:** https://streamreach-health.vercel.app/cds-services · **FHIR:** https://streamreach-health.vercel.app/fhir/metadata
+**Live demo:** https://streamreach-health.vercel.app (sign in with a one-click demo account) · **CDS Hooks discovery:** https://streamreach-health.vercel.app/cds-services · **FHIR:** https://streamreach-health.vercel.app/fhir/metadata
 
 **One Health early warning for urban streams.** Citizen stream checks and the 7-day weather forecast become explainable
 FHIR risk assessments for waterborne pathogens, toxic algae and mosquito-borne disease. They reach public health teams on
@@ -15,33 +15,37 @@ Standards**, with Track 1 (citizen UX) and Track 4 (plain-language advice) eleme
 
 ## Screenshots
 
-**Situation room:** live forecast, alerts for the next 72 hours, and a what-if planner.
-![Situation room](docs/screenshots/situation-room.png)
+**Monitoring dashboard.** A satellite map with each stream's risk zone, a 14-day risk and rain chart, a day-by-day
+forecast strip, what-if scenarios, live weather and the latest citizen checks.
+![Monitoring dashboard](docs/screenshots/dashboard.png)
 
-**What-if: storm tomorrow (+40 mm).** Overflow warnings light up across cities.
+**Landing page and sign-in.** One-click demo accounts for each role.
+<p>
+  <img src="docs/screenshots/landing.png" alt="Landing page" width="49%">
+  <img src="docs/screenshots/signin.png" alt="Sign-in with demo accounts" width="49%">
+</p>
+
+**What-if: storm tomorrow (+40 mm).** Overflow warnings across cities.
 ![What-if storm scenario](docs/screenshots/what-if-storm.png)
 
-**Stream health record:** a daily risk timeline, with every factor named, sourced and weighted.
+**Stream health record.** A daily risk timeline, with every factor named, sourced and weighted.
 ![Stream record](docs/screenshots/stream-record.png)
 
-**AI duty officer:** the agent gathers evidence with tools, then drafts a plan: a Greek advisory, a GP note, owned
-actions and cited evidence. A named human approves it before it is published.
+**AI duty officer.** The agent gathers evidence with tools, then drafts a plan: a local-language advisory, a GP note, owned
+actions and cited evidence. The signed-in officer approves it before it is published.
 ![AI duty officer drafting a response plan](docs/screenshots/ai-duty-officer.png)
 
-**Clinic view:** a demo EHR receiving a real CDS Hooks card, with a draft order and anonymous feedback.
+**Clinic view.** A demo EHR receiving a real CDS Hooks card, with a draft order and anonymous feedback.
 ![Clinic view with CDS Hooks card](docs/screenshots/clinic-cds-hooks.png)
 
-**Citizen stream check:** five plain-language questions using OneAquaHealth indicators.
+**Citizen stream check.** Five plain-language questions based on OneAquaHealth indicators.
 ![Citizen stream check](docs/screenshots/stream-check.png)
 
-**Data explorer:** the full record, with a coordinator verification queue.
+**Data explorer.** The full record, with a coordinator verification queue.
 ![Data explorer](docs/screenshots/data-explorer.png)
 
-**Standards:** OAH IG profiles, FHIR endpoints and the CDS Hooks discovery document.
-![Standards](docs/screenshots/standards.png)
-
 <p>
-  <img src="docs/screenshots/mobile-home.png" alt="Situation room on a phone" width="260">
+  <img src="docs/screenshots/mobile-home.png" alt="Dashboard on a phone" width="260">
   &nbsp;
   <img src="docs/screenshots/mobile-check.png" alt="Stream check on a phone" width="260">
 </p>
@@ -101,13 +105,14 @@ that overflowed last night.
 npm install
 npm run dev        # http://localhost:3000
 npm test           # 13 unit tests: risk engine, FHIR facade, CDS Hooks (+1 live agent test when ANTHROPIC_API_KEY is set)
-npm run e2e        # 62 Playwright end-to-end + axe accessibility tests (local build, in-memory store, mock agent)
+npm run e2e        # 83 Playwright end-to-end + axe accessibility tests (local build, in-memory store, mock agent)
 npm run e2e:prod   # the same suite against the live deployment; rows it creates are removed afterwards
 ```
 
 The E2E suite covers:
+- landing, sign-up, sign-in, sign-out, demo access, protected routes and role restrictions;
 - every page and all 10 stream records, with no console errors;
-- the situation-room map, alerts and what-if planner;
+- the monitoring dashboard: map markers, search, stream detail, day strip, selectors, CSV export and what-if scenarios;
 - the full citizen check → stream record → coordinator verification → FHIR tag flow;
 - the clinic view: cards, draft order, anonymous share landing in the data explorer, dismiss with reason, and a failing
   CDS service;
@@ -132,12 +137,26 @@ climatology offline.
 
 | Page | What to look at |
 |---|---|
-| `/` | Situation room: map, 72 h alerts, what-if planner (try "Storm tomorrow · 40 mm") |
-| `/sites/giofyros-1` | Stream health record: daily risk timeline, *why this score*, AI duty officer (*Draft response plan*), citizen and lab record, FHIR JSON |
-| `/check` | Citizen stream check: shows the FHIR bundle, then the before/after risk |
-| `/clinic` | Demo EHR calling the real CDS Hooks service: accept or dismiss suggestions and watch the feedback land |
-| `/data` | Data explorer: every citizen check, lab result, clinic signal and volunteer, plus a coordinator verification queue |
-| `/standards` | Resource map, endpoints, discovery document |
+| `/` | Landing page |
+| `/signin` | Sign in, or one click into a demo account: **public-health officer**, **citizen volunteer** or **clinician** |
+| `/app` | Monitoring dashboard: satellite map, stream list and detail, day strip, risk/rain chart, what-if scenarios, live weather |
+| `/app/streams/giofyros-1` | Stream health record: daily risk timeline, *why this score*, AI duty officer (*Draft response plan*), citizen and lab record, FHIR JSON |
+| `/app/check` | Citizen stream check: shows the FHIR bundle, then the before/after risk |
+| `/app/clinic` | Demo EHR calling the real CDS Hooks service: accept or dismiss suggestions and watch the feedback land |
+| `/app/data` | Data explorer: every citizen check, lab result, clinic signal and volunteer, plus a coordinator verification queue |
+| `/standards` | Resource map, endpoints, discovery document (public) |
+
+### Accounts and roles
+
+- **Sign-in:** email and password. Passwords are hashed with scrypt. Sessions are stored in the database, and the browser
+  holds only an opaque token in an httpOnly cookie; the server stores just its SHA-256 hash.
+- **Self-service sign-up** is for citizen volunteers and clinicians. Public-health officer accounts are provisioned by the
+  city; the demo officer account shows that role.
+- **Enforced on the server:**
+  - reading FHIR and CDS Hooks is open, for interoperability;
+  - writing FHIR requires a signed-in user, and each observation is stamped with that user's pseudonymous volunteer code;
+  - only officers can verify checks, run the AI agent, or approve and discard plans. The approver recorded is the
+    signed-in officer.
 
 ## Interfaces
 
@@ -145,9 +164,11 @@ climatology offline.
 `location`, `subject`, `code`), `Group`, `Communication` (approved advisories, search by `about`), `Provenance`,
 `CodeSystem`. `POST /fhir` accepts a transaction Bundle of OAH indicator Observations.
 
-**Agent API**:
+**Auth API**: `POST /api/auth/signup`, `/api/auth/signin`, `/api/auth/signout`, `/api/auth/demo` and `GET /api/auth/me`.
+
+**Agent API** (officers only):
 - `POST /api/agent/plan` `{ siteId, fresh? }` streams the agent's steps as server-sent events.
-- `POST /api/agent/plans/{id}` `{ decision: "approve" | "discard", officer }` records the human decision.
+- `POST /api/agent/plans/{id}` `{ decision: "approve" | "discard" }` records the signed-in officer's decision.
 
 **CDS Hooks 2.0**: `GET /cds-services`, `POST /cds-services/streamreach-stream-exposure`,
 `POST /cds-services/streamreach-stream-exposure/feedback`. CORS is enabled. Once deployed, you can register the discovery URL in
@@ -185,7 +206,7 @@ Location.type, SNOMED "Living place" for cohort characteristics). The other two 
                               └─submit plan (strict schema)──▶ draft ──human approves──▶ FHIR Communication + Provenance
 ```
 
-Next.js 16 (App Router, route handlers), TypeScript, Tailwind v4, Leaflet/OpenStreetMap, Vitest. The risk model is
+Next.js 16 (App Router, route handlers, proxy), TypeScript, Tailwind v4, Poppins, Leaflet with Esri World Imagery and OpenStreetMap, Neon Postgres, Vitest and Playwright. The risk model is
 documented in [`docs/MODEL.md`](docs/MODEL.md).
 
 ## Honest limitations
