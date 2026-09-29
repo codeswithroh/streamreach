@@ -7,7 +7,8 @@ test.describe("citizen stream check → record → verification", () => {
   test("a citizen submits a check, an officer verifies it", async ({ page, browser }) => {
     const w = watchErrors(page);
     const { citizenCode } = e2eState();
-    const temp = (10 + Math.random() * 5).toFixed(1);
+    // two decimals (seed data uses one), so this check can't collide with demo rows
+    const temp = `${(10 + Math.random() * 5).toFixed(1)}${1 + Math.floor(Math.random() * 9)}`;
     await page.goto("/app/check?site=alna-oslo");
     await expect(page.locator("select")).toHaveValue("alna-oslo");
     await expect(page.getByText(citizenCode).first()).toBeVisible();
@@ -43,22 +44,22 @@ test.describe("citizen stream check → record → verification", () => {
     const officer = await browser.newContext({ storageState: AUTH.officer });
     const op = await officer.newPage();
     await op.goto("/app/data?tab=queue&site=alna-oslo");
-    const qrow = op.locator("tr", { hasText: `Water temp: ${temp} °C` });
+    const qrow = op.locator("tr", { hasText: `Water temp: ${temp} °C` }).filter({ hasText: citizenCode });
     await expect(qrow.getByText("new")).toBeVisible();
     await qrow.getByRole("button", { name: "Verify" }).click();
-    await expect(op.locator("tr", { hasText: `Water temp: ${temp} °C` })).toHaveCount(0);
+    await expect(op.locator("tr", { hasText: `Water temp: ${temp} °C` }).filter({ hasText: citizenCode })).toHaveCount(0);
     await op.goto("/app/data?site=alna-oslo");
-    await expect(op.locator("tr", { hasText: `Water temp: ${temp} °C` }).getByText("verified")).toBeVisible();
+    await expect(op.locator("tr", { hasText: `Water temp: ${temp} °C` }).filter({ hasText: citizenCode }).getByText("verified")).toBeVisible();
     await op.reload();
-    await expect(op.locator("tr", { hasText: `Water temp: ${temp} °C` }).getByText("verified")).toBeVisible();
+    await expect(op.locator("tr", { hasText: `Water temp: ${temp} °C` }).filter({ hasText: citizenCode }).getByText("verified")).toBeVisible();
 
     const obs = await (await op.request.get("/fhir/Observation?subject=Location/alna-oslo&code=waterTemperature&_count=10")).json();
     const mine = obs.entry.map((e: { resource: Record<string, never> }) => e.resource).find((r: { valueQuantity?: { value: number } }) => r.valueQuantity?.value === Number(temp));
     expect(mine.performer[0].identifier.value).toBe(citizenCode);
     expect(mine.meta.tag[0].code).toBe("citizen-verified");
 
-    await op.locator("tr", { hasText: `Water temp: ${temp} °C` }).getByRole("button", { name: "undo" }).click();
-    await expect(op.locator("tr", { hasText: `Water temp: ${temp} °C` }).getByText("awaiting")).toBeVisible();
+    await op.locator("tr", { hasText: `Water temp: ${temp} °C` }).filter({ hasText: citizenCode }).getByRole("button", { name: "undo" }).click();
+    await expect(op.locator("tr", { hasText: `Water temp: ${temp} °C` }).filter({ hasText: citizenCode }).getByText("awaiting")).toBeVisible();
     await officer.close();
     w.assertClean();
   });
