@@ -12,6 +12,8 @@ const MAP = [
   ["Clinic-reported stream-linked cases (anonymous)", "Observation", OAH_PROFILE.healthMeasure, "OAH IG"],
   ["Alert inside the EHR", "CDS Hooks card (patient-view)", "CDS Hooks 2.0", "HL7"],
   ["Suggested work-up", "ServiceRequest (draft, LOINC 625-4)", "core R4", "FHIR core"],
+  ["AI-drafted, human-approved resident advisory", "Communication (subject: exposed cohort)", "core R4", "FHIR core"],
+  ["Who wrote and who approved the advisory", "Provenance (author: AI agent, verifier: officer)", "core R4", "FHIR core"],
 ];
 
 const STEPS = [

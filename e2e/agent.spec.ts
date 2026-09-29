@@ -1,3 +1,4 @@
+import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import { watchErrors } from "./helpers";
 
@@ -27,6 +28,8 @@ test.describe("AI duty officer", () => {
     await expect(plan.getByText("Note for local GPs")).toBeVisible();
     expect(await plan.locator("ul").first().locator("li").count()).toBeGreaterThan(0);
     await plan.getByText(/Evidence \(\d+\)/).click();
+    const axe = await new AxeBuilder({ page }).include("[data-testid=response-plan]").withTags(["wcag2a", "wcag2aa"]).analyze();
+    expect(axe.violations.filter((v) => v.impact === "serious" || v.impact === "critical").map((v) => v.id)).toEqual([]);
 
     // human in the loop: nothing is public before approval
     const before = await (await request.get("/fhir/Communication?about=Location/coselhas-coimbra")).json();

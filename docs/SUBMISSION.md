@@ -14,9 +14,11 @@ stress-tests storms and heatwaves.
 - Delivered into clinical workflows with CDS Hooks 2.0.
 - A small FSH extension IG adds the pieces the OAH IG doesn't have yet.
 - Resources validate against both IGs with the official HL7 validator.
+- Track 7 lists "AI agents": an AI duty officer drafts response plans, which are published as FHIR Communication with a
+  Provenance naming the AI author and the human approver.
 
-Also touches Track 1 (a 3-minute guided check with "why we ask" explanations) and Track 4 (plain-language advice for
-residents).
+Also touches Track 1 (a 3-minute guided check with "why we ask" explanations), Track 3 (AI that supports, and never
+replaces, human judgment) and Track 4 (plain-language, multilingual advice for residents).
 
 ## Inspiration
 Two groups watch the same stream without ever talking to each other. Volunteers see foam, still green water and
@@ -39,6 +41,17 @@ already use.
    When nothing is relevant, it stays silent.
 4. **Clinic to stream.** The GP can share an anonymous stream-linked case. The CDS Hooks feedback endpoint turns it into
    an OAH health-measure Observation, which feeds back into the reach's risk.
+5. **AI duty officer.** On any stream record, a Claude agent gathers the evidence with read-only tools: the risk model,
+   observations, clinic reports, the weather and other reaches in the city. You watch each step live. It then drafts a
+   response plan:
+   - a resident advisory in the local language (Greek, Italian, Norwegian or Portuguese) plus English;
+   - a GP note;
+   - owned, time-bound actions;
+   - evidence citing observation ids;
+   - honest uncertainties.
+
+   A named duty officer approves or discards it. Only approved plans are published, as FHIR Communication plus
+   Provenance.
 
 ## How we built it
 - **Stack:** Next.js 16 route handlers serve a FHIR R4 facade (`/fhir`) and CDS Hooks endpoints (`/cds-services`).
@@ -55,7 +68,12 @@ already use.
   store holds a 120-day demo dataset across 10 reaches; anything visitors add persists.
 - **Data explorer:** every check, lab result, clinic signal and volunteer, plus a coordinator verification queue
   (human in the loop).
-- **Tests:** 13 Vitest unit tests, and 59 Playwright end-to-end tests with an axe WCAG 2 AA scan. The E2E suite
+- **AI agent:** Claude Opus 5.5 via the Anthropic TypeScript SDK in a manual tool-use loop. There are five read-only
+  tools and a strictly typed `submit_response_plan` tool, validated again with zod. Refusal fallback is on. The agent's
+  steps stream to the browser as server-sent events. Drafts and decisions are stored in Postgres. Usage guards: a
+  per-visitor cooldown, a daily cap and one-hour draft reuse. A deterministic mock mode lets the E2E suite test the
+  whole flow without model calls.
+- **Tests:** 13 Vitest unit tests, a live agent test, and 62 Playwright end-to-end tests with an axe WCAG 2 AA scan. The E2E suite
   passes against the live deployment.
 
 ## Challenges
@@ -63,6 +81,8 @@ already use.
 - Keeping the model honest. We chose explainable priors over a black box trained on synthetic data, and report
   confidence separately from risk.
 - Alert fatigue. Cards need a symptom match or high risk, and the service returns at most two.
+- Trustworthy AI. The agent only sees StreamReach's own data, must cite evidence for its claims, states its
+  uncertainties, and cannot publish anything itself.
 
 ## Accomplishments
 - The loop is real and demoable in 3 minutes. A citizen check changes a forecast, the forecast raises a card in an EHR,
@@ -77,7 +97,7 @@ already use.
 - Add a second CDS hook (`order-select`) and cyanotoxin/veterinary cards.
 
 ## Built with
-nextjs, typescript, tailwindcss, fhir, hl7, cds-hooks, fsh-sushi, open-meteo, openstreetmap, leaflet, vitest
+nextjs, typescript, tailwindcss, fhir, hl7, cds-hooks, claude, anthropic, fsh-sushi, neon, postgres, open-meteo, openstreetmap, leaflet, vitest, playwright
 
 ---
 
