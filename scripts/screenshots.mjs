@@ -36,7 +36,6 @@ async function shot(page, path, file, { prep, fullPage = false, wait = 1200 } = 
   const ctx = await context(desktop, "officer");
   const p = await ctx.newPage();
   await shot(p, "/app?reach=giofyros-1", `${OUT}/dashboard.png`, { wait: 3500 });
-  await p.screenshot({ path: "public/landing/dashboard.png" });
   await shot(p, "/app", `${OUT}/dashboard-overview.png`, { wait: 3500 });
   await shot(p, "/app?rain=40", `${OUT}/what-if-storm.png`, { wait: 3500 });
   await shot(p, "/app/streams/giofyros-1", `${OUT}/stream-record.png`, {

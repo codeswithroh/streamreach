@@ -12,6 +12,7 @@ import {
   Users,
   Waves,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = { title: "StreamReach: One Health early warning for urban streams" };
@@ -102,8 +103,15 @@ export default function Landing() {
         </div>
         <div className="relative">
           <div className="rounded-[22px] bg-[#1b1f24] p-2.5 shadow-[0_30px_80px_rgba(12,18,28,0.35)]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/landing/dashboard.png" alt="StreamReach monitoring dashboard: satellite map of a stream with risk zone, forecast chart and stream details" className="rounded-[14px] w-full h-auto" />
+            <Image
+              src="/landing/dashboard.webp"
+              alt="StreamReach monitoring dashboard: satellite map of a stream with risk zone, forecast chart and stream details"
+              width={2000}
+              height={1250}
+              priority
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              className="rounded-[14px] w-full h-auto"
+            />
           </div>
           <div className="hidden sm:block absolute -bottom-6 -left-6 float-card p-4 w-64">
             <p className="text-xs text-ink-3">Giofyros Reach A · Heraklion</p>
