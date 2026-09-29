@@ -25,6 +25,20 @@ export interface CardMeta {
   syndrome?: ClinicalSignal["syndrome"];
 }
 
+export interface StoredPlan {
+  id: string;
+  siteId: string;
+  status: "draft" | "approved" | "discarded";
+  /** ResponsePlan (src/lib/agent/plan.ts) */
+  plan: unknown;
+  /** the agent's tool calls and notes, for the audit trail */
+  trace: unknown;
+  model: string;
+  createdAt: string;
+  decidedAt?: string;
+  decidedBy?: string;
+}
+
 interface Backend {
   kind: "postgres" | "memory";
   /** Changes whenever any instance writes; lets every instance keep a cache that is never stale. */
@@ -35,6 +49,13 @@ interface Backend {
   setStatus(id: string, status: StreamObservation["status"]): Promise<boolean>;
   putCard(uuid: string, meta: CardMeta): Promise<void>;
   takeCard(uuid: string): Promise<CardMeta | undefined>;
+  savePlan(p: StoredPlan): Promise<void>;
+  getPlan(id: string): Promise<StoredPlan | undefined>;
+  listPlans(siteId?: string): Promise<StoredPlan[]>;
+  /** draft -> approved | discarded; returns undefined if the plan is not a pending draft */
+  decidePlan(id: string, status: "approved" | "discarded", by: string): Promise<StoredPlan | undefined>;
+  /** increments and returns today's agent-run counter */
+  countAgentRun(day: string): Promise<number>;
 }
 
 const today = () => new Date().toISOString().slice(0, 10);
@@ -45,6 +66,8 @@ function memoryBackend(): Backend {
   let seededFor = "";
   let snap: Snapshot = { observations: [], signals: [] };
   const cards = new Map<string, CardMeta>();
+  const plans = new Map<string, StoredPlan>();
+  const runs = new Map<string, number>();
   let ver = 0;
   const ensure = () => {
     if (seededFor === today()) return;
@@ -90,6 +113,31 @@ function memoryBackend(): Backend {
       cards.delete(uuid);
       return m;
     },
+    async savePlan(p) {
+      plans.set(p.id, structuredClone(p));
+    },
+    async getPlan(id) {
+      const p = plans.get(id);
+      return p && structuredClone(p);
+    },
+    async listPlans(siteId) {
+      return [...plans.values()]
+        .filter((p) => !siteId || p.siteId === siteId)
+        .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+        .slice(0, 50)
+        .map((p) => structuredClone(p));
+    },
+    async decidePlan(id, status, by) {
+      const p = plans.get(id);
+      if (!p || p.status !== "draft") return undefined;
+      Object.assign(p, { status, decidedBy: by, decidedAt: new Date().toISOString() });
+      return structuredClone(p);
+    },
+    async countAgentRun(day) {
+      const n = (runs.get(day) ?? 0) + 1;
+      runs.set(day, n);
+      return n;
+    },
   };
 }
 
@@ -109,7 +157,34 @@ const SCHEMA = [
   `create table if not exists kv (key text primary key, value text not null)`,
   `insert into kv (key, value) values ('seed_date', '') on conflict do nothing`,
   `insert into kv (key, value) values ('version', '0') on conflict do nothing`,
+  `create table if not exists agent_plans (
+     id text primary key, site_id text not null, status text not null, plan jsonb not null, trace jsonb not null,
+     model text not null, created_at timestamptz not null default now(), decided_at timestamptz, decided_by text)`,
+  `create index if not exists agent_plans_site on agent_plans (site_id, created_at desc)`,
 ];
+
+type PlanRow = {
+  id: string;
+  site_id: string;
+  status: StoredPlan["status"];
+  plan: unknown;
+  trace: unknown;
+  model: string;
+  created_at: string | Date;
+  decided_at: string | Date | null;
+  decided_by: string | null;
+};
+const planFromRow = (r: PlanRow): StoredPlan => ({
+  id: r.id,
+  siteId: r.site_id,
+  status: r.status,
+  plan: r.plan,
+  trace: r.trace,
+  model: r.model,
+  createdAt: new Date(r.created_at).toISOString(),
+  ...(r.decided_at ? { decidedAt: new Date(r.decided_at).toISOString() } : {}),
+  ...(r.decided_by ? { decidedBy: r.decided_by } : {}),
+});
 
 const BUMP = `update kv set value = (value::bigint + 1)::text where key = 'version'`;
 
@@ -260,6 +335,41 @@ function postgresBackend(url: string): Backend {
       const r = (await sql.query(`delete from cds_cards where uuid = $1 returning meta`, [uuid])) as { meta: CardMeta }[];
       return r[0]?.meta;
     },
+    async savePlan(p) {
+      await init();
+      await sql.query(
+        `insert into agent_plans (id, site_id, status, plan, trace, model, created_at) values ($1, $2, $3, $4::jsonb, $5::jsonb, $6, $7)`,
+        [p.id, p.siteId, p.status, JSON.stringify(p.plan), JSON.stringify(p.trace), p.model, p.createdAt],
+      );
+    },
+    async getPlan(id) {
+      await init();
+      const r = (await sql.query(`select * from agent_plans where id = $1`, [id])) as PlanRow[];
+      return r[0] && planFromRow(r[0]);
+    },
+    async listPlans(siteId) {
+      await init();
+      const r = (await (siteId
+        ? sql.query(`select * from agent_plans where site_id = $1 order by created_at desc limit 50`, [siteId])
+        : sql.query(`select * from agent_plans order by created_at desc limit 50`))) as PlanRow[];
+      return r.map(planFromRow);
+    },
+    async decidePlan(id, status, by) {
+      await init();
+      const r = (await sql.query(
+        `update agent_plans set status = $2, decided_by = $3, decided_at = now() where id = $1 and status = 'draft' returning *`,
+        [id, status, by],
+      )) as PlanRow[];
+      return r[0] && planFromRow(r[0]);
+    },
+    async countAgentRun(day) {
+      await init();
+      const r = (await sql.query(
+        `insert into kv (key, value) values ($1, '1') on conflict (key) do update set value = (kv.value::int + 1)::text returning value`,
+        [`agent_runs:${day}`],
+      )) as { value: string }[];
+      return Number(r[0].value);
+    },
   };
 }
 
@@ -362,3 +472,9 @@ export async function recentStats(now = Date.now()) {
   const clinic = s.signals.filter((x) => new Date(x.date).getTime() > since).length;
   return { checks, clinic };
 }
+
+export const savePlan = (p: StoredPlan) => backend().savePlan(p);
+export const getPlan = (id: string) => backend().getPlan(id);
+export const listPlans = (siteId?: string) => backend().listPlans(siteId);
+export const decidePlan = (id: string, status: "approved" | "discarded", by: string) => backend().decidePlan(id, status, by);
+export const countAgentRun = (day = new Date().toISOString().slice(0, 10)) => backend().countAgentRun(day);

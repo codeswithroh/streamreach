@@ -44,6 +44,12 @@ export function capabilityStatement(base: string): Resource {
             ],
           },
           { type: "Group", supportedProfile: [OAH_PROFILE.group, TRIB_PROFILE.exposedCohort], interaction: read },
+          {
+            type: "Communication",
+            interaction: read,
+            documentation: "Public advisories drafted by the StreamReach AI agent and approved by a human duty officer",
+            searchParam: [{ name: "about", type: "reference" }],
+          },
           { type: "Provenance", interaction: read, searchParam: [{ name: "target", type: "reference" }] },
           { type: "CodeSystem", interaction: read },
         ],

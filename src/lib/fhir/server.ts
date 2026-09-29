@@ -3,12 +3,14 @@
 import { OAH_CS, TRIB_CS } from "../codes";
 import { allSiteBundles, siteBundleById } from "../risk/service";
 import { SITES, getSite } from "../sites";
-import { addObservations, snapshot } from "../store";
+import { addObservations, listPlans, snapshot, type StoredPlan } from "../store";
 import type { HazardId, OahIndicatorCode, StreamObservation } from "../types";
 import { capabilityStatement, codeSystems } from "./conformance";
 import {
   bundle,
   cohortResource,
+  communicationResource,
+  planProvenanceResource,
   healthSignalResource,
   locationResource,
   observationResource,
@@ -80,7 +82,26 @@ export async function fhirGet(path: string[], q: URLSearchParams, base: string):
       return bundle("searchset", rs.slice(0, count), base);
     }
 
+    case "Communication": {
+      const approved = (await listPlans()).filter((p) => p.status === "approved");
+      const toRes = (p: StoredPlan) => communicationResource(getSite(p.siteId)!, p as Parameters<typeof communicationResource>[1]);
+      if (id) {
+        const p = approved.find((x) => x.id === id);
+        if (!p) throw new FhirError(404, `Communication/${id} not found`, "not-found");
+        return toRes(p);
+      }
+      const about = refId(q.get("about") ?? q.get("location"), "Location");
+      return bundle("searchset", approved.filter((p) => !about || p.siteId === about).map(toRes), base);
+    }
+
     case "Provenance": {
+      const commTarget = q.get("target")?.startsWith("Communication/") ? q.get("target")!.split("/")[1] : id?.startsWith("prov-plan-") ? id.slice(5) : undefined;
+      if (commTarget) {
+        const p = (await listPlans()).find((x) => x.id === commTarget && x.status === "approved");
+        if (!p) throw new FhirError(404, `Provenance for Communication/${commTarget} not found`, "not-found");
+        const r = planProvenanceResource(p as Parameters<typeof planProvenanceResource>[0]);
+        return id ? r : bundle("searchset", [r], base);
+      }
       const target = refId(q.get("target"), "Observation");
       const obs = (await snapshot()).observations.filter((o) => (id ? `prov-${o.id}` === id : target ? o.id === target : true));
       if (id && !obs.length) throw new FhirError(404, `Provenance/${id} not found`, "not-found");

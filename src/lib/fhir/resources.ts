@@ -263,3 +263,66 @@ export function bundle(type: "searchset" | "collection" | "transaction-response"
 function round(x: number) {
   return Math.round(x * 1000) / 1000;
 }
+
+// ------------------------------------------------ AI-drafted, human-approved advisories
+
+interface PlanLike {
+  id: string;
+  siteId: string;
+  model: string;
+  createdAt: string;
+  decidedAt?: string;
+  decidedBy?: string;
+  plan: {
+    headline: string;
+    priority: "routine" | "elevated" | "urgent";
+    public_advisory: { language: string; local_text: string; english_text: string };
+    clinician_note: string;
+  };
+}
+
+const FHIR_PRIORITY = { routine: "routine", elevated: "urgent", urgent: "asap" } as const;
+
+/** An approved response plan's public advisory, as a FHIR Communication to the exposed cohort. */
+export function communicationResource(site: Site, p: PlanLike): Resource {
+  return {
+    resourceType: "Communication",
+    id: p.id,
+    text: narrative(`${p.plan.headline}. ${p.plan.public_advisory.english_text}`),
+    status: "completed",
+    category: [{ coding: [{ system: "http://terminology.hl7.org/CodeSystem/communication-category", code: "alert", display: "Alert" }] }],
+    priority: FHIR_PRIORITY[p.plan.priority],
+    subject: { reference: `Group/${exposedCohortId(site.id)}`, display: `People living within 1 km of ${site.name}` },
+    about: [{ reference: `Location/${site.id}`, display: site.name }],
+    topic: { text: p.plan.headline },
+    sent: p.decidedAt,
+    sender: { display: `Public health duty officer: ${p.decidedBy}` },
+    payload: [
+      { contentString: p.plan.public_advisory.local_text },
+      { contentString: p.plan.public_advisory.english_text },
+    ],
+    note: [
+      { text: `Clinician note: ${p.plan.clinician_note}` },
+      { text: `Drafted by the StreamReach duty-officer agent (${p.model}) on ${p.createdAt}; reviewed and approved by ${p.decidedBy} on ${p.decidedAt}.` },
+    ],
+  };
+}
+
+/** Who made the advisory: the AI agent authored it, a named human verified it. */
+export function planProvenanceResource(p: PlanLike): Resource {
+  const role = (code: string) => ({ coding: [{ system: "http://terminology.hl7.org/CodeSystem/provenance-participant-type", code }] });
+  return {
+    resourceType: "Provenance",
+    id: `prov-${p.id}`,
+    text: narrative(`Communication ${p.id}: drafted by an AI agent (${p.model}), approved by ${p.decidedBy}`),
+    target: [{ reference: `Communication/${p.id}` }],
+    occurredPeriod: { start: p.createdAt, end: p.decidedAt },
+    recorded: p.decidedAt ?? p.createdAt,
+    activity: { coding: [{ system: "http://terminology.hl7.org/CodeSystem/v3-DataOperation", code: "CREATE" }] },
+    agent: [
+      { type: role("author"), who: { display: `StreamReach duty-officer agent (${p.model})` } },
+      { type: role("verifier"), who: { display: p.decidedBy } },
+    ],
+    policy: ["https://streamreach.io/policy/ai-drafts-require-human-approval"],
+  };
+}

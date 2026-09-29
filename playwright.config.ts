@@ -28,6 +28,6 @@ export default defineConfig({
         url: "http://localhost:3100/fhir/metadata",
         timeout: 240_000,
         reuseExistingServer: false,
-        env: { DATABASE_URL: "", POSTGRES_URL: "" },
+        env: { DATABASE_URL: "", POSTGRES_URL: "", STREAMREACH_AGENT_MOCK: "1" },
       },
 });

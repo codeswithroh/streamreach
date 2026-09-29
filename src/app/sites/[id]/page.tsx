@@ -4,7 +4,10 @@ import { FactorBars, HazardIcon, LevelChip, Timeline } from "@/components/risk-u
 import { riskAssessmentResource } from "@/lib/fhir/resources";
 import { LEVEL_LABEL } from "@/lib/risk/engine";
 import { siteBundleById } from "@/lib/risk/service";
-import { observationsFor } from "@/lib/store";
+import { listPlans, observationsFor } from "@/lib/store";
+import { AgentPanel } from "@/components/AgentPanel";
+import { agentMode } from "@/lib/agent/run";
+import type { ResponsePlan } from "@/lib/agent/plan";
 import type { StreamObservation } from "@/lib/types";
 import { parseScenario } from "@/lib/weather";
 
@@ -18,6 +21,7 @@ export default async function SitePage({ params, searchParams }: PageProps<"/sit
   if (!sb) notFound();
   const { site, weather, risk } = sb;
   const obs = await observationsFor(site.id);
+  const advisories = (await listPlans(site.id)).filter((p) => p.status === "approved").slice(0, 3);
   const checks = groupChecks(obs).slice(0, 8);
   const window = weather.days.slice(Math.max(0, weather.todayIndex - 7));
   const maxRain = Math.max(10, ...window.map((d) => d.rainMm));
@@ -56,6 +60,30 @@ export default async function SitePage({ params, searchParams }: PageProps<"/sit
           {scenario.heatC} °C. <Link href={`/sites/${site.id}`} className="underline">Back to the real forecast</Link>
         </div>
       ) : null}
+
+      {advisories.length > 0 && (
+        <section className="mt-6 rounded-xl border border-river/30 bg-river-soft/50 p-4" aria-label="Current advisory">
+          {advisories.slice(0, 1).map((a) => {
+            const pl = a.plan as ResponsePlan;
+            return (
+              <div key={a.id}>
+                <p className="eyebrow !text-river-deep">
+                  Current advisory · approved by {a.decidedBy} ·{" "}
+                  {new Date(a.decidedAt!).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                </p>
+                <p className="font-medium mt-1">{pl.headline}</p>
+                <p className="text-sm mt-1">{pl.public_advisory.local_text}</p>
+                <p className="text-sm text-ink-2 mt-1">{pl.public_advisory.english_text}</p>
+                <a href={`/fhir/Communication/${a.id}`} target="_blank" className="text-xs text-river hover:underline mt-1 inline-block">
+                  FHIR Communication/{a.id} ↗
+                </a>
+              </div>
+            );
+          })}
+        </section>
+      )}
+
+      <AgentPanel siteId={site.id} mode={agentMode()} />
 
       <section className="mt-6 space-y-5">
         {risk.hazards.map((h) => (

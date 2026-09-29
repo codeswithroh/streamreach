@@ -12,12 +12,14 @@
     "e2e:prod": "E2E_BASE_URL=https://streamreach-health.vercel.app playwright test"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.129.0",
     "@neondatabase/serverless": "^1.1.0",
     "leaflet": "^1.9.4",
     "next": "16.3.6",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "react-leaflet": "^5.0.0"
+    "react-leaflet": "^5.0.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
