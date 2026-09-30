@@ -39,11 +39,12 @@ async function shot(page, path, file, { prep, fullPage = false, wait = 1200 } = 
   await shot(p, "/app", `${OUT}/dashboard-overview.png`, { wait: 3500 });
   await shot(p, "/app?rain=40", `${OUT}/what-if-storm.png`, { wait: 3500 });
   await shot(p, "/app/streams/giofyros-1", `${OUT}/stream-record.png`, {
-    prep: (pg) => pg.addStyleTag({ content: "nav[aria-label=App]{position:absolute!important}" }),
+    wait: 2000,
   });
   await shot(p, "/app/data", `${OUT}/data-explorer.png`);
   await shot(p, "/standards", `${OUT}/standards.png`);
   await p.goto(BASE + "/app/streams/giofyros-1", { waitUntil: "networkidle" });
+  await p.getByRole("button", { name: "Draft with AI" }).click();
   await p.getByRole("button", { name: "Draft response plan" }).click();
   await p.getByTestId("response-plan").waitFor({ timeout: 180000 });
   await p.getByText(/Evidence \(\d+\)/).click();

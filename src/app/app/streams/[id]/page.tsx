@@ -1,19 +1,33 @@
+import { Bug, Droplets, FlaskConical, MapPin, Plus, Sprout, Thermometer, Waves } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { FactorBars, HazardIcon, LevelChip, Timeline } from "@/components/risk-ui";
+import { LEVEL_HEX, LevelChip } from "@/components/risk-ui";
 import { riskAssessmentResource } from "@/lib/fhir/resources";
 import { LEVEL_LABEL } from "@/lib/risk/engine";
 import { siteBundleById } from "@/lib/risk/service";
 import { PageHeader } from "@/components/shell/PageHeader";
 import { getCurrentUser } from "@/lib/auth";
-import { listPlans, observationsFor } from "@/lib/store";
-import { AgentPanel } from "@/components/AgentPanel";
+import { listPlans, observationsFor, signalsFor } from "@/lib/store";
 import { agentMode } from "@/lib/agent/run";
 import type { ResponsePlan } from "@/lib/agent/plan";
-import type { StreamObservation } from "@/lib/types";
+import type { OahIndicatorCode, StreamObservation } from "@/lib/types";
 import { parseScenario } from "@/lib/weather";
+import { SITES } from "@/lib/sites";
+import { dayMonth, dayMonthTime } from "@/lib/format";
+import { StreamInsights } from "@/components/stream/StreamInsights";
+import { ActivityFeed, type Activity } from "@/components/stream/ActivityFeed";
+import { AgentDrawer, OpenAgentButton } from "@/components/stream/AgentDrawer";
+import { StreamSwitcher } from "@/components/stream/StreamSwitcher";
 
 export const dynamic = "force-dynamic";
+
+const SHORT = { waterborne: "Pathogens", cyanobacteria: "Algal bloom", vector: "Mosquitoes" } as const;
+const SYNDROME = { gastrointestinal: "gastrointestinal", "skin-rash": "skin-rash", febrile: "fever" } as const;
+const STATUS = {
+  draft: { label: "Draft", dot: "bg-amber-500" },
+  approved: { label: "Published", dot: "bg-emerald-500" },
+  discarded: { label: "Discarded", dot: "bg-stone-400" },
+} as const;
 
 export default async function SitePage({ params, searchParams }: PageProps<"/app/streams/[id]">) {
   const { id } = await params;
@@ -22,207 +36,205 @@ export default async function SitePage({ params, searchParams }: PageProps<"/app
   const sb = await siteBundleById(id, scenario);
   if (!sb) notFound();
   const { site, weather, risk } = sb;
-  const obs = await observationsFor(site.id);
-  const user = (await getCurrentUser())!;
-  const advisories = (await listPlans(site.id)).filter((p) => p.status === "approved").slice(0, 3);
-  const checks = groupChecks(obs).slice(0, 8);
-  const window = weather.days.slice(Math.max(0, weather.todayIndex - 7));
-  const maxRain = Math.max(10, ...window.map((d) => d.rainMm));
+  const [obs, signals, allPlans, user] = await Promise.all([observationsFor(site.id), signalsFor(site.id), listPlans(site.id), getCurrentUser()]);
+  const officer = user!.role === "officer";
+  const plans = allPlans.filter((p) => officer || p.status === "approved").sort((a, b) => (b.decidedAt ?? b.createdAt).localeCompare(a.decidedAt ?? a.createdAt));
+  const advisory = allPlans.filter((p) => p.status === "approved").sort((a, b) => b.decidedAt!.localeCompare(a.decidedAt!))[0];
   const today = weather.days[weather.todayIndex].date;
   const scenarioOn = scenario.rainMm || scenario.heatC;
+  const uses = site.uses.split(/,\s*|\s+and\s+/).map((u) => u.trim()).filter(Boolean);
+
+  const activity: Activity[] = [
+    ...groupChecks(obs).map<Activity>((c) => ({
+      key: c.key,
+      kind: c.lab ? "lab" : "check",
+      when: c.when,
+      title: c.lab ? "Lab result received" : `${c.who} added a stream check`,
+      items: c.items.map((o) => `${LABEL[o.code]}: ${valueText(o)}`),
+      pending: c.status === "preliminary",
+    })),
+    ...signals.map<Activity>((s) => ({
+      key: s.id,
+      kind: "clinic",
+      when: s.date,
+      title: `A GP shared an anonymous ${SYNDROME[s.syndrome]} case`,
+    })),
+    ...allPlans
+      .filter((p) => p.status === "approved")
+      .map<Activity>((p) => ({ key: p.id, kind: "plan", when: p.decidedAt!, title: `${p.decidedBy} published an advisory` })),
+  ]
+    .sort((a, b) => b.when.localeCompare(a.when))
+    .slice(0, 24);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
-      <Link href={`/app?reach=${site.id}${scenarioOn ? `&rain=${scenario.rainMm}&heat=${scenario.heatC}` : ""}`} className="text-sm text-ink-3 hover:text-ink">
-        ← Monitoring
-      </Link>
-
-      <div className="mt-3">
-        <PageHeader
-          eyebrow={`Stream health record · FHIR Location/${site.id}`}
-          title={site.name}
-          subtitle={
-            <>
-              <p>
-                {site.river} · {site.district}, {site.city}, {site.country} ·{" "}
-                <span className="text-ink-3">{site.source === "oah-ig" ? "coordinates from the OneAquaHealth IG" : "demo reach"}</span>
-              </p>
-              <p className="text-sm text-ink-3 mt-1">
-                Used for {site.uses}. ~{site.vulnerability.residentsWithin1km.toLocaleString("en")} residents within 1 km.
-              </p>
-              <div className="flex flex-wrap items-center gap-3 mt-3">
-                <LevelChip level={risk.overall}>Overall {LEVEL_LABEL[risk.overall].toLowerCase()}</LevelChip>
-                <Link href={`/app/check?site=${site.id}`} className="btn-accent text-sm px-4 py-2">
-                  + Add a stream check
-                </Link>
-                <Link href={`/app?reach=${site.id}`} className="rounded-[10px] border border-line bg-white text-sm px-4 py-2 hover:border-ink-3">
-                  View on map
-                </Link>
-              </div>
-            </>
-          }
-        />
-      </div>
+    <div className="mx-auto max-w-[1500px] px-4 sm:px-6 py-6">
+      <PageHeader
+        eyebrow="Stream record"
+        title={site.name}
+        actions={<StreamSwitcher current={site.id} sites={SITES.map((s) => ({ id: s.id, name: s.name, city: s.city }))} />}
+      />
 
       {scenarioOn ? (
-        <div className="mt-5 rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-sm text-amber-900">
+        <div className="mt-4 rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-sm text-amber-900">
           What-if scenario active: +{scenario.rainMm} mm rain over the next 48 h, {scenario.heatC >= 0 ? "+" : ""}
           {scenario.heatC} °C. <Link href={`/app/streams/${site.id}`} className="underline">Back to the real forecast</Link>
         </div>
       ) : null}
 
-      {advisories.length > 0 && (
-        <section className="mt-6 rounded-xl border border-river/30 bg-river-soft/50 p-4" aria-label="Current advisory">
-          {advisories.slice(0, 1).map((a) => {
-            const pl = a.plan as ResponsePlan;
-            return (
-              <div key={a.id}>
-                <p className="eyebrow !text-river-deep">
-                  Current advisory · approved by {a.decidedBy} ·{" "}
-                  {new Date(a.decidedAt!).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+      <div className="mt-5 grid gap-4 lg:grid-cols-[290px_minmax(0,1fr)] xl:grid-cols-[290px_minmax(0,1fr)_340px] items-start">
+        {/* left: identity + readings */}
+        <div className="space-y-4 min-w-0">
+          <section className="card p-5" aria-label="Stream">
+            <div className="flex items-center gap-3">
+              <span className="grid place-items-center w-14 h-14 rounded-2xl text-white shrink-0" style={{ background: LEVEL_HEX[risk.overall] }}>
+                <Waves size={24} />
+              </span>
+              <div className="min-w-0">
+                <p className="font-semibold leading-tight">{site.river}</p>
+                <p className="text-xs text-ink-3 mt-0.5 flex items-center gap-1">
+                  <MapPin size={12} /> {site.district}, {site.city}
                 </p>
-                <p className="font-medium mt-1">{pl.headline}</p>
-                <p className="text-sm mt-1">{pl.public_advisory.local_text}</p>
-                <p className="text-sm text-ink-2 mt-1">{pl.public_advisory.english_text}</p>
-                <a href={`/fhir/Communication/${a.id}`} target="_blank" className="text-xs text-river hover:underline mt-1 inline-block">
-                  FHIR Communication/{a.id} ↗
-                </a>
-              </div>
-            );
-          })}
-        </section>
-      )}
-
-      <div id="agent" className="scroll-mt-4">
-        <AgentPanel siteId={site.id} mode={user.role === "officer" ? agentMode() : "forbidden"} officerName={user.name} />
-      </div>
-
-      <section className="mt-6 space-y-5">
-        {risk.hazards.map((h) => (
-          <article key={h.hazard} className="card p-5 grid lg:grid-cols-[1.15fr_1fr] gap-8 [&>*]:min-w-0">
-            <div>
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                <span className={`lvl-${h.peak.level}`} style={{ color: "var(--lvl)" }}>
-                  <HazardIcon hazard={h.hazard} className="w-6 h-6" />
-                </span>
-                <h2 className="font-display text-2xl">{h.label}</h2>
-                <LevelChip level={h.peak.level} />
-                <span className="ml-auto text-sm tabular-nums text-ink-2">
-                  {Math.round(h.now.p * 100)}% today · peak {Math.round(h.peak.p * 100)}%
-                </span>
-              </div>
-              <div className="mt-6">
-                <Timeline timeline={h.timeline} today={today} />
-              </div>
-              <div className="grid sm:grid-cols-2 gap-3 mt-5">
-                <div className="rounded-lg bg-river-soft/60 p-3">
-                  <p className="eyebrow !text-river-deep">For people nearby</p>
-                  <p className="text-sm mt-1">{h.publicAdvice}</p>
-                </div>
-                <div className="rounded-lg bg-stone-100 p-3">
-                  <p className="eyebrow">For clinicians</p>
-                  <p className="text-sm mt-1">{h.clinicalAdvice}</p>
-                </div>
               </div>
             </div>
-            <div>
-              <div className="flex items-baseline justify-between">
-                <p className="eyebrow">Why this score</p>
-                <span className={`text-[11px] ${h.confidence === "low" ? "text-lvl-high" : "text-ink-3"}`}>
-                  Confidence {h.confidence}: {h.confidenceReason}
-                </span>
+            <dl className="mt-5 grid grid-cols-2 gap-x-3 gap-y-3.5 text-sm">
+              <div className="col-span-2">
+                <dt className="text-[11px] text-ink-3">Overall risk</dt>
+                <dd className="mt-1">
+                  <LevelChip level={risk.overall}>{LEVEL_LABEL[risk.overall]}</LevelChip>
+                </dd>
               </div>
-              <div className="mt-3">
-                <FactorBars factors={h.factors} />
+              <div>
+                <dt className="text-[11px] text-ink-3">Residents ≤ 1 km</dt>
+                <dd className="font-semibold mt-0.5">{site.vulnerability.residentsWithin1km.toLocaleString("en")}</dd>
               </div>
-            </div>
-          </article>
-        ))}
-      </section>
-
-      <section className="grid lg:grid-cols-[1fr_1.2fr] gap-5 mt-5">
-        <div className="card p-5">
-          <p className="eyebrow">Weather · {weather.source === "open-meteo" ? "Open-Meteo, live" : "offline climatology"}</p>
-          <div className="flex items-end gap-1.5 h-24 mt-4">
-            {window.map((d) => (
-              <div key={d.date} className="flex-1 flex flex-col items-center justify-end h-full">
-                <span className="text-[10px] text-ink-3 tabular-nums">{d.rainMm >= 1 ? Math.round(d.rainMm) : ""}</span>
-                <div
-                  className={`w-full rounded-t-[3px] ${d.forecast ? "hatch" : ""}`}
-                  style={{ height: `${(d.rainMm / maxRain) * 80}%`, background: "#3d8fc4", opacity: d.date < today ? 0.5 : 1 }}
-                />
+              <div>
+                <dt className="text-[11px] text-ink-3">Spill threshold</dt>
+                <dd className="font-semibold mt-0.5">{site.vulnerability.overflowThresholdMm} mm/day</dd>
               </div>
-            ))}
-          </div>
-          <div className="flex gap-1.5 mt-1 border-t border-line pt-1">
-            {window.map((d) => (
-              <div key={d.date} className={`flex-1 text-center text-[10px] ${d.date === today ? "font-semibold" : "text-ink-3"}`}>
-                {Math.round(d.tMax)}°
-              </div>
-            ))}
-          </div>
-          <p className="text-[11px] text-ink-3 mt-2">Daily rain (mm) and max temperature. Spill threshold for this reach ≈ {site.vulnerability.overflowThresholdMm} mm/day.</p>
-        </div>
-
-        <div className="card p-5">
-          <div className="flex items-baseline justify-between">
-            <p className="eyebrow">Citizen & lab record</p>
-            <Link href={`/fhir/Observation?subject=Location/${site.id}`} className="text-xs text-river hover:underline" target="_blank">
-              FHIR Observation bundle ↗
-            </Link>
-          </div>
-          <ul className="mt-3 divide-y divide-line">
-            {checks.map((c) => (
-              <li key={c.key} className="py-2.5 flex gap-3">
-                <div className="w-20 shrink-0 text-xs text-ink-3">
-                  {new Date(c.when).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}
-                  <br />
-                  {c.who}
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {c.items.map((o) => (
-                    <span key={o.id} className="text-[11px] rounded-md bg-stone-100 px-1.5 py-0.5">
-                      <span className="text-ink-3">{LABEL[o.code]}:</span> {valueText(o)}
+              <div className="col-span-2">
+                <dt className="text-[11px] text-ink-3">Used for</dt>
+                <dd className="flex flex-wrap gap-1.5 mt-1">
+                  {uses.map((u) => (
+                    <span key={u} className="text-[11px] rounded-md border border-line px-2 py-0.5">
+                      {u}
                     </span>
                   ))}
-                  {c.status === "preliminary" && (
-                    <span className="text-[11px] rounded-md bg-amber-100 text-amber-900 px-1.5 py-0.5">awaiting verification</span>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+                </dd>
+              </div>
+              <div className="col-span-2">
+                <dt className="text-[11px] text-ink-3">Location data</dt>
+                <dd className="mt-1">
+                  <span className="text-[11px] rounded-md bg-river-soft text-river px-2 py-0.5">{site.source === "oah-ig" ? "OneAquaHealth IG" : "Demo reach"}</span>
+                </dd>
+              </div>
+            </dl>
+            <div className="grid grid-cols-2 gap-2 mt-5">
+              <Link href={`/app/check?site=${site.id}`} className="btn-accent flex items-center justify-center gap-1 text-sm py-2" aria-label="Add a stream check">
+                <Plus size={15} /> Check
+              </Link>
+              <Link href={`/app?reach=${site.id}${scenarioOn ? `&rain=${scenario.rainMm}&heat=${scenario.heatC}` : ""}`} className="rounded-[10px] border border-line text-sm py-2 text-center hover:border-ink-3">
+                View on map
+              </Link>
+            </div>
+          </section>
 
-      <section className="card p-5 mt-5">
-        <details>
-          <summary className="cursor-pointer flex items-center justify-between">
-            <span>
-              <span className="eyebrow">Interoperability</span>
-              <span className="block text-sm text-ink-2 mt-0.5">
-                The same record as FHIR R4: a RiskAssessment about an OAH cohort Group, with every factor as a structured extension.
-              </span>
-            </span>
-            <span className="text-xs text-river">show JSON</span>
-          </summary>
-          <div className="flex flex-wrap gap-2 mt-4 text-xs">
-            {[
-              [`/fhir/Location/${site.id}`, "Location (OAH)"],
-              [`/fhir/Group/cohort-${site.id}`, "Group (OAH cohort)"],
-              [`/fhir/RiskAssessment?location=Location/${site.id}`, "RiskAssessments"],
-              [`/fhir/Observation/health-${site.id}-gastrointestinal`, "Health measure (OAH)"],
-            ].map(([href, label]) => (
-              <a key={href} href={href} target="_blank" className="rounded-md border border-line px-2 py-1 hover:border-ink-3">
-                {label} ↗
-              </a>
-            ))}
-          </div>
-          <pre tabIndex={0} className="json mt-4 max-h-[420px] overflow-auto rounded-lg bg-ink text-emerald-100 p-4">
-            {JSON.stringify(riskAssessmentResource(site, risk, risk.hazards[0]), null, 2)}
-          </pre>
-        </details>
-      </section>
+          <section className="card p-5" aria-label="Risk today">
+            <div className="flex items-center justify-between">
+              <h2 className="font-semibold">Risk today</h2>
+              <span className="text-xs text-ink-3">{dayMonth(today)}</span>
+            </div>
+            <div className="flex h-3 rounded-full overflow-hidden gap-0.5 mt-4" aria-hidden>
+              {risk.hazards.map((h) => (
+                <span key={h.hazard} style={{ flex: Math.max(0.05, h.now.p), background: LEVEL_HEX[h.now.level] }} />
+              ))}
+            </div>
+            <ul className="mt-4 space-y-2.5">
+              {risk.hazards.map((h) => (
+                <li key={h.hazard} className="flex items-center gap-2 text-sm">
+                  <i className="w-2.5 h-2.5 rounded-sm" style={{ background: LEVEL_HEX[h.now.level] }} />
+                  {SHORT[h.hazard]}
+                  <span className="ml-auto tabular-nums font-semibold">{Math.round(h.now.p * 100)}%</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="card p-5" aria-label="Latest readings">
+            <h2 className="font-semibold">Latest readings</h2>
+            <ul className="grid grid-cols-2 gap-2 mt-3">
+              {READINGS.map(({ code, icon: Icon }) => {
+                const o = obs.filter((x) => x.code === code).sort((a, b) => b.effective.localeCompare(a.effective))[0];
+                return (
+                  <li key={code} className="rounded-xl border border-line p-2.5">
+                    <Icon size={16} className="text-river" aria-hidden />
+                    <p className="text-[11px] text-ink-3 mt-1.5">{LABEL[code]}</p>
+                    <p className="text-sm font-semibold leading-tight truncate" title={o ? valueText(o) : undefined}>
+                      {o ? valueText(o) : "—"}
+                    </p>
+                    {o && <p className="text-[10px] text-ink-3 mt-0.5">{dayMonth(o.effective)}</p>}
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        </div>
+
+        {/* centre: visual analysis */}
+        <StreamInsights
+          hazards={risk.hazards}
+          today={today}
+          weather={weather.days.slice(Math.max(0, weather.todayIndex - 7)).map((d) => ({ date: d.date, rainMm: d.rainMm, tMax: d.tMax, forecast: d.forecast }))}
+          spillMm={site.vulnerability.overflowThresholdMm}
+          weatherSource={weather.source}
+          fhir={{ siteId: site.id, json: risk.hazards.map((h) => JSON.stringify(riskAssessmentResource(site, risk, h), null, 2)) }}
+        />
+
+        {/* right: response + activity */}
+        <div className="min-w-0 lg:col-span-2 xl:col-span-1 grid gap-4 lg:grid-cols-2 xl:grid-cols-1 content-start">
+          <section className="card p-4" aria-label="Response plans">
+            <div className="flex items-center justify-between">
+              <h2 className="font-semibold">Response plans</h2>
+              <OpenAgentButton className="inline-flex items-center gap-1.5 rounded-lg border border-river text-river text-xs font-medium px-2.5 py-1.5 hover:bg-river hover:text-white" />
+            </div>
+            {advisory && (
+              <div aria-label="Current advisory" className="mt-3 rounded-xl bg-river text-white p-3.5">
+                <p className="text-[11px] text-white/70">
+                  Current advisory · {advisory.decidedBy} · {dayMonthTime(advisory.decidedAt!)}
+                </p>
+                <p className="text-sm font-medium mt-1 leading-snug">{(advisory.plan as ResponsePlan).headline}</p>
+                <a href={`/fhir/Communication/${advisory.id}`} target="_blank" className="text-[11px] text-white/80 underline mt-1.5 inline-block">
+                  FHIR Communication ↗
+                </a>
+              </div>
+            )}
+            <ul className="mt-3 space-y-2">
+              {plans.slice(0, 3).map((p) => {
+                const pl = p.plan as ResponsePlan;
+                const st = STATUS[p.status];
+                return (
+                  <li key={p.id} className="rounded-xl border border-line p-3">
+                    <div className="flex items-center justify-between gap-2 text-[11px]">
+                      <span className={`chip ${pl.priority === "urgent" ? "lvl-very-high" : pl.priority === "elevated" ? "lvl-high" : "lvl-low"}`}>{pl.priority}</span>
+                      <span className="flex items-center gap-1.5 text-ink-3">
+                        {st.label} <i className={`w-2 h-2 rounded-full ${st.dot}`} />
+                      </span>
+                    </div>
+                    <p className="text-[13px] font-medium mt-2 line-clamp-2">{pl.headline}</p>
+                    <p className="text-[11px] text-ink-3 mt-1">{dayMonthTime(p.decidedAt ?? p.createdAt)}</p>
+                  </li>
+                );
+              })}
+              {plans.length === 0 && (
+                <li className="rounded-xl border border-dashed border-line p-4 text-center text-xs text-ink-3">No plans yet for this stream.</li>
+              )}
+            </ul>
+          </section>
+
+          <ActivityFeed items={activity} />
+        </div>
+      </div>
+
+      <AgentDrawer siteId={site.id} mode={officer ? agentMode() : "forbidden"} officerName={user!.name} />
     </div>
   );
 }
@@ -236,16 +248,25 @@ const LABEL: Record<StreamObservation["code"], string> = {
   coliforms: "E. coli",
 };
 
+const READINGS: { code: OahIndicatorCode; icon: typeof Droplets }[] = [
+  { code: "hydrology", icon: Waves },
+  { code: "waterTemperature", icon: Thermometer },
+  { code: "foam", icon: Droplets },
+  { code: "filamentous-algae", icon: Sprout },
+  { code: "diptera", icon: Bug },
+  { code: "coliforms", icon: FlaskConical },
+];
+
 function valueText(o: StreamObservation) {
   return o.value.kind === "coded" ? o.value.display : `${o.value.value} ${o.value.unit}`;
 }
 
 function groupChecks(obs: StreamObservation[]) {
-  const map = new Map<string, { key: string; when: string; who: string; status: string; items: StreamObservation[] }>();
+  const map = new Map<string, { key: string; when: string; who: string; lab: boolean; status: string; items: StreamObservation[] }>();
   for (const o of obs) {
     const key = `${o.effective}|${o.performer.id}`;
-    if (!map.has(key)) map.set(key, { key, when: o.effective, who: o.performer.kind === "lab" ? "Lab" : o.performer.id, status: o.status, items: [] });
+    if (!map.has(key)) map.set(key, { key, when: o.effective, who: o.performer.kind === "lab" ? "Lab" : o.performer.id, lab: o.performer.kind === "lab", status: o.status, items: [] });
     map.get(key)!.items.push(o);
   }
-  return [...map.values()].sort((a, b) => b.when.localeCompare(a.when));
+  return [...map.values()];
 }

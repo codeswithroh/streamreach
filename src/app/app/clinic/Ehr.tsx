@@ -1,8 +1,24 @@
 "use client";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Activity, Bell, ClipboardList, HeartPulse, Share2, Thermometer, Users } from "lucide-react";
+import dynamic from "next/dynamic";
 import { Fragment, useCallback, useEffect, useState } from "react";
 import type { DemoPatient } from "@/lib/cds/demo-patients";
+import type { NearStream } from "./ExposureMap";
+
+const ExposureMap = dynamic(() => import("./ExposureMap"), { ssr: false, loading: () => <div className="h-full w-full rounded-xl bg-river-soft animate-pulse" /> });
+
+const LEVEL_HEX: Record<string, string> = { low: "#3f8a5a", moderate: "#d4a72c", high: "#e07a2c", "very-high": "#d23b33" };
+const LEVEL_LABEL: Record<string, string> = { low: "Low", moderate: "Moderate", high: "High", "very-high": "Very high" };
+const AVATAR = ["#1e2a44", "#b8322a", "#2f5fb8", "#1b7049", "#6d43d8", "#9a4a16"];
+const VITAL: Record<string, { label: string; icon: typeof Thermometer }> = {
+  T: { label: "Temperature", icon: Thermometer },
+  HR: { label: "Heart rate", icon: HeartPulse },
+  BP: { label: "Blood pressure", icon: Activity },
+};
+
+type Summary = { cards: number; indicator?: Card["indicator"] };
 
 interface Card {
   uuid: string;
@@ -19,6 +35,11 @@ type Outcome = { kind: "accepted"; labels: string[] } | { kind: "overridden"; re
 
 const age = (b: string) => Math.floor((Date.now() - new Date(b).getTime()) / (365.25 * 86_400_000));
 const nameOf = (p: any) => `${p.name[0].given[0]} ${p.name[0].family}`;
+const initials = (p: any) => `${p.name[0].given[0][0]}${p.name[0].family[0]}`;
+const summarise = (res: any): Summary => ({
+  cards: res.cards?.length ?? 0,
+  indicator: res.cards?.some((c: Card) => c.indicator === "critical") ? "critical" : res.cards?.some((c: Card) => c.indicator === "warning") ? "warning" : res.cards?.length ? "info" : undefined,
+});
 
 export function Ehr({ patients, serviceId }: { patients: DemoPatient[]; serviceId: string }) {
   const [sel, setSel] = useState(patients[0].patient.id);
@@ -33,6 +54,9 @@ export function Ehr({ patients, serviceId }: { patients: DemoPatient[]; serviceI
   const [toast, setToast] = useState<string>();
   const current = patients.find((p) => p.patient.id === sel)!;
 
+  const [summaries, setSummaries] = useState<Record<string, Summary>>({});
+  const [shared, setShared] = useState(0);
+
   const fire = useCallback(
     (p: DemoPatient) =>
       runHook(p, serviceId)
@@ -41,6 +65,7 @@ export function Ehr({ patients, serviceId }: { patients: DemoPatient[]; serviceI
           setReq(body);
           setRes(res);
           setCards(res.cards ?? []);
+          setSummaries((s) => ({ ...s, [p.patient.id]: summarise(res) }));
         })
         .catch((e: Error) => setError(e.message)),
     [serviceId],
@@ -48,7 +73,12 @@ export function Ehr({ patients, serviceId }: { patients: DemoPatient[]; serviceI
 
   useEffect(() => {
     fire(patients[0]);
-  }, [patients, fire]);
+    // triage the rest of today's list in the background, for the badges and totals
+    for (const p of patients.slice(1))
+      runHook(p, serviceId)
+        .then(({ res }) => setSummaries((s) => ({ ...s, [p.patient.id]: summarise(res) })))
+        .catch(() => {});
+  }, [patients, fire, serviceId]);
 
   function select(p: DemoPatient) {
     setSel(p.patient.id);
@@ -83,6 +113,7 @@ export function Ehr({ patients, serviceId }: { patients: DemoPatient[]; serviceI
       const labels = prev?.kind === "accepted" ? [...prev.labels, s.label] : [s.label];
       return { ...o, [card.uuid]: { kind: "accepted", labels } };
     });
+    if (r.recorded) setShared((n) => n + 1);
     if (r.recorded) setToast("Anonymous case shared. The stream's waterborne score now includes it. Open the stream record to see the clinic signal.");
     else if (s.actions?.length) setToast(`${s.actions[0].description} added to the chart as a draft.`);
   }
@@ -98,68 +129,157 @@ export function Ehr({ patients, serviceId }: { patients: DemoPatient[]; serviceI
     return () => clearTimeout(t);
   }, [toast]);
 
-  return (
-    <div className="mt-8 grid lg:grid-cols-[230px_1fr] gap-5">
-      <aside className="card p-2 h-fit">
-        <p className="eyebrow px-2 pt-2 pb-1">Today&apos;s list</p>
-        {patients.map((p) => (
-          <button
-            key={p.patient.id}
-            onClick={() => select(p)}
-            className={`w-full text-left px-3 py-2.5 rounded-lg ${sel === p.patient.id ? "bg-river-soft" : "hover:bg-black/[0.03]"}`}
-          >
-            <span className="block text-sm font-medium">{nameOf(p.patient)}</span>
-            <span className="block text-xs text-ink-3">
-              {age(p.patient.birthDate as string)} y · {(p.patient.address as any)[0].city}
-            </span>
-          </button>
-        ))}
-      </aside>
+  const flagged = Object.values(summaries).filter((x) => x.cards > 0).length;
+  const totalCards = Object.values(summaries).reduce((n, x) => n + x.cards, 0);
+  const addr = (current.patient.address as any)[0];
+  const meta = res?._meta;
+  const near: NearStream[] = (meta?.streams ?? []).map((x: any) => ({
+    id: x.id,
+    name: x.name,
+    lat: x.lat,
+    lon: x.lon,
+    km: x.km,
+    color: LEVEL_HEX[x.level],
+    label: LEVEL_LABEL[x.level],
+  }));
+  const vitals = current.vitals.split(" · ").map((v) => {
+    const [k, ...rest] = v.split(" ");
+    return { key: k, value: rest.join(" "), ...(VITAL[k] ?? { label: k, icon: Activity }) };
+  });
 
-      <div className="grid xl:grid-cols-[1fr_440px] gap-5 min-w-0">
-        {/* chart */}
-        <section className="card overflow-hidden h-fit">
-          <div className="bg-stone-800 text-stone-100 px-5 py-3 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-            <span className="text-lg font-semibold">{nameOf(current.patient)}</span>
-            <span className="text-sm text-stone-300">
-              {current.patient.gender as string}, {age(current.patient.birthDate as string)} y · DOB {current.patient.birthDate as string}
+  return (
+    <div className="mt-6 space-y-4">
+      {/* totals */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        {(
+          [
+            ["Patients today", patients.length, Users, "bg-river-soft text-river"],
+            ["With a stream alert", flagged, Bell, "bg-accent-soft text-accent"],
+            ["Cards shown", totalCards, ClipboardList, "bg-amber-50 text-amber-700"],
+            ["Cases shared", shared, Share2, "bg-emerald-50 text-emerald-700"],
+          ] as const
+        ).map(([label, value, Icon, tone]) => (
+          <div key={label} className="card p-4 flex items-center gap-3">
+            <span className={`grid place-items-center w-10 h-10 rounded-xl ${tone}`}>
+              <Icon size={18} />
             </span>
-            <span className="text-xs text-stone-400 ml-auto">MRN {current.patient.id.toUpperCase().slice(0, 8)}</span>
+            <div>
+              <p className="text-[11px] text-ink-3">{label}</p>
+              <p className="text-xl font-semibold tabular-nums">{value}</p>
+            </div>
           </div>
-          <div className="p-5 grid sm:grid-cols-2 gap-5 text-sm">
-            <div>
-              <p className="eyebrow">Reason for visit</p>
-              <p className="mt-1">{current.reason}</p>
-            </div>
-            <div>
-              <p className="eyebrow">Vitals</p>
-              <p className="mt-1 tabular-nums">{current.vitals}</p>
-            </div>
-            <div>
-              <p className="eyebrow">Problems (active)</p>
-              <ul className="mt-1 space-y-0.5">
-                {current.conditions.length === 0 && <li className="text-ink-3">None recorded</li>}
-                {current.conditions.map((c: any) => (
-                  <li key={c.id}>
-                    {c.code.text} <span className="text-[11px] text-ink-3">SNOMED {c.code.coding[0].code} · since {c.onsetDateTime}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="eyebrow">Address</p>
-              <p className="mt-1">
-                {(current.patient.address as any)[0].line[0]}, {(current.patient.address as any)[0].city}
+        ))}
+      </div>
+
+      <div className="grid lg:grid-cols-[250px_minmax(0,1fr)] xl:grid-cols-[250px_minmax(0,1fr)_420px] gap-4 items-start">
+        <aside className="card p-2" aria-label="Today's list">
+          <p className="text-sm font-semibold px-2 pt-2 pb-2">Today&apos;s list</p>
+          {patients.map((p, i) => {
+            const sm = summaries[p.patient.id];
+            return (
+              <button
+                key={p.patient.id}
+                onClick={() => select(p)}
+                aria-current={sel === p.patient.id}
+                className={`w-full flex items-center gap-3 text-left px-2.5 py-2.5 rounded-xl ${sel === p.patient.id ? "bg-river-soft" : "hover:bg-black/[0.03]"}`}
+              >
+                <span className="grid place-items-center w-9 h-9 rounded-full text-white text-xs font-semibold shrink-0" style={{ background: AVATAR[i % AVATAR.length] }} aria-hidden>
+                  {initials(p.patient)}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-medium truncate">{nameOf(p.patient)}</span>
+                  <span className="block text-[11px] text-ink-3 truncate">
+                    {age(p.patient.birthDate as string)} y · {(p.patient.address as any)[0].city}
+                  </span>
+                </span>
+                {sm && (
+                  <span
+                    className={`text-[10px] font-semibold rounded-full px-2 py-0.5 ${sm.indicator === "warning" || sm.indicator === "critical" ? "bg-accent-soft text-accent" : sm.cards ? "bg-sky-50 text-sky-800" : "bg-emerald-50 text-emerald-800"}`}
+                  >
+                    {sm.cards ? `${sm.cards} alert${sm.cards > 1 ? "s" : ""}` : "clear"}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </aside>
+
+        {/* chart */}
+        <section className="space-y-4 min-w-0" aria-label="Patient chart">
+          <div className="card p-4 flex flex-wrap items-center gap-3">
+            <span className="grid place-items-center w-12 h-12 rounded-full text-white font-semibold" style={{ background: AVATAR[patients.indexOf(current) % AVATAR.length] }} aria-hidden>
+              {initials(current.patient)}
+            </span>
+            <div className="min-w-0" data-testid="chart-header">
+              <p className="text-lg font-semibold leading-tight">{nameOf(current.patient)}</p>
+              <p className="text-xs text-ink-3 capitalize">
+                {current.patient.gender as string} · {age(current.patient.birthDate as string)} y · {addr.city}
               </p>
             </div>
-            <div className="sm:col-span-2">
-              <p className="eyebrow">Orders (this visit)</p>
+            <span className="ml-auto text-[11px] text-ink-3 font-mono">MRN {current.patient.id.toUpperCase().slice(0, 8)}</span>
+            <p className="w-full text-sm text-ink-2 border-t border-line pt-3">{current.reason}</p>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3">
+            {vitals.map((v) => (
+              <div key={v.key} className="card p-3">
+                <v.icon size={16} className="text-accent" aria-hidden />
+                <p className="text-[11px] text-ink-3 mt-1.5">{v.label}</p>
+                <p className="text-base font-semibold tabular-nums">{v.value}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="card p-4">
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-sm font-semibold">Stream exposure</p>
+              <span className="text-[11px] text-ink-3 truncate">{meta ? `${near.length} stream${near.length === 1 ? "" : "s"} within 5 km of home` : ""}</span>
+            </div>
+            <div className="mt-3 grid sm:grid-cols-[minmax(0,1fr)_200px] gap-3">
+              <div className="h-56 relative z-0">
+                {addr.extension?.[0] ? (
+                  <ExposureMap key={current.patient.id} lat={addr.extension[0].extension[0].valueDecimal} lon={addr.extension[0].extension[1].valueDecimal} streams={near} />
+                ) : (
+                  <div className="h-full rounded-xl bg-river-soft grid place-items-center text-xs text-ink-3">No geocoded address</div>
+                )}
+              </div>
+              <ul className="space-y-2">
+                {near.slice(0, 3).map((x) => (
+                  <li key={x.id} className="rounded-xl border border-line p-2.5">
+                    <p className="text-xs font-medium truncate">{x.name}</p>
+                    <div className="flex items-center justify-between mt-1">
+                      <span className="text-[11px] text-ink-3 tabular-nums">{x.km != null ? `${x.km} km` : "same city"}</span>
+                      <span className="text-[10px] font-semibold rounded-full px-2 py-0.5 text-white" style={{ background: x.color }}>
+                        {x.label}
+                      </span>
+                    </div>
+                  </li>
+                ))}
+                {meta && near.length === 0 && <li className="text-xs text-ink-3">No monitored stream nearby.</li>}
+              </ul>
+            </div>
+          </div>
+
+          <div className="card p-4 grid sm:grid-cols-2 gap-4">
+            <div>
+              <p className="text-sm font-semibold">Problems</p>
+              <div className="flex flex-wrap gap-1.5 mt-2">
+                {current.conditions.length === 0 && <span className="text-xs text-ink-3">None recorded</span>}
+                {current.conditions.map((c: any) => (
+                  <span key={c.id} title={`SNOMED ${c.code.coding[0].code} · since ${c.onsetDateTime}`} className="text-xs rounded-full bg-river-soft text-river px-2.5 py-1">
+                    {c.code.text}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="text-sm font-semibold">Orders</p>
               {orders.length === 0 ? (
-                <p className="mt-1 text-ink-3">None yet</p>
+                <p className="mt-2 text-xs text-ink-3">None yet</p>
               ) : (
-                <ul className="mt-1 space-y-1">
+                <ul className="mt-2 space-y-1">
                   {orders.map((o, i) => (
-                    <li key={i} className="flex items-center gap-2">
+                    <li key={i} className="flex items-center gap-2 text-xs">
                       <span className="text-[10px] font-semibold uppercase bg-amber-100 text-amber-900 px-1.5 rounded">draft</span>
                       {o}
                     </li>
@@ -171,10 +291,10 @@ export function Ehr({ patients, serviceId }: { patients: DemoPatient[]; serviceI
         </section>
 
         {/* CDS panel */}
-        <section className="card h-fit">
+        <section className="card lg:col-span-2 xl:col-span-1" aria-label="CDS Hooks">
           <div className="flex items-center gap-1 border-b border-line px-3 pt-2">
             {(["cards", "request", "response"] as const).map((t) => (
-              <button key={t} onClick={() => setTab(t)} className={`text-xs px-3 py-2 -mb-px border-b-2 ${tab === t ? "border-river text-ink font-medium" : "border-transparent text-ink-3"}`}>
+              <button key={t} onClick={() => setTab(t)} className={`text-xs px-3 py-2 -mb-px border-b-2 ${tab === t ? "border-accent text-ink font-medium" : "border-transparent text-ink-3"}`}>
                 {t === "cards" ? `CDS cards${cards ? ` (${cards.length})` : ""}` : t === "request" ? "Hook request" : "Service response"}
               </button>
             ))}
@@ -191,13 +311,8 @@ export function Ehr({ patients, serviceId }: { patients: DemoPatient[]; serviceI
                 )}
                 {!cards && !error && <div className="h-24 rounded-lg bg-line/40 animate-pulse" />}
                 {cards?.length === 0 && (
-                  <div className="text-sm text-ink-3 rounded-lg border border-dashed border-line p-4">
-                    No cards. Nothing relevant near this patient, so StreamReach stays quiet. Avoiding alert fatigue is part of the design.
-                    {res?._meta && (
-                      <span className="block text-[11px] mt-1">
-                        Located: {res._meta.location.label} · {res._meta.sitesConsidered} reach(es) considered
-                      </span>
-                    )}
+                  <div className="text-sm text-ink-3 rounded-xl border border-dashed border-line p-4 text-center">
+                    Nothing relevant near this patient, so StreamReach stays quiet.
                   </div>
                 )}
                 {cards?.map((c) => (
@@ -239,17 +354,26 @@ async function runHook(p: DemoPatient, serviceId: string) {
 }
 
 function CdsCard({ card, outcome, onAccept, onOverride }: { card: Card; outcome?: Outcome; onAccept: (s: NonNullable<Card["suggestions"]>[number]) => void; onOverride: (r: { code: string; display: string }) => void }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [overriding, setOverriding] = useState(false);
   const accepted = outcome?.kind === "accepted" ? outcome.labels : [];
+  const head = card.detail.match(/^\*\*(.+?)\*\*.*?\*\*(.+?)\*\* \((\d+%)\)/);
   const tone = card.indicator === "warning" ? "border-l-lvl-high bg-orange-50/60" : card.indicator === "critical" ? "border-l-lvl-very-high bg-red-50/60" : "border-l-sky-500 bg-sky-50/50";
   return (
     <article className={`rounded-lg border border-line border-l-4 ${tone} p-3`}>
       <div className="flex items-start gap-2">
         <span className={`mt-0.5 text-[10px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded ${card.indicator === "warning" ? "bg-orange-700 text-white" : "bg-sky-700 text-white"}`}>{card.indicator}</span>
         <p className="text-sm font-semibold leading-snug flex-1">{card.summary}</p>
-        <button onClick={() => setOpen((v) => !v)} className="text-xs text-ink-3" aria-expanded={open}>{open ? "−" : "+"}</button>
+        <button onClick={() => setOpen((v) => !v)} className="text-[11px] text-ink-3 hover:text-ink whitespace-nowrap" aria-expanded={open}>{open ? "Less" : "Why"}</button>
       </div>
+      {head && (
+        <p className="mt-2 flex flex-wrap items-center gap-2 text-xs">
+          <span className="font-medium">{head[1]}</span>
+          <span className="rounded-full px-2 py-0.5 text-[10px] font-semibold text-white" style={{ background: LEVEL_HEX[head[2].toLowerCase().replace(" ", "-")] ?? "#5b6472" }}>
+            {head[2]} · {head[3]}
+          </span>
+        </p>
+      )}
       {open && <div className="mt-2 text-[13px] text-ink-2 space-y-1"><Markdown text={card.detail} /></div>}
       <p className="text-[11px] text-ink-3 mt-2">
         Source: <a href={card.source.url} target="_blank" className="underline">{card.source.label}</a>

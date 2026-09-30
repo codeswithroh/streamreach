@@ -43,7 +43,7 @@ test.describe("clinic view (demo EHR + CDS Hooks)", () => {
       const resp = page.waitForResponse((r) => r.url().includes("/cds-services/") && r.request().method() === "POST");
       await page.getByRole("button", { name: new RegExp(name) }).click();
       expect((await resp).status()).toBe(200);
-      await expect(page.locator(".bg-stone-800")).toContainText(name);
+      await expect(page.getByTestId("chart-header")).toContainText(name);
       await expect(page.getByRole("button", { name: /CDS cards \(\d\)/ })).toBeVisible();
       const n = Number((await page.getByRole("button", { name: /CDS cards/ }).textContent())!.match(/\((\d)\)/)![1]);
       expect(n).toBeLessThanOrEqual(2);
@@ -68,7 +68,7 @@ test.describe("clinic view (demo EHR + CDS Hooks)", () => {
     const [popup] = await Promise.all([context.waitForEvent("page"), link.click()]);
     await popup.waitForLoadState();
     await expect(popup).toHaveURL(/\/app\/streams\/giofyros-1/);
-    await expect(popup.locator("article")).toHaveCount(3);
+    await expect(popup.getByRole("heading", { name: "Why this score" })).toBeVisible();
   });
 
   test("a failing CDS service degrades gracefully and can be retried", async ({ page }) => {

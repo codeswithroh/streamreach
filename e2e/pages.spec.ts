@@ -18,8 +18,8 @@ test.describe("every page renders without errors", () => {
       const w = watchErrors(page);
       const res = await page.goto(`/app/streams/${id}`);
       expect(res?.status()).toBe(200);
-      await expect(page.locator("article")).toHaveCount(3);
-      await expect(page.getByText("Why this score").first()).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Why this score" })).toBeVisible();
+      await expect(page.getByRole("img", { name: /Risk factors/ })).toBeVisible();
       w.assertClean();
     });
   }
@@ -41,7 +41,7 @@ test.describe("every page renders without errors", () => {
     const rail = page.getByRole("navigation", { name: "App" });
     for (const [label, path, heading] of [
       ["Stream check", "/app/check", /What does the stream look like/],
-      ["Clinic view", "/app/clinic", /stream shows up in the consultation/],
+      ["Clinic view", "/app/clinic", /Clinic view/],
       ["Data", "/app/data", /full record/],
       ["Stream records", "/app/streams/giofyros-1", /Giofyros Reach A/],
       ["Monitoring", "/app", /Monitoring/],

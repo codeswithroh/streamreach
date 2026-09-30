@@ -159,7 +159,7 @@ export function Dashboard({
         <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/45 to-transparent z-[400]" />
 
         {/* top bar */}
-        <div className="absolute z-[600] top-3 lg:top-5 left-4 lg:left-6 right-4 lg:right-6 flex items-start gap-3">
+        <div className="absolute z-[700] top-3 lg:top-5 left-4 lg:left-6 right-4 lg:right-6 flex items-start gap-3">
           <div className="text-white drop-shadow min-w-0">
             <h1 className="text-xl lg:text-2xl font-semibold">Monitoring</h1>
             <p className="text-xs lg:text-sm text-white/85 truncate">

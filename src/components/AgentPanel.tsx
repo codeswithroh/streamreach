@@ -44,7 +44,17 @@ const PRIORITY: Record<string, string> = {
   urgent: "lvl-very-high",
 };
 
-export function AgentPanel({ siteId, mode, officerName }: { siteId: string; mode: "live" | "mock" | "off" | "forbidden"; officerName: string }) {
+export function AgentPanel({
+  siteId,
+  mode,
+  officerName,
+  className = "card p-5 mt-6",
+}: {
+  siteId: string;
+  mode: "live" | "mock" | "off" | "forbidden";
+  officerName: string;
+  className?: string;
+}) {
   const router = useRouter();
   const [running, setRunning] = useState(false);
   const [trace, setTrace] = useState<TraceItem[]>([]);
@@ -146,15 +156,12 @@ export function AgentPanel({ siteId, mode, officerName }: { siteId: string; mode
   const started = running || trace.length > 0 || plan || error;
 
   return (
-    <section className="card p-5 mt-6" aria-labelledby="agent-heading">
+    <section className={className} aria-labelledby="agent-heading">
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
         <div>
           <p className="eyebrow">AI duty officer · drafts, a human decides</p>
           <h2 id="agent-heading" className="font-display text-2xl mt-0.5">Response plan</h2>
-          <p className="text-sm text-ink-2 mt-1 max-w-2xl">
-            An AI agent reads this stream&apos;s risk model, citizen checks, lab results, clinic reports and the forecast, then drafts
-            a resident advisory in the local language, a GP note and prioritised actions. Nothing is published until you approve it.
-          </p>
+          <p className="text-sm text-ink-2 mt-1 max-w-2xl">Evidence in, advisory out. Nothing is published until you approve it.</p>
         </div>
         <div className="flex gap-2 shrink-0">
           {!started && (

@@ -90,6 +90,7 @@ test.describe("role-based access", () => {
     expect((await request.post("/api/agent/plan", { data: { siteId: "giofyros-1" } })).status()).toBe(403);
     expect((await request.post("/api/agent/plans/x", { data: { decision: "approve" } })).status()).toBe(403);
     await page.goto("/app/streams/giofyros-1");
+    await page.getByRole("button", { name: "Draft with AI" }).click();
     await expect(page.getByText(/Sign in as an officer to use the agent/)).toBeVisible();
     await expect(page.getByRole("button", { name: "Draft response plan" })).toBeDisabled();
     await page.goto("/app/data?tab=queue");

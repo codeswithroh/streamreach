@@ -13,6 +13,7 @@ test.describe("AI duty officer", () => {
   test("drafts a grounded plan, a human approves it, it is published as FHIR", async ({ page, request }) => {
     const w = watchErrors(page);
     await page.goto("/app/streams/coselhas-coimbra");
+    await page.getByRole("button", { name: "Draft with AI" }).click();
     const panel = page.locator("section", { has: page.getByRole("heading", { name: "Response plan" }) });
     await panel.getByRole("button", { name: /Draft (response|a new) plan/ }).first().click();
 
@@ -62,6 +63,7 @@ test.describe("AI duty officer", () => {
 
   test("discarding publishes nothing", async ({ page, request }) => {
     await page.goto("/app/streams/calore-bn");
+    await page.getByRole("button", { name: "Draft with AI" }).click();
     const panel = page.locator("section", { has: page.getByRole("heading", { name: "Response plan" }) });
     await panel.getByRole("button", { name: "Draft response plan" }).click();
     const plan = panel.getByTestId("response-plan");

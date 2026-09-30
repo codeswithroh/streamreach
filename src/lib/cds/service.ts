@@ -143,7 +143,11 @@ export async function patientViewCards(req: any, appBase: string) {
   }).slice(0, 2);
 
   const cards = await Promise.all(chosen.map((c) => buildCard(c, loc, req, appBase)));
-  return { cards, _meta: { location: loc, syndromes: [...syndromes], sitesConsidered: near.length } };
+  const streams = near.map(({ b, d }) => {
+    const worst = [...b.risk.hazards].sort((x, y) => y.peak.p - x.peak.p)[0];
+    return { id: b.site.id, name: b.site.name, lat: b.site.lat, lon: b.site.lon, km: d != null ? Math.round(d * 10) / 10 : null, level: worst.peak.level, p: worst.peak.p };
+  });
+  return { cards, _meta: { location: loc, syndromes: [...syndromes], sitesConsidered: near.length, streams } };
 }
 
 async function buildCard(
